@@ -5,16 +5,5 @@ interface LayoutProps {
 }
 
 export const ComponentContainer: FC<LayoutProps> = ({ children }) => {
-  return (
-    <div
-      className="max-w-md w-full px-4 m-auto"
-      style={{
-        maxWidth: '1230px',
-        margin: '0 auto',
-        padding: '0 15px',
-      }}
-    >
-      {children}
-    </div>
-  );
+  return <div className="max-w-[1232px] w-full px-4 m-auto">{children}</div>;
 };
