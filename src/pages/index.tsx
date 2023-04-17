@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <MainLayout>
       <ComponentContainer>
-        <div className="w-full bg-slate-400 h-[3000px]"></div>
+        <div className="w-full bg-slate-400 h-[300px]"></div>
       </ComponentContainer>
     </MainLayout>
   );
