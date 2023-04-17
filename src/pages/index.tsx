@@ -1,3 +1,4 @@
+import { Footer } from '@/components';
 import { MainLayout, ComponentContainer } from '@/layouts';
 
 export default function Home() {

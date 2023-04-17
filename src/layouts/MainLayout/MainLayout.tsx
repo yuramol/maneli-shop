@@ -13,6 +13,6 @@ export const MainLayout: FC<LayoutProps> = ({ children }) => (
         <div className="flex w-full h-full">{children}</div>
       </div>
     </main>
-    {/* <Footer /> */}
+    <Footer />
   </>
 );
