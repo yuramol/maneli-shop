@@ -16,11 +16,12 @@ export const Header = () => {
       behavior: 'smooth',
     });
 
-  const scrollToBottom = () =>
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth',
-    });
+  const scrollToBottom = () => {
+    const container = document.getElementById('footer-contact-container');
+    if (container) {
+      container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
     <header className="sticky top-0 h-16 sm:h-24 flex items-center justify-between bg-[#E6E6E6]  border-b-[1px] border-b-[#D5D2F2] border-b-solid">
@@ -49,11 +50,11 @@ export const Header = () => {
 
           <nav className="hidden sm:flex align-middle">
             <ul className="flex flex-row gap-12 text-black font-bold text-xl">
-              <li onClick={scrollToTop}>
-                <Link href="#">Головна</Link>
+              <li className="cursor-pointer" onClick={scrollToTop}>
+                Головна
               </li>
-              <li onClick={scrollToBottom}>
-                <Link href="#">Контакти</Link>
+              <li className="cursor-pointer" onClick={scrollToBottom}>
+                Контакти
               </li>
             </ul>
           </nav>
@@ -65,20 +66,22 @@ export const Header = () => {
                 <nav className="sm:hidden absolute top-0 left-0 w-full h-full flex flex-col ">
                   <ul className="flex flex-col gap-6 px-4 py-20 text-black font-bold text-xl">
                     <li
+                      className="cursor-pointer"
                       onClick={() => {
                         scrollToTop();
                         handleMenuClick();
                       }}
                     >
-                      <Link href="#">Головна</Link>
+                      Головна
                     </li>
                     <li
+                      className="cursor-pointer"
                       onClick={() => {
                         scrollToBottom();
                         handleMenuClick();
                       }}
                     >
-                      <Link href="#">Контакти</Link>
+                      Контакти
                     </li>
                   </ul>
                 </nav>
