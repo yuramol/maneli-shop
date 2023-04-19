@@ -1,7 +1,8 @@
-import { DiscountLabel } from '@/legos/DiscountLabel';
 import { StaticImageData } from 'next/image';
 import Image from 'next/legacy/image';
-import { useLayoutEffect, useState } from 'react';
+import Link from 'next/link';
+
+import { DiscountLabel } from '@/legos/DiscountLabel';
 
 export const CardImage = ({
   image,
@@ -9,28 +10,22 @@ export const CardImage = ({
 }: {
   image: StaticImageData;
   discount: number;
-}) => {
-  const [xsScreen, setXsScreen] = useState(false);
-
-  useLayoutEffect(() => {
-    const updateSize = () => {
-      setXsScreen(window.innerWidth > 640);
-    };
-    updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-  return (
-    <div className="relative w-full min-w-96 h-96">
+}) => (
+  <Link href="#">
+    <div
+      className="relative w-full min-w-96 h-[373px] bg-white"
+      style={{ margin: '0 auto', borderRadius: '15px' }}
+    >
       <div className="absolute right-6 top-6 z-10">
         <DiscountLabel discount={discount} />
       </div>
       <Image
         src={image}
         alt={'preview-photo'}
-        objectFit="cover"
-        style={{ borderRadius: '15px', width: '100%' }}
-      ></Image>
+        objectFit="contain"
+        layout="fill"
+        style={{ borderRadius: '15px' }}
+      />
     </div>
-  );
-};
+  </Link>
+);
