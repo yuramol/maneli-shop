@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <MainLayout>
       <ComponentContainer>
-        <div className="w-full bg-slate-400 h-[300px]"></div>
         <ProductCard productInfo={productInfo} />
       </ComponentContainer>
     </MainLayout>

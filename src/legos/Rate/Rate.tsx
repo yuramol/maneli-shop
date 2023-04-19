@@ -1,6 +1,6 @@
 export const Rate = ({ rate }: { rate: number }) => (
   <div className="flex items-center gap-1">
-    <p className="text-xl leading-5">{rate}</p>
+    <p className="text-sm sm:text-xl leading-4 sm:leading-5">{rate}</p>
     <svg
       width="15"
       height="14"
