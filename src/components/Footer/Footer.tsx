@@ -8,7 +8,7 @@ export const Footer = () => (
         id="footer-contact-container"
         className="relative flex justify-start py-8 sm:py-10"
       >
-        <div className="text-black">
+        <div>
           <h1 className="mb-3 sm:mb-10 font-bold text-2xl sm:text-[42px] sm:leading-[54px] tracking-[0.01rem]">
             Контакти
           </h1>

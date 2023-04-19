@@ -33,7 +33,7 @@ export const Nav = ({
 
   return xsScreen ? (
     <nav className="flex align-middle">
-      <ul className="flex flex-row gap-12 text-black font-bold text-xl">
+      <ul className="flex flex-row gap-12 font-bold text-xl">
         <li className="cursor-pointer" onClick={scrollToTop}>
           Головна
         </li>
@@ -51,7 +51,7 @@ export const Nav = ({
     >
       <div className="flex justify-between w-[90%] bg-white">
         <nav className="flex">
-          <ul className="flex flex-col gap-6 px-4 py-20 text-black font-bold text-xl">
+          <ul className="flex flex-col gap-6 px-4 py-20 font-bold text-xl">
             <li
               className="cursor-pointer"
               onClick={() => {
