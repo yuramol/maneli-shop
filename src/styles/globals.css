@@ -6,3 +6,55 @@ body {
   color: #2e0f42;
   background: #e6e6e6;
 }
+
+@layer components {
+  .h1 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 54px;
+    letter-spacing: 0.01em;
+  }
+  .h2 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 46px;
+    letter-spacing: 0.01em;
+  }
+  .h3 {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 41px;
+  }
+  .title1 {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 31px;
+  }
+  .title2 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
+  }
+  .title3 {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 26px;
+  }
+  .body1 {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.01em;
+  }
+  .body2 {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .body3 {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 17px;
+  }
+}
