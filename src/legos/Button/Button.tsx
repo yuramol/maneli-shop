@@ -1,13 +1,4 @@
-type ButtonProps = {
-  title: string;
-  onClick?: () => void;
-  width?: string;
-  height?: string;
-  color: string;
-  disabled?: boolean;
-  className?: string;
-  props?: any;
-};
+import { ButtonProps } from './types';
 
 export const Button = ({
   title,
@@ -19,16 +10,16 @@ export const Button = ({
   className,
   props,
 }: ButtonProps) => {
-  console.log('%c jordan color', 'color: lime;', color);
   return (
     <button
-      className={`w-[${width}] h-[${height}] bg-[${color}]  sm:h-[40px] ${
+      className={`w-[${width}] h-[${height}] bg-[${color}] ${
         disabled ? 'opacity-50 cursor-default' : 'opacity-80  hover:opacity-90 active:opacity-100'
       }  text-white rounded-full font-semibold text-xs ${className}`}
       onClick={onClick}
       style={{
         backgroundColor: color,
         height: height || 'unset',
+        width: width || 'unset',
       }}
       {...props}
     >

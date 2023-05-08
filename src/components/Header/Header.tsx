@@ -4,6 +4,7 @@ import { ComponentContainer } from '@/layouts';
 import { Logo, BurgerButton } from '@/legos';
 import { Nav } from './Nav';
 import { Button } from '@/legos/Button';
+import { IconButton } from '@/legos/Button/IconButton';
 
 export const Header = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -27,7 +28,7 @@ export const Header = () => {
       <ComponentContainer>
         <div className="flex justify-between">
           <div className="flex gap-4">
-            {!xsScreen ? <BurgerButton onClick={handleMenuClick} /> : null}
+            {!xsScreen ? <IconButton icon="Burger" onClick={handleMenuClick} /> : null}
             <Logo />
           </div>
           <Nav handleMenuClick={handleMenuClick} isBurgerMenuOpen={isBurgerMenuOpen} />
