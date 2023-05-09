@@ -1,4 +1,4 @@
-export default ({ env }) => ({
+const admin = ({ env }) => ({
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
   },
@@ -11,3 +11,4 @@ export default ({ env }) => ({
     },
   },
 });
+export default admin;

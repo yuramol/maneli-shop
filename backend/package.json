@@ -7,17 +7,39 @@
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "eslint-fix": "eslint . --fix",
+    "eslint": "eslint .",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.21.8",
+    "eslint": "^8.31.0",
+    "eslint-config-google": "^0.14.0",
+    "husky": "^8.0.2",
+    "prettier": "^2.8.1"
+  },
   "dependencies": {
-    "@strapi/strapi": "4.10.2",
-    "@strapi/plugin-users-permissions": "4.10.2",
     "@strapi/plugin-i18n": "4.10.2",
+    "@strapi/plugin-users-permissions": "4.10.2",
+    "@strapi/strapi": "4.10.2",
     "better-sqlite3": "8.0.1"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
     "npm": ">=6.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": [
+      "eslint --fix",
+      "prettier --write",
+      "git add"
+    ]
   }
 }
