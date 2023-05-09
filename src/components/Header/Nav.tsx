@@ -1,3 +1,4 @@
+import { IconButton } from '@/legos/Button/IconButton';
 import { useLayoutEffect, useState } from 'react';
 
 export const Nav = ({
@@ -73,20 +74,12 @@ export const Nav = ({
               </li>
             </ul>
           </nav>
-          <button className="mt-7 mr-7 w-6 h-6" onClick={handleMenuClick}>
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M25 1L1 25M1 1L25 25"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
+          <IconButton className="mt-7 mr-7 w-6 h-6" icon="Close" onClick={handleMenuClick} />
         </div>
       </div>
-      {isBurgerMenuOpen && <div className="flex fixed top-0 left-0 h-full w-full z-19 bg-black opacity-40" />}
+      {isBurgerMenuOpen && (
+        <div className="flex fixed top-0 left-0 h-full w-full z-19 bg-black opacity-40" />
+      )}
     </>
   );
 };

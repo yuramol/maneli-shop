@@ -3,6 +3,8 @@ import { useLayoutEffect, useState } from 'react';
 import { ComponentContainer } from '@/layouts';
 import { Logo, BurgerButton } from '@/legos';
 import { Nav } from './Nav';
+import { Button } from '@/legos/Button';
+import { IconButton } from '@/legos/Button/IconButton';
 
 export const Header = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -22,20 +24,16 @@ export const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 h-16 sm:h-24 flex items-center justify-between bg-[#E6E6E6] border-b-[1px] border-b-[#D5D2F2] border-b-solid">
+    <header className=" z-[1000] sticky top-0 h-16 sm:h-24 flex items-center justify-between bg-[#E6E6E6] border-b-[1px] border-b-[#D5D2F2] border-b-solid">
       <ComponentContainer>
         <div className="flex justify-between">
           <div className="flex gap-4">
-            {!xsScreen ? <BurgerButton onClick={handleMenuClick} /> : null}
+            {!xsScreen ? <IconButton icon="Burger" onClick={handleMenuClick} /> : null}
             <Logo />
           </div>
-          <Nav
-            handleMenuClick={handleMenuClick}
-            isBurgerMenuOpen={isBurgerMenuOpen}
-          />
-          <button className="w-[120px] h-[40px] bg-[#9142C4] hover:bg-[#7613B5] text-white py-2 px-4 rounded-full font-semibold text-xs">
-            Замовити
-          </button>
+          <Nav handleMenuClick={handleMenuClick} isBurgerMenuOpen={isBurgerMenuOpen} />
+
+          <Button title="Замовити" color="#7613B5" />
         </div>
       </ComponentContainer>
     </header>
