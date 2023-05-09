@@ -1,0 +1,71 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Product",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "imagePreview": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "price": {
+      "type": "integer"
+    },
+    "priceOld": {
+      "type": "integer"
+    },
+    "rating": {
+      "type": "decimal",
+      "default": 0
+    },
+    "video": {
+      "type": "string"
+    },
+    "productTableDescriptions": {
+      "displayName": "Product table descriptions",
+      "type": "component",
+      "repeatable": true,
+      "component": "product.product-table-descriptions"
+    },
+    "reviews": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": ["images"]
+    },
+    "discount": {
+      "type": "integer"
+    },
+    "productDescriptions": {
+      "displayName": "Product descriptions",
+      "type": "component",
+      "repeatable": true,
+      "component": "product.product-descriptions"
+    },
+    "productModifications": {
+      "displayName": "Product modifications",
+      "type": "component",
+      "repeatable": true,
+      "component": "product.product-modifications"
+    }
+  }
+}

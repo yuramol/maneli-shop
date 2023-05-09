@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_product_product_descriptions",
+  "info": {
+    "displayName": "Product descriptions"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "productDescriptionsPost": {
+      "displayName": "Product descriptions post",
+      "type": "component",
+      "repeatable": true,
+      "component": "product.product-descriptions-post"
+    }
+  }
+}
