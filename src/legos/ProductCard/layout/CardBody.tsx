@@ -1,10 +1,13 @@
+import Link from 'next/link';
 import { Rate } from '@/legos';
 
 export const CardBody = ({
+  productId,
   title,
   price,
   discount,
 }: {
+  productId: number;
   title: string;
   price: number;
   discount: number;
@@ -18,8 +21,11 @@ export const CardBody = ({
       <p className="text-[#828282] text-xs sm:text-2xl line-through leading-5 sm:leading-8">{`${price} ₴`}</p>
     </div>
     <Rate rate={4.9} />
-    <button className="rounded-full bg-[#404969] text-white text-xs sm:text-base h-10 sm:h-16 mt-3 sm:mt-0 tracking-[0.02rem]">
-      Замовити
-    </button>
+    <Link
+      href={`product/${productId}`}
+      className="flex justify-center items-center rounded-full bg-[#404969] text-white text-xs sm:text-base h-10 sm:h-16 mt-3 sm:mt-0 tracking-[0.02rem]"
+    >
+      <span>Замовити</span>
+    </Link>
   </div>
 );
