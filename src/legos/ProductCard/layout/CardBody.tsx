@@ -1,11 +1,14 @@
+import Link from 'next/link';
 import { Rate } from '@/legos';
 import { Button } from '@/legos/Button';
 import { useMediaQuery } from 'react-responsive';
 export const CardBody = ({
+  productId,
   title,
   price,
   discount,
 }: {
+  productId: number;
   title: string;
   price: number;
   discount: number;

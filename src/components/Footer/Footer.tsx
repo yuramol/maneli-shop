@@ -2,7 +2,7 @@ import { ComponentContainer } from '@/layouts';
 import { Logo } from '@/legos';
 
 export const Footer = () => (
-  <footer className="z-[-1] bg-[#F4F3FD]">
+  <footer className="bg-[#F4F3FD]">
     <ComponentContainer>
       <div
         id="footer-contact-container"
