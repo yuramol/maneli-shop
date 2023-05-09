@@ -1,8 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
 
-export const BurgerButton = (
-  props: ButtonHTMLAttributes<HTMLButtonElement>
-) => {
+export const BurgerButton = (props: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button {...props}>
       <svg
@@ -15,9 +13,9 @@ export const BurgerButton = (
         <path
           d="M1 1H37M1 15H37"
           stroke="#2E0F42"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </button>
