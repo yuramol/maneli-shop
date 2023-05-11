@@ -21,10 +21,11 @@
     "prettier": "^2.8.1"
   },
   "dependencies": {
+    "@strapi/plugin-graphql": "4.10.2",
     "@strapi/plugin-i18n": "4.10.2",
     "@strapi/plugin-users-permissions": "4.10.2",
     "@strapi/strapi": "4.10.2",
-    "better-sqlite3": "8.0.1"
+    "pg": "^8.10.0"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
