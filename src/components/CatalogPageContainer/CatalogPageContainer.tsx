@@ -2,13 +2,13 @@ import { ProductCard } from '@/legos';
 import { productInfo } from '@/legos/ProductCard/helper';
 
 const productData = [
-  { id: 1, productData: productInfo },
-  { id: 2, productData: productInfo },
-  { id: 3, productData: productInfo },
-  { id: 4, productData: productInfo },
-  { id: 5, productData: productInfo },
-  { id: 6, productData: productInfo },
-  { id: 7, productData: productInfo },
+  { id: 1, productData: productInfo(1) },
+  { id: 2, productData: productInfo(2) },
+  { id: 3, productData: productInfo(3) },
+  { id: 4, productData: productInfo(4) },
+  { id: 5, productData: productInfo(5) },
+  { id: 6, productData: productInfo(6) },
+  { id: 7, productData: productInfo(7) },
 ];
 
 export const CatalogPageContainer = () => (
