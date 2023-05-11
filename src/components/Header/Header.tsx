@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ComponentContainer } from '@/layouts';
 import { Logo, BurgerButton } from '@/legos';
@@ -10,7 +10,7 @@ export const Header = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
   const [xsScreen, setXsScreen] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateSize = () => {
       setXsScreen(window.innerWidth > 640);
     };
