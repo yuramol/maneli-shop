@@ -4,7 +4,7 @@ const nextConfig = {
   env: {
     BASE_URL: 'https://strapi.maneli.softbee.io/graphql',
     NEXTAUTH_URL: 'https://strapi.maneli.softbee.io/graphql/api/auth',
-    // NEXTAUTH_SECRET: 'PBTheTgTo4z3mDg8gw6vhQbiRk3XhftpVEI7CaSG7XM=',
+    NEXTAUTH_SECRET: 'Wq+i1/gD+i1LjQG20a8XgHOZSBSsJXsJ52DSFymliD8=',
   },
 };
 

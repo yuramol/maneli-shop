@@ -1,6 +1,7 @@
 import { ApolloClient, NormalizedCacheObject, ApolloLink, HttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
 import { setContext } from '@apollo/client/link/context';
+// import { RestLink } from 'apollo-link-rest';
 import { useMemo } from 'react';
 import type { AppProps } from 'next/app';
 import merge from 'deepmerge';
@@ -8,14 +9,7 @@ import isEqual from 'lodash/isEqual';
 import { IncomingHttpHeaders } from 'http';
 // import { getAccessToken } from '../helpers/getAccessToken';
 import { GRAPHQL_API } from '../helpers/constants';
-// import { getSession } from 'next-auth/react';
 import { apolloCache } from './apolloCacheConfig';
-
-// export const getAccessToken = async () => {
-//   const session: any = await getSession();
-
-//   return `Bearer ${session?.accessToken}`;
-// };
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
@@ -36,7 +30,7 @@ export const createApolloClient = (headers: IncomingHttpHeaders | null = null) =
     //   return {
     //     headers: {
     //       ...headers,
-    //       Authorization: accessToken,
+    //       Authorization: `Bearer ${accessToken}`,
     //     },
     //   };
     // }
@@ -71,11 +65,14 @@ export const createApolloClient = (headers: IncomingHttpHeaders | null = null) =
 
   const link = ApolloLink.from([errorLink, authLink.concat(httpLink)]);
 
-  return new ApolloClient({
-    ssrMode: typeof window === 'undefined',
-    link,
-    cache: apolloCache,
-  });
+  if (!apolloClient || typeof window === 'undefined') {
+    apolloClient = new ApolloClient({
+      link,
+      cache: apolloCache,
+    });
+  }
+
+  return apolloClient;
 };
 
 type InitialState = NormalizedCacheObject | undefined;
