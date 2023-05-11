@@ -13,9 +13,9 @@ export const Burger = (style: IconCommonProps) => {
       <path
         d="M1 1H37M1 15H37"
         stroke="#2E0F42"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );

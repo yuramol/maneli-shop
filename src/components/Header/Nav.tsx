@@ -1,5 +1,5 @@
 import { IconButton } from '@/legos/Button/IconButton';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Nav = ({
   isBurgerMenuOpen,
@@ -10,7 +10,7 @@ export const Nav = ({
 }) => {
   const [xsScreen, setXsScreen] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateSize = () => {
       setXsScreen(window.innerWidth > 640);
     };
