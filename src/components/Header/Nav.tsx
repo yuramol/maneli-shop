@@ -33,8 +33,8 @@ export const Nav = ({
   };
 
   return xsScreen ? (
-    <nav className="flex align-middle">
-      <ul className="flex flex-row gap-12 font-bold text-xl">
+    <nav className="flex">
+      <ul className="flex items-center flex-row gap-12 font-bold text-xl">
         <li className="cursor-pointer" onClick={scrollToTop}>
           Головна
         </li>
