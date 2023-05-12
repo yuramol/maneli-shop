@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-  overflow: auto;
-}
-
 body {
   color: #2e0f42;
 }

@@ -5,3 +5,4 @@ export * from './DiscountLabel';
 export * from './Rate';
 export * from './Button';
 export * from './Icon';
+export { Modal } from './Modal';
