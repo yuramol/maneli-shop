@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/legacy/image';
 
-import { ProductOptionCard } from '@/components';
+import { OrderForm, ProductOptionCard } from '@/components';
 import { ComponentContainer, MainLayout } from '@/layouts';
 import {
   ArrowCircleLeft,
@@ -9,6 +10,7 @@ import {
   CalendarDate,
   CreditCardShield,
   DiscountLabel,
+  Modal,
   Rate,
   Scales,
   ShieldTick,
@@ -20,6 +22,11 @@ import review from '../../assets/review.png';
 
 export default function Product() {
   const { query } = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsOpen(open => !open);
+  };
 
   return (
     <MainLayout>
@@ -63,7 +70,10 @@ export default function Product() {
                 </li>
               </ul>
             </div>
-            <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full md:w-80">
+            <button
+              onClick={toggleModal}
+              className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full md:w-80"
+            >
               Замовити зараз
             </button>
           </div>
@@ -190,6 +200,10 @@ export default function Product() {
         <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mx-auto my-8 md:my-20 md:w-80">
           Замовити зараз
         </button>
+
+        <Modal isOpen={isOpen} toggleModal={toggleModal}>
+          <OrderForm />
+        </Modal>
       </ComponentContainer>
     </MainLayout>
   );
