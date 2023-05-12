@@ -8,6 +8,7 @@ export const Button = ({
   color,
   disabled = false,
   className,
+  type,
   props,
 }: ButtonProps) => {
   return (
@@ -16,6 +17,7 @@ export const Button = ({
         disabled ? 'opacity-50 cursor-default' : 'opacity-80  hover:opacity-90 active:opacity-100'
       }  text-white rounded-full font-semibold text-xs ${className}`}
       onClick={onClick}
+      type={type}
       style={{
         backgroundColor: color,
         height: height || 'unset',

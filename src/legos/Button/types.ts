@@ -8,6 +8,7 @@ export type ButtonProps = {
   color: string;
   disabled?: boolean;
   className?: string;
+  type?: 'button' | 'reset' | 'submit';
   props?: any;
 };
 

@@ -7,7 +7,7 @@ import type { AppProps } from 'next/app';
 import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import { IncomingHttpHeaders } from 'http';
-// import { getAccessToken } from '../helpers/getAccessToken';
+import { getAccessToken } from '../helpers/getAccessToken';
 import { GRAPHQL_API } from '../helpers/constants';
 import { apolloCache } from './apolloCacheConfig';
 
@@ -25,15 +25,15 @@ export const createApolloClient = (headers: IncomingHttpHeaders | null = null) =
   });
 
   const authLink = setContext(async (_, { headers }) => {
-    // const accessToken = await getAccessToken();
-    // if (accessToken) {
-    //   return {
-    //     headers: {
-    //       ...headers,
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   };
-    // }
+    const accessToken = await getAccessToken();
+    if (accessToken) {
+      return {
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+    }
     return {
       headers: {
         ...headers,

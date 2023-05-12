@@ -5,6 +5,9 @@ module.exports = {
     fontFamily: {
       sans: ['Montserrat', 'sans-serif'],
       extend: {
+        colors: {
+          gray: '#BDBDBD',
+        },
         screens: {
           sm: '640px',
           md: '768px',
@@ -19,6 +22,5 @@ module.exports = {
       },
     },
     plugins: [],
-
-  }
+  },
 };
