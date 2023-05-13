@@ -1,4 +1,4 @@
-import { FC, ReactNode, TouchEvent, useEffect, useState } from 'react';
+import { FC, MouseEvent, ReactNode, TouchEvent, useEffect, useRef, useState } from 'react';
 import { IconButton } from '@/legos';
 
 type Props = {
@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const Modal: FC<Props> = ({ isOpen, toggleModal, children }) => {
+  const modalWrapRef = useRef(null);
   const [touchStartY, setTouchStartY] = useState(0);
 
   useEffect(() => {
@@ -25,25 +26,33 @@ export const Modal: FC<Props> = ({ isOpen, toggleModal, children }) => {
   };
 
   const handelTouchEnd = (e: TouchEvent) => {
-    const touchEndY = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
     const deltaY = touchEndY - touchStartY;
 
-    if (deltaY > 50) {
+    if (deltaY > 350) {
+      toggleModal();
+    }
+  };
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (modalWrapRef.current === e.target) {
       toggleModal();
     }
   };
 
   return (
     <div
+      ref={modalWrapRef}
       onTouchStart={handelTouchStart}
       onTouchEnd={handelTouchEnd}
-      className={`fixed z-50 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-end transition-all duration-300 sm:items-center${
+      onClick={handleClickOutside}
+      className={`fixed z-50 top-0 left-0 w-full h-full bg-black/50 flex justify-center items-end transition-all duration-300 ease-in sm:items-center${
         !isOpen ? ' opacity-0 pointer-events-none invisible' : ''
       }`}
     >
       <div
-        className={`relative overflow-hidden w-full h-[90%] sm:h-full sm:max-h-[600px] rounded-t-3xl transition-all duration-200 py-4 md:py-10 sm:w-4/6 xl:w-2/6 sm:rounded-2xl bg-white before:sm:hidden before:absolute before:w-20 before:h-1 before:top-2 before:left-1/2 before:-ml-10 before:rounded-xl before:bg-[#2E0F42]${
-          isOpen ? ' translate-y-0' : ' translate-y-full sm:translate-y-96'
+        className={`relative overflow-hidden w-full h-[90%] sm:h-full sm:max-h-[600px] rounded-t-3xl transition-all duration-200 ease-in py-4 md:py-10 sm:w-4/6 xl:w-2/6 sm:rounded-2xl bg-white before:sm:hidden before:absolute before:w-20 before:h-1 before:top-2 before:left-1/2 before:-ml-10 before:rounded-xl before:bg-[#2E0F42] ${
+          isOpen ? 'translate-y-0' : 'translate-y-full sm:translate-y-96'
         }`}
       >
         <IconButton
