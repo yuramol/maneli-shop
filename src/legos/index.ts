@@ -6,3 +6,4 @@ export * from './Rate';
 export * from './Button';
 export * from './Icon';
 export { Modal } from './Modal';
+export { TextField } from './TextField';
