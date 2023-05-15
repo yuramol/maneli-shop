@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { getCsrfToken, signIn } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 
 interface FormValues {
   email: string;
@@ -16,9 +17,11 @@ const validationSchema = Yup.object({
 });
 
 export default function LoginPage({ csrfToken }: { csrfToken: string }) {
+  const router = useRouter();
   const onSubmit = async (data: any) => {
     await signIn('credentials', { ...data, csrfToken, redirect: false }).then(res => {
       if (res?.ok) {
+        router.push('/admin');
       } else {
         formik.setFieldError('password', 'Invalid email or password');
       }
