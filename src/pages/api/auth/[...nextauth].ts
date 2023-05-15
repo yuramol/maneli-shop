@@ -44,9 +44,8 @@ export default NextAuth({
         if (!email) {
           return null;
         }
-
         const data: GetUserTokenResponse = await request(
-          `${process.env.BASE_URL}/graphql` as string,
+          `${process.env.GRAPHQL_API}` as string,
           GET_USER,
           {
             input: {
@@ -54,19 +53,7 @@ export default NextAuth({
               password,
             },
           },
-          // {
-          //   authorization:
-          //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjg0MTM3MTU1LCJleHAiOjE2ODY3MjkxNTV9.ZlEwFA01bnqtKDPk29O0JMzctsIKzswpHDNWAPCnCyo',
-          // },
-        )
-          .then(res => {
-            console.log('debug > res===', res);
-          })
-          .catch(err => {
-            console.log('debug > err===', err);
-          });
-
-        console.log('debug > data===', data);
+        );
 
         return {
           id: '',
