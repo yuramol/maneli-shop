@@ -45,11 +45,11 @@ export default function Product() {
               <Image src={productImage} alt="Product photo" />
             </div>
             <div className="flex justify-between items-center">
-              <div className="flex items-end gap-2">
+              <div className="flex items-baseline gap-2">
                 <p className="text-[#F6543E] font-bold text-4xl">
                   🔥 {`${270 * (1 - 40 / 100)} грн`}
                 </p>
-                <p className="text-[#828282] text-base line-through">{`${270} грн`}</p>
+                <p className="text-[#828282] line-through">270 грн</p>
               </div>
               <Rate rate={4.8} />
             </div>
@@ -77,10 +77,8 @@ export default function Product() {
               Замовити зараз
             </button>
           </div>
-          <div className="hidden relative md:flex">
-            <div className="absolute top-2 right-2 sm:top-6 sm:right-6 z-10">
-              <DiscountLabel discount={40} />
-            </div>
+          <div className="hidden relative md:flex overflow-hidden rounded-2xl">
+            <DiscountLabel discount={40} />
             <Image src={productImage} alt="Product photo" />
           </div>
         </section>
