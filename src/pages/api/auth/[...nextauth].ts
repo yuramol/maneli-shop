@@ -23,8 +23,6 @@ const GET_USER = gql`
         id
         username
         email
-        confirmed
-        blocked
       }
     }
   }
@@ -56,7 +54,19 @@ export default NextAuth({
               password,
             },
           },
-        );
+          // {
+          //   authorization:
+          //     'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjg0MTM3MTU1LCJleHAiOjE2ODY3MjkxNTV9.ZlEwFA01bnqtKDPk29O0JMzctsIKzswpHDNWAPCnCyo',
+          // },
+        )
+          .then(res => {
+            console.log('debug > res===', res);
+          })
+          .catch(err => {
+            console.log('debug > err===', err);
+          });
+
+        console.log('debug > data===', data);
 
         return {
           id: '',
