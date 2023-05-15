@@ -1,7 +1,6 @@
 import { IconCommonProps } from '../types';
 
 export const Login = (style: IconCommonProps) => {
-  console.log('debug > color===', style);
   return (
     <svg
       width="24"

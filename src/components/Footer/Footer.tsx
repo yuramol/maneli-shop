@@ -24,24 +24,10 @@ export const Footer = () => {
             <p className="font-bold text-xs tracking-[0.02rem]">
               Манелі – інтернет магазин популярних товарів
             </p>
-            {session ? (
-              <Button
-                className="mt-3"
-                title="Вийти"
-                color="#7613B5"
-                onClick={async () => {
-                  const data = await signOut({
-                    redirect: false,
-                    callbackUrl: '/',
-                  });
-                  push(data.url);
-                }}
-              />
-            ) : (
-              <Link href="/login" className="flex p-3 w-12">
-                <Login color="#7613B5" />
-              </Link>
-            )}
+
+            <Link href={session?.user ? '/admin' : '/login'} className="flex p-3 w-12">
+              <Login color="#7613B5" />
+            </Link>
           </div>
           <div className="absolute right-0 pt-1 sm:pt-6">
             <Logo />
