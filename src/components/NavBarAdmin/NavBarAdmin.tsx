@@ -28,7 +28,7 @@ export const NavBarAdmin = () => {
         onClick={async () => {
           const data = await signOut({
             redirect: false,
-            callbackUrl: '/auth/signin',
+            callbackUrl: '/',
           });
           push(data.url);
         }}
