@@ -56,11 +56,11 @@ export const Modal: FC<Props> = ({ isOpen, toggleModal, children }) => {
         }`}
       >
         <IconButton
-          className="absolute top-3 right-3 w-6 h-6 hidden sm:block"
+          className="absolute top-12 right-12 w-6 h-6 hidden sm:block"
           icon="Close"
           onClick={toggleModal}
         />
-        <div className="px-4 md:px-10 overflow-auto h-full">{children}</div>
+        <div className="px-4 md:px-10 overflow-auto h-full scrollbar-hide">{children}</div>
       </div>
     </div>
   );
