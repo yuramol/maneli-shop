@@ -7,3 +7,5 @@ export { CalendarDate } from './CalendarDate';
 export { Scales } from './Scales';
 export { CreditCardShield } from './CreditCardShield';
 export { ShieldTick } from './ShieldTick';
+export { Plus } from './Plus';
+export { Minus } from './Minus';
