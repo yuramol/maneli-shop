@@ -4,17 +4,7 @@ import Image from 'next/legacy/image';
 
 import { OrderForm, ProductOptionCard } from '@/components';
 import { ComponentContainer, MainLayout } from '@/layouts';
-import {
-  ArrowCircleLeft,
-  ArrowCircleRight,
-  CalendarDate,
-  CreditCardShield,
-  DiscountLabel,
-  Modal,
-  Rate,
-  Scales,
-  ShieldTick,
-} from '@/legos';
+import { DiscountLabel, Icon, IconButton, Modal, Rate } from '@/legos';
 
 import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
@@ -72,7 +62,7 @@ export default function Product() {
             </div>
             <button
               onClick={toggleModal}
-              className="rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full md:w-80"
+              className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full md:w-80"
             >
               Замовити зараз
             </button>
@@ -128,7 +118,7 @@ export default function Product() {
 
         <button
           onClick={toggleModal}
-          className="rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mt-8 md:w-80 md:hidden"
+          className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mt-8 md:w-80 md:hidden"
         >
           Замовити зараз
         </button>
@@ -165,12 +155,8 @@ export default function Product() {
           <div className="flex flex-row gap-6 justify-between items-center">
             <h2 className="font-bold text-2xl md:text-5xl">Відгуки</h2>
             <div className="flex flex-row gap-6 md:gap-10">
-              <button>
-                <ArrowCircleLeft />
-              </button>
-              <button>
-                <ArrowCircleRight />
-              </button>
+              <IconButton icon="ArrowCircleLeft" />
+              <IconButton icon="ArrowCircleRight" />
             </div>
           </div>
           <div className="flex justify-center mt-8 md:mt-16">
@@ -180,19 +166,19 @@ export default function Product() {
           </div>
           <div className="flex flex-row flex-wrap gap-4 sm:gap-10 justify-center mt-8 md:mt-20">
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <CalendarDate />
+              <Icon icon="CalendarDate" />
               <p className="font-semibold">Доставка 1-3 дні</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <CreditCardShield />
+              <Icon icon="CreditCardShield" />
               <p className="font-semibold">Оплата при отримані</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <Scales />
+              <Icon icon="Scales" />
               <p className="font-semibold">Вигідна ціна</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <ShieldTick />
+              <Icon icon="ShieldTick" />
               <p className="font-semibold">Гарантія якості</p>
             </div>
           </div>
@@ -200,7 +186,7 @@ export default function Product() {
 
         <button
           onClick={toggleModal}
-          className="rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mx-auto my-8 md:my-20 md:w-80"
+          className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mx-auto my-8 md:my-20 md:w-80"
         >
           Замовити зараз
         </button>
