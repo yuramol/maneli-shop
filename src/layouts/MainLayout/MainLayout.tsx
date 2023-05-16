@@ -1,12 +1,12 @@
-import { Footer, Header } from "@/components";
-import { FC, ReactNode } from "react";
+import { Footer, Header } from '@/components';
+import { FC, ReactNode } from 'react';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 export const MainLayout: FC<LayoutProps> = ({ children }) => (
-  <div className="flex flex-col min-h-screen">
+  <div className="flex flex-col min-h-screen overflow-hidden">
     <Header />
     <main className="flex flex-col flex-auto min-h-full w-full h-full">{children}</main>
     <Footer />

@@ -1,14 +1,13 @@
 import { CatalogPageContainer } from '@/components';
-import { ComponentContainer, MainLayout } from '@/layouts';
+import { ComponentContainer } from '@/layouts';
+import { AdminLayout } from '@/layouts/AdminLayout';
 import { getToken } from 'next-auth/jwt';
 
-export default function Home() {
+export default function AdminPage() {
   return (
-    <MainLayout>
-      <ComponentContainer>
-        <CatalogPageContainer />
-      </ComponentContainer>
-    </MainLayout>
+    <AdminLayout>
+      <ComponentContainer>Container</ComponentContainer>
+    </AdminLayout>
   );
 }
 

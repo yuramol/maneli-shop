@@ -17,12 +17,14 @@ import {
 import productImage21 from '../../../assets/rectangle-21.png';
 import productImage from '../../../assets/rectangle-25.png';
 import review from '../../../assets/review.png';
+import { AdminLayout } from '@/layouts/AdminLayout';
+import { getToken } from 'next-auth/jwt';
 
 export default function Product() {
   const { query } = useRouter();
 
   return (
-    <MainLayout>
+    <AdminLayout>
       <ComponentContainer>
         <section className="relative grid md:grid-cols-2 gap-11 items-center mt-4 md:mt-20 before:w-[400px] before:h-[400px] before:absolute before:-top-20 before:-left-44 before:bg-radial-gradient-purple before:opacity-10 before:-z-10 after:w-[400px] after:h-[400px] after:absolute after:-bottom-20 after:-right-44 after:bg-radial-gradient-purple after:opacity-10 after:-z-10">
           <div className="flex flex-col gap-4 md:gap-8">
@@ -191,7 +193,7 @@ export default function Product() {
           Замовити зараз
         </button>
       </ComponentContainer>
-    </MainLayout>
+    </AdminLayout>
   );
 }
 
