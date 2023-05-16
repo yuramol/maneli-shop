@@ -17,6 +17,26 @@ import {
 import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
+import { ProductCharacteristicItem } from '@/components/ProductDescriptionItem';
+
+const CHARACTERISTICS = [
+  {
+    title: 'Матеріал',
+    text: 'Пластик',
+  },
+  {
+    title: 'Матеріал',
+    text: 'Пластик',
+  },
+  {
+    title: 'Матеріал',
+    text: 'Пластик',
+  },
+  {
+    title: 'Матеріал',
+    text: 'Пластик',
+  },
+];
 
 export default function Product() {
   const { query } = useRouter();
@@ -79,40 +99,15 @@ export default function Product() {
           <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD]">
             <h2 className="font-bold text-2xl md:text-5xl">Докладний опис</h2>
             <dl className="mt-4 sm:mt-7">
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Матеріал:</dt>
-                <dd>Пластик</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Розмір:</dt>
-                <dd>92 * 58mm</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Напруга:</dt>
-                <dd>5V</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Потужність:</dt>
-                <dd>3Вт / 5Вт / 7Вт</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Джерело живлення:</dt>
-                <dd>120-мм лінія живлення USB (в т.ч.)</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Чіп:</dt>
-                <dd>5730</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Тривалість життя:</dt>
-                <dd>50000H</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Підходить для всіх USB-розємів</dt>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg">
-                <dt className="font-semibold">Постачання живлення від USB</dt>
-              </span>
+              {CHARACTERISTICS.map((item, index) =>
+                item?.title ? (
+                  <ProductCharacteristicItem
+                    key={`${item.title}-${index}`}
+                    title={item.title}
+                    text={item.text}
+                  />
+                ) : null,
+              )}
             </dl>
           </div>
           <Image src={productImage} alt="Product photo" />
