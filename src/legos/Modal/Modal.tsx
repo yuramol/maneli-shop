@@ -51,16 +51,16 @@ export const Modal: FC<Props> = ({ isOpen, toggleModal, children }) => {
       }`}
     >
       <div
-        className={`relative overflow-hidden w-full h-[90%] sm:h-full sm:max-h-[760px] rounded-t-3xl transition-all duration-200 ease-in py-4 md:py-10 sm:w-5/6 md:w-4/6 xl:w-3/6 2xl:w-2/6 sm:rounded-2xl bg-white before:sm:hidden before:absolute before:w-20 before:h-1 before:top-2 before:left-1/2 before:-ml-10 before:rounded-xl before:bg-[#2E0F42] ${
+        className={`relative overflow-auto w-full h-[92%] sm:h-full sm:max-h-[780px] rounded-t-3xl transition-all duration-200 ease-in py-4 md:py-10 sm:w-5/6 md:w-4/6 xl:w-3/6 2xl:w-2/6 sm:rounded-2xl bg-white before:sm:hidden before:absolute before:w-20 before:h-1 before:top-2 before:left-1/2 before:-ml-10 before:rounded-xl before:bg-[#2E0F42] ${
           isOpen ? 'translate-y-0' : 'translate-y-full sm:translate-y-96'
         }`}
       >
         <IconButton
-          className="absolute top-5 right-5 md:top-12 md:right-12  hidden sm:block"
+          className="absolute top-5 right-5 md:top-12 md:right-12 hidden sm:block"
           icon="Close"
           onClick={toggleModal}
         />
-        <div className="px-4 md:px-10 overflow-auto h-full scrollbar-hide">{children}</div>
+        <div className="px-4 md:px-10 overflow-y-auto h-full scrollbar-hide">{children}</div>
       </div>
     </div>
   );

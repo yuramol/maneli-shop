@@ -25,8 +25,8 @@ export const OrderForm = () => {
     [OrderUserFields.Quantity]: 1,
     [OrderUserFields.Name]: '',
     [OrderUserFields.Phone]: '',
-    [OrderUserFields.Color]: '',
-    [OrderUserFields.Model]: '',
+    [OrderUserFields.Color]: colorOptions[0].value ?? '',
+    [OrderUserFields.Model]: modelOptions[0].value ?? '',
   };
 
   const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
@@ -48,12 +48,12 @@ export const OrderForm = () => {
 
   return (
     <>
-      <h2 className="font-bold text-xl my-8 sm:mt-0 md:text-3xl ">Ваше замовлення:</h2>
-      <form className="flex flex-col gap-10" onSubmit={handleSubmit}>
+      <h2 className="font-bold text-xl mb-6 mt-3 sm:mt-0 md:text-3xl ">Ваше замовлення:</h2>
+      <form className="flex flex-col gap-6 sm:gap-10" onSubmit={handleSubmit}>
         <div className="flex gap-4">
-          <div className="relative flex w-full max-w-[98px] sm:max-w-[134px] overflow-hidden rounded-2xl border border-[#9142C4]">
+          <div className="relative flex w-full h-full max-w-[98px] max-h-[98px] sm:max-w-[134px] sm:max-h-[134px] overflow-hidden rounded-2xl border border-[#9142C4]">
             <DiscountLabel smallSize discount={40} />
-            <Image src={productImage} alt="Product photo" />
+            <Image src={productImage} objectFit="cover" alt="Product photo" />
           </div>
           <div className="flex flex-col justify-between w-full">
             <h3 className="font-semibold md:text-2xl">Портативна світлодіодна USB лампа</h3>
@@ -62,9 +62,7 @@ export const OrderForm = () => {
                 <p className="text-[#F6543E] font-bold sm:font-semibold sm:text-2xl">
                   {`${240 * (1 - 40 / 100)} грн`}
                 </p>
-                <p className="text-[#828282] text-xs sm:text-2xl line-through">
-                  240 грн
-                </p>
+                <p className="text-[#828282] text-xs sm:text-2xl line-through">240 грн</p>
               </div>
               <QuantitySelector
                 name={OrderUserFields.Quantity}
@@ -112,7 +110,7 @@ export const OrderForm = () => {
           />
           <button
             type="submit"
-            className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full"
+            className="rounded-full bg-[#7613B5] text-white text-base font-semibold mt-2 p-4 w-full"
           >
             Оформити замовлення
           </button>

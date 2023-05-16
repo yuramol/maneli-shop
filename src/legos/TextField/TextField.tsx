@@ -24,10 +24,10 @@ export const TextField: FC<Props> = ({
   onChange,
 }) => {
   return (
-    <label className="flex flex-col gap-2 font-semibold">
+    <label className="relative flex flex-col gap-2 font-semibold">
       {label}
       <input
-        className={`font-normal p-4 rounded-full transition-all duration-150 outline-none border ${
+        className={`font-normal px-4 py-3 rounded-full transition-all duration-150 outline-none border ${
           isError ? 'border-red-400 focus:border-red-400' : 'border-slate-300 focus:border-slate-500'
         }`}
         type={type}
@@ -37,7 +37,7 @@ export const TextField: FC<Props> = ({
         onChange={onChange}
         onBlur={onBlur}
       />
-      {isError && <div className="font-normal text-red-400 text-xs ml-4">{errorText}</div>}
+      {isError && <div className="absolute left-4 -bottom-5 font-normal text-red-400 text-xs">{errorText}</div>}
     </label>
   );
 };

@@ -72,7 +72,7 @@ export default function Product() {
             </div>
             <button
               onClick={toggleModal}
-              className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full md:w-80"
+              className="rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full md:w-80"
             >
               Замовити зараз
             </button>
@@ -126,7 +126,10 @@ export default function Product() {
           <Image src={productImage} alt="Product photo" />
         </section>
 
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mt-8 md:w-80 md:hidden">
+        <button
+          onClick={toggleModal}
+          className="rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mt-8 md:w-80 md:hidden"
+        >
           Замовити зараз
         </button>
 
@@ -195,7 +198,10 @@ export default function Product() {
           </div>
         </section>
 
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mx-auto my-8 md:my-20 md:w-80">
+        <button
+          onClick={toggleModal}
+          className="rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mx-auto my-8 md:my-20 md:w-80"
+        >
           Замовити зараз
         </button>
 

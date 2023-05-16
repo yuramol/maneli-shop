@@ -1,6 +1,7 @@
-import { useState, ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { FormikErrors, FormikValues } from 'formik';
-import { Minus, Plus } from '../Icon';
+import { Icon } from '../Icon';
+import { IconButton } from '../Button';
 
 type Props = {
   name: string;
@@ -33,13 +34,11 @@ export const QuantitySelector: FC<Props> = ({ name, value, setValue }) => {
 
   return (
     <div className="flex flex-row items-center gap-4">
-      <button
-        type="button"
+      <IconButton
+        icon="Minus"
         className="flex justify-center items-center w-8 h-8"
         onClick={handleDecrease}
-      >
-        <Minus />
-      </button>
+      />
       <div className="relative">
         <span className="font-semibold">{value}</span>
         <input
@@ -51,13 +50,11 @@ export const QuantitySelector: FC<Props> = ({ name, value, setValue }) => {
           onChange={handleInputChange}
         />
       </div>
-      <button
-        type="button"
+      <IconButton
+        icon="Plus"
         className="flex justify-center items-center w-8 h-8"
         onClick={handleIncrease}
-      >
-        <Plus />
-      </button>
+      />
     </div>
   );
 };
