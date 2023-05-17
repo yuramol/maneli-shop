@@ -15,6 +15,7 @@ export type ButtonProps = {
 export type IconButtonProps = {
   onClick?: () => void;
   icon: IconsNames;
+  type?: 'submit' | 'reset' | 'button';
   className?: string;
   color?: string;
   size?: string | number;

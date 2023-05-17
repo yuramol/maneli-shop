@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { FormikContext, useFormik } from 'formik';
+import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
 import { OrderForm, ProductOptionCard } from '@/components';
@@ -10,11 +12,39 @@ import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
 
+import { OrderUserFields, colorOptions, modelOptions } from '@/components/OrderForm';
+
 export default function Product() {
   const { query } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+  const initialValues = {
+    [OrderUserFields.Quantity]: 1,
+    [OrderUserFields.Name]: '',
+    [OrderUserFields.Phone]: '',
+    [OrderUserFields.Color]: colorOptions[0].value ?? '',
+    [OrderUserFields.Model]: modelOptions[0].value ?? '',
+  };
+
+  const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
+  const validationSchema = yup.object({
+    [OrderUserFields.Name]: yup.string().required('Будь ласка, заповніть дане поле'),
+    [OrderUserFields.Phone]: yup
+      .string()
+      .required('Будь ласка, заповніть дане поле')
+      .matches(phoneRegExp, 'Будь ласка, вкажіть коректно телефон'),
+  });
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: values => {
+      console.log(values);
+    },
+  });
+
   const toggleModal = () => {
+    formik.resetForm();
     setIsOpen(open => !open);
   };
 
@@ -191,9 +221,11 @@ export default function Product() {
           Замовити зараз
         </button>
 
-        <Modal isOpen={isOpen} toggleModal={toggleModal}>
-          <OrderForm />
-        </Modal>
+        <FormikContext.Provider value={formik}>
+          <Modal isOpen={isOpen} toggleModal={toggleModal}>
+            <OrderForm />
+          </Modal>
+        </FormikContext.Provider>
       </ComponentContainer>
     </MainLayout>
   );

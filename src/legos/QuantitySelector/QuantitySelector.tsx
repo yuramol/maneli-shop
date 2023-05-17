@@ -10,7 +10,7 @@ type Props = {
     field: string,
     value: any,
     shouldValidate?: boolean | undefined,
-  ) => Promise<FormikErrors<FormikValues>> | Promise<void>;
+  ) => void;
 };
 
 export const QuantitySelector: FC<Props> = ({ name, value, setValue }) => {
@@ -36,6 +36,7 @@ export const QuantitySelector: FC<Props> = ({ name, value, setValue }) => {
     <div className="flex flex-row items-center gap-4">
       <IconButton
         icon="Minus"
+        type="button"
         className="flex justify-center items-center w-8 h-8"
         onClick={handleDecrease}
       />
@@ -52,6 +53,7 @@ export const QuantitySelector: FC<Props> = ({ name, value, setValue }) => {
       </div>
       <IconButton
         icon="Plus"
+        type="button"
         className="flex justify-center items-center w-8 h-8"
         onClick={handleIncrease}
       />

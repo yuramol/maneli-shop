@@ -1,50 +1,20 @@
-import { useFormik } from 'formik';
-import * as yup from 'yup';
+import { FormikValues, useFormikContext } from 'formik';
 import Image from 'next/legacy/image';
 
 import { DiscountLabel, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
 import productImage from '../../assets/rectangle-25.png';
+import { OrderUserFields } from './types';
 
-enum OrderUserFields {
-  Quantity = 'quantity',
-  Name = 'name',
-  Phone = 'phone',
-  Color = 'color',
-  Model = 'model',
-}
-
-const colorOptions = [{ value: '#FFFFFF' }, { value: '#A9A9A9' }, { value: '#464646' }];
-const modelOptions = [
+export const colorOptions = [{ value: '#FFFFFF' }, { value: '#A9A9A9' }, { value: '#464646' }];
+export const modelOptions = [
   { label: '5W', value: '5' },
   { label: '7W', value: '7' },
   { label: '12W', value: '12' },
 ];
 
 export const OrderForm = () => {
-  const initialValues = {
-    [OrderUserFields.Quantity]: 1,
-    [OrderUserFields.Name]: '',
-    [OrderUserFields.Phone]: '',
-    [OrderUserFields.Color]: colorOptions[0].value ?? '',
-    [OrderUserFields.Model]: modelOptions[0].value ?? '',
-  };
-
-  const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
-  const validationSchema = yup.object({
-    [OrderUserFields.Name]: yup.string().required('Будь ласка, заповніть дане поле'),
-    [OrderUserFields.Phone]: yup
-      .string()
-      .required('Будь ласка, заповніть дане поле')
-      .matches(phoneRegExp, 'Будь ласка, вкажіть коректно телефон'),
-  });
-
-  const { values, errors, setFieldValue, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: values => {
-      console.log(values);
-    },
-  });
+  const { values, errors, touched, setFieldValue, handleBlur, handleChange, handleSubmit } =
+    useFormikContext<FormikValues>();
 
   return (
     <>
@@ -95,8 +65,9 @@ export const OrderForm = () => {
             value={values[OrderUserFields.Name]}
             placeholder="Павло"
             onChange={handleChange}
-            isError={!!errors[OrderUserFields.Name]}
-            errorText={errors[OrderUserFields.Name]}
+            onBlur={handleBlur}
+            isError={!!errors[OrderUserFields.Name] && (touched[OrderUserFields.Name] as boolean)}
+            errorText={errors[OrderUserFields.Name] as string}
           />
           <TextField
             label="Ваш телефон"
@@ -105,8 +76,9 @@ export const OrderForm = () => {
             value={values[OrderUserFields.Phone]}
             placeholder="+380 XX XXX XX XX"
             onChange={handleChange}
-            isError={!!errors[OrderUserFields.Phone]}
-            errorText={errors[OrderUserFields.Phone]}
+            onBlur={handleBlur}
+            isError={!!errors[OrderUserFields.Phone] && (touched[OrderUserFields.Phone] as boolean)}
+            errorText={errors[OrderUserFields.Phone] as string}
           />
           <button
             type="submit"

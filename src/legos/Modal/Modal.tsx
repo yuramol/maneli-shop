@@ -1,4 +1,4 @@
-import { FC, MouseEvent, ReactNode, TouchEvent, useEffect, useRef, useState } from 'react';
+import { FC, MouseEvent, ReactNode, TouchEvent, useRef, useState } from 'react';
 import { IconButton } from '@/legos';
 
 type Props = {
@@ -10,16 +10,6 @@ type Props = {
 export const Modal: FC<Props> = ({ isOpen, toggleModal, children }) => {
   const modalWrapRef = useRef(null);
   const [touchStartY, setTouchStartY] = useState(0);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      setTimeout(() => {
-        document.body.style.overflow = 'auto';
-      }, 100);
-    }
-  }, [isOpen]);
 
   const handelTouchStart = (e: TouchEvent) => {
     setTouchStartY(e.changedTouches[0].clientY);
