@@ -9,3 +9,5 @@ export * from './CreditCardShield';
 export * from './ShieldTick';
 export * from './Plus';
 export * from './Minus';
+export * from './Edit';
+export * from './Delete';

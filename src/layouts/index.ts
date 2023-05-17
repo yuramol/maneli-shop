@@ -1,2 +1,2 @@
 export * from './MainLayout';
-export * from './ComponentContainer';
+export * from './MainLayout/ComponentContainer';
