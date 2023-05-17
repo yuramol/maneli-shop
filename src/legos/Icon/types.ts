@@ -1,6 +1,6 @@
 import { CSSProperties, ElementType } from 'react';
 
-export type IconsNames = 'Close' | 'Burger';
+export type IconsNames = 'Close' | 'Burger' | 'Login' | 'Edit' | 'Delete';
 
 export type IconsNamesMapType = {
   [key in IconsNames]: ElementType;

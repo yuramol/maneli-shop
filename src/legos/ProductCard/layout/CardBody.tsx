@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Rate } from '@/legos';
-import { Button } from '@/legos/Button';
-import { useMediaQuery } from 'react-responsive';
+
 export const CardBody = ({
   productId,
   title,
