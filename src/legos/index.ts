@@ -5,3 +5,7 @@ export * from './DiscountLabel';
 export * from './Rate';
 export * from './Button';
 export * from './Icon';
+export { Modal } from './Modal';
+export { TextField } from './TextField';
+export { QuantitySelector } from './QuantitySelector';
+export { OptionsSwitcher } from './OptionsSwitcher';

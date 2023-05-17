@@ -4,6 +4,7 @@ import { IconButtonProps } from './types';
 export const IconButton = ({
   onClick,
   icon,
+  type,
   className,
   color,
   height,
@@ -12,7 +13,7 @@ export const IconButton = ({
   props,
 }: IconButtonProps) => {
   return (
-    <button className={className} onClick={onClick} {...props}>
+    <button type={type} className={className} onClick={onClick} {...props}>
       <Icon icon={icon} color={color} size={size} height={height} width={width} />
     </button>
   );

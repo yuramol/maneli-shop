@@ -1,18 +1,12 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { FormikContext, useFormik } from 'formik';
+import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
-import { ProductOptionCard } from '@/components';
+import { OrderForm, ProductOptionCard } from '@/components';
 import { ComponentContainer, MainLayout } from '@/layouts';
-import {
-  ArrowCircleLeft,
-  ArrowCircleRight,
-  CalendarDate,
-  CreditCardShield,
-  DiscountLabel,
-  Rate,
-  Scales,
-  ShieldTick,
-} from '@/legos';
+import { DiscountLabel, Icon, IconButton, Modal, Rate } from '@/legos';
 
 import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
@@ -38,8 +32,41 @@ const CHARACTERISTICS = [
   },
 ];
 
+import { OrderUserFields, colorOptions, modelOptions } from '@/components/OrderForm';
+
 export default function Product() {
   const { query } = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const initialValues = {
+    [OrderUserFields.Quantity]: 1,
+    [OrderUserFields.Name]: '',
+    [OrderUserFields.Phone]: '',
+    [OrderUserFields.Color]: colorOptions[0].value ?? '',
+    [OrderUserFields.Model]: modelOptions[0].value ?? '',
+  };
+
+  const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
+  const validationSchema = yup.object({
+    [OrderUserFields.Name]: yup.string().required('Будь ласка, заповніть дане поле'),
+    [OrderUserFields.Phone]: yup
+      .string()
+      .required('Будь ласка, заповніть дане поле')
+      .matches(phoneRegExp, 'Будь ласка, вкажіть коректно телефон'),
+  });
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: values => {
+      console.log(values);
+    },
+  });
+
+  const toggleModal = () => {
+    formik.resetForm();
+    setIsOpen(open => !open);
+  };
 
   return (
     <MainLayout>
@@ -58,11 +85,11 @@ export default function Product() {
               <Image src={productImage} alt="Product photo" />
             </div>
             <div className="flex justify-between items-center">
-              <div className="flex items-end gap-2">
+              <div className="flex items-baseline gap-2">
                 <p className="text-[#F6543E] font-bold text-4xl">
                   🔥 {`${270 * (1 - 40 / 100)} грн`}
                 </p>
-                <p className="text-[#828282] text-base line-through">{`${270} грн`}</p>
+                <p className="text-[#828282] line-through">270 грн</p>
               </div>
               <Rate rate={4.8} />
             </div>
@@ -83,14 +110,15 @@ export default function Product() {
                 </li>
               </ul>
             </div>
-            <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full md:w-80">
+            <button
+              onClick={toggleModal}
+              className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full md:w-80"
+            >
               Замовити зараз
             </button>
           </div>
-          <div className="hidden relative md:flex">
-            <div className="absolute top-2 right-2 sm:top-6 sm:right-6 z-10">
-              <DiscountLabel discount={40} />
-            </div>
+          <div className="hidden relative md:flex overflow-hidden rounded-2xl">
+            <DiscountLabel discount={40} />
             <Image src={productImage} alt="Product photo" />
           </div>
         </section>
@@ -113,7 +141,10 @@ export default function Product() {
           <Image src={productImage} alt="Product photo" />
         </section>
 
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mt-8 md:w-80 md:hidden">
+        <button
+          onClick={toggleModal}
+          className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mt-8 md:w-80 md:hidden"
+        >
           Замовити зараз
         </button>
 
@@ -149,12 +180,8 @@ export default function Product() {
           <div className="flex flex-row gap-6 justify-between items-center">
             <h2 className="font-bold text-2xl md:text-5xl">Відгуки</h2>
             <div className="flex flex-row gap-6 md:gap-10">
-              <button>
-                <ArrowCircleLeft />
-              </button>
-              <button>
-                <ArrowCircleRight />
-              </button>
+              <IconButton icon="ArrowCircleLeft" />
+              <IconButton icon="ArrowCircleRight" />
             </div>
           </div>
           <div className="flex justify-center mt-8 md:mt-16">
@@ -164,27 +191,36 @@ export default function Product() {
           </div>
           <div className="flex flex-row flex-wrap gap-4 sm:gap-10 justify-center mt-8 md:mt-20">
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <CalendarDate />
+              <Icon icon="CalendarDate" />
               <p className="font-semibold">Доставка 1-3 дні</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <CreditCardShield />
+              <Icon icon="CreditCardShield" />
               <p className="font-semibold">Оплата при отримані</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <Scales />
+              <Icon icon="Scales" />
               <p className="font-semibold">Вигідна ціна</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <ShieldTick />
+              <Icon icon="ShieldTick" />
               <p className="font-semibold">Гарантія якості</p>
             </div>
           </div>
         </section>
 
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mx-auto my-8 md:my-20 md:w-80">
+        <button
+          onClick={toggleModal}
+          className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mx-auto my-8 md:my-20 md:w-80"
+        >
           Замовити зараз
         </button>
+
+        <FormikContext.Provider value={formik}>
+          <Modal isOpen={isOpen} toggleModal={toggleModal}>
+            <OrderForm />
+          </Modal>
+        </FormikContext.Provider>
       </ComponentContainer>
     </MainLayout>
   );

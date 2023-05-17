@@ -1,7 +1,7 @@
-import { CatalogPageContainer } from '@/components';
 import { ComponentContainer } from '@/layouts';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { getToken } from 'next-auth/jwt';
+import { GetServerSideProps } from 'next/types';
 
 export default function AdminPage() {
   return (

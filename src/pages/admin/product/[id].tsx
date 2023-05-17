@@ -19,6 +19,7 @@ import productImage from '../../../assets/rectangle-25.png';
 import review from '../../../assets/review.png';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { getToken } from 'next-auth/jwt';
+import { GetServerSideProps } from 'next/types';
 
 export default function Product() {
   const { query } = useRouter();

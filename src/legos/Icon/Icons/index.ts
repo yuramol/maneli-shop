@@ -1,9 +1,11 @@
 export * from './Close';
 export * from './Burger';
 export * from './Login';
-export { ArrowCircleLeft } from './ArrowCircleLeft';
-export { ArrowCircleRight } from './ArrowCircleRight';
-export { CalendarDate } from './CalendarDate';
-export { Scales } from './Scales';
-export { CreditCardShield } from './CreditCardShield';
-export { ShieldTick } from './ShieldTick';
+export * from './ArrowCircleLeft';
+export * from './ArrowCircleRight';
+export * from './CalendarDate';
+export * from './Scales';
+export * from './CreditCardShield';
+export * from './ShieldTick';
+export * from './Plus';
+export * from './Minus';
