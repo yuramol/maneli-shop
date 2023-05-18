@@ -4,7 +4,7 @@ import { IconButtonProps } from './types';
 export const IconButton = ({
   onClick,
   icon,
-  type,
+  type = 'button',
   className,
   color,
   height,
