@@ -26,7 +26,7 @@ export const SideBar = () => {
   ) : (
     <>
       {!isBurgerMenuOpen && (
-        <div className="flex gap-4 p-2">
+        <div className="flex gap-4 p-4">
           <IconButton icon="Burger" onClick={handleMenuClick} />
           <Logo />
         </div>

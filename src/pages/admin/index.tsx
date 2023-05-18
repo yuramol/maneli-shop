@@ -15,7 +15,7 @@ const columns = ['ID', 'Фото', 'Назва', 'Ціна, грн.', 'Зниж�
 
 export default function AdminPage() {
   const [start, setStart] = useState(0);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(8);
 
   const { data } = useProductsQuery({
     variables: {
@@ -45,63 +45,66 @@ export default function AdminPage() {
 
   return (
     <AdminLayout>
-      <section className="flex flex-col gap-8 my-8">
-        <h1 className="font-bold text-3xl">Продукти</h1>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {columns.map(col => (
-                <TableCell key={col} head>
-                  {col}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data?.products?.data.length ? (
-              data?.products?.data.map(({ id, attributes }) => (
-                <TableRow key={id}>
-                  <TableCell>{id}</TableCell>
-                  <TableCell>
-                    <Image
-                      width={60}
-                      height={60}
-                      objectFit="cover"
-                      alt="Product photo"
-                      className="rounded-full overflow-hidden"
-                      src={
-                        process.env.BASE_URL +
-                        attributes?.imagePreview?.data?.attributes?.formats.thumbnail.url
-                      }
-                    />
-                  </TableCell>
-                  <TableCell>{attributes?.title}</TableCell>
-                  <TableCell>{attributes?.price}</TableCell>
-                  <TableCell>{attributes?.discount}</TableCell>
-                  <TableCell>
-                    <div className="flex gap-2 justify-around">
-                      <Link href={`admin/product/${id}`}>
-                        <IconButton
-                          icon="Edit"
-                          className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-purple-700"
-                        />
-                      </Link>
-                      <IconButton
-                        icon="Delete"
-                        className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-red-500"
-                        onClick={() => handleDeleteProduct(id ?? '')}
-                      />
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
+      <section className="flex flex-col justify-between gap-8 h-full">
+        <div className="flex flex-col gap-8">
+          <h1 className="font-bold text-3xl">Продукти</h1>
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={columns.length}>Немає жодного продукта</TableCell>
+                {columns.map(col => (
+                  <TableCell key={col} head>
+                    {col}
+                  </TableCell>
+                ))}
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {data?.products?.data.length ? (
+                data?.products?.data.map(({ id, attributes }) => (
+                  <TableRow key={id}>
+                    <TableCell>{id}</TableCell>
+                    <TableCell>
+                      <Image
+                        width={60}
+                        height={60}
+                        objectFit="cover"
+                        alt="Product photo"
+                        className="rounded-full overflow-hidden"
+                        src={
+                          process.env.BASE_URL +
+                          attributes?.imagePreview?.data?.attributes?.formats.thumbnail.url
+                        }
+                        style={{ zIndex: -1 }}
+                      />
+                    </TableCell>
+                    <TableCell>{attributes?.title}</TableCell>
+                    <TableCell>{attributes?.price}</TableCell>
+                    <TableCell>{attributes?.discount}</TableCell>
+                    <TableCell>
+                      <div className="flex gap-2 justify-around">
+                        <Link href={`admin/product/${id}`}>
+                          <IconButton
+                            icon="Edit"
+                            className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-purple-700"
+                          />
+                        </Link>
+                        <IconButton
+                          icon="Delete"
+                          className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-red-500"
+                          onClick={() => handleDeleteProduct(id ?? '')}
+                        />
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length}>Немає жодного продукта</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
 
         <div className="flex flex-row justify-between items-center">
           <p>
@@ -115,6 +118,7 @@ export default function AdminPage() {
               onClick={handlePreviousPage}
               disabled={data?.products?.meta.pagination.page === 1}
               className={data?.products?.meta.pagination.page === 1 ? 'opacity-20' : ''}
+              style={{ zIndex: -1 }}
             />
             <IconButton
               icon="ArrowCircleRight"
@@ -127,6 +131,7 @@ export default function AdminPage() {
                   ? 'opacity-20'
                   : ''
               }
+              style={{ zIndex: -1 }}
             />
           </div>
         </div>
