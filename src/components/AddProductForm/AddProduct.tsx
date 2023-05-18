@@ -17,7 +17,7 @@ export const AddProductForm = ({ toggleModal }) => {
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex w-[198px] h-[254px] shrink-0">
           {values[AddProductFields.ImageUrl] ? (
-            <div className="relative flex w-[198px] h-[254px] overflow-hidden rounded-2xl border border-[#9142C4]">
+            <div className="relative flex w-full h-full overflow-hidden rounded-2xl border border-[#9142C4]">
               {/* <Image src={productImage} objectFit="cover" alt="Product photo" /> */}
             </div>
           ) : (

@@ -22,7 +22,7 @@ export const BannerImage: FC<Props> = ({ imgUrl, handleUploadImg }) => {
         src={productImage}
         alt="Product photo"
         width={198}
-        height={198}
+        height={254}
         style={{ margin: 'auto' }}
       />
       <div
