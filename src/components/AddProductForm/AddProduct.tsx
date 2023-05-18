@@ -11,15 +11,15 @@ export const AddProductForm = ({ toggleModal }) => {
     useFormikContext<FormikValues>();
 
   return (
-    <form className="flex flex-col  h-full justify-between gap-6 sm:gap-10" onSubmit={handleSubmit}>
+    <form className="flex flex-col  h-full justify-between gap-4" onSubmit={handleSubmit}>
       <h2 className="font-bold text-xl mb-6 mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
       <div className="flex gap-4">
-        <div className="relative flex w-full h-full max-w-[98px] max-h-[98px] sm:max-w-[134px] sm:max-h-[134px] overflow-hidden rounded-2xl border border-[#9142C4]">
-          <DiscountLabel smallSize discount={40} />
+        <div className="relative flex w-full h-full max-w-[198px] max-h-[198px] overflow-hidden rounded-2xl border border-[#9142C4]">
+          {values[AddProductFields.Discount] && (
+            <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
+          )}
           <Image src={productImage} objectFit="cover" alt="Product photo" />
         </div>
-      </div>
-      <div className="flex flex-col gap-6 w-full md:w-4/6">
         <TextField
           label="Назва продукту"
           name={AddProductFields.Title}
@@ -30,7 +30,9 @@ export const AddProductForm = ({ toggleModal }) => {
           isError={!!errors[AddProductFields.Title] && (touched[AddProductFields.Title] as boolean)}
           errorText={errors[AddProductFields.Title] as string}
         />
-        <div className="flex flex-row gap-6 w-full md:w-4/6">
+      </div>
+      <div className="flex flex-col gap-6 w-full">
+        <div className="flex flex-col sm:flex-row gap-4 w-full justify-stretch">
           <TextField
             label="Ціна"
             type="number"
