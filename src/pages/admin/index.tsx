@@ -2,8 +2,11 @@ import { AdminLayout } from '@/layouts/AdminLayout';
 import { IconButton } from '@/legos/Button/IconButton';
 import { getToken } from 'next-auth/jwt';
 import { GetServerSideProps } from 'next/types';
+import Image from 'next/legacy/image';
 import Link from 'next/link';
+
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@/legos';
+import { useProductsQuery } from '@/graphql/queries/__generated__/products';
 
 const columns = ['ID', 'Фото', 'Назва', 'Ціна, грн.', 'Знижка, %', ''];
 const rows = [
@@ -13,6 +16,8 @@ const rows = [
 ];
 
 export default function AdminPage() {
+  const { data, loading, error } = useProductsQuery();
+
   return (
     <AdminLayout>
       <section className="flex flex-col gap-8 my-8">
@@ -28,13 +33,25 @@ export default function AdminPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(({ id, photo, title, price, discount }) => (
+            {data?.products?.data.map(({ id, attributes }) => (
               <TableRow key={id}>
                 <TableCell>{id}</TableCell>
-                <TableCell>{photo}</TableCell>
-                <TableCell>{title}</TableCell>
-                <TableCell>{price}</TableCell>
-                <TableCell>{discount}</TableCell>
+                <TableCell>
+                  <Image
+                    width={60}
+                    height={60}
+                    objectFit="cover"
+                    alt="Product photo"
+                    className="rounded-full overflow-hidden"
+                    src={
+                      process.env.BASE_URL +
+                      attributes?.imagePreview?.data?.attributes?.formats.thumbnail.url
+                    }
+                  />
+                </TableCell>
+                <TableCell>{attributes?.title}</TableCell>
+                <TableCell>{attributes?.price}</TableCell>
+                <TableCell>{attributes?.discount}</TableCell>
                 <TableCell>
                   <div className="flex gap-2 justify-around">
                     <Link href={`admin/product/${id}`}>

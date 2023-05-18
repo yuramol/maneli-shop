@@ -1,0 +1,20 @@
+query Products {
+  products {
+    data {
+      id
+      attributes {
+        title
+        imagePreview {
+          data {
+            attributes {
+              formats
+            }
+          }
+        }
+        price
+        rating
+        discount
+      }
+    }
+  }
+}
