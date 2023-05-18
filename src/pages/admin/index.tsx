@@ -33,8 +33,6 @@ export default function AdminPage() {
     }
   };
 
-  console.log(data);
-
   const handlePreviousPage = () => {
     const previousPageStart = Math.max(start - limit, 0);
     setStart(previousPageStart);
@@ -42,9 +40,6 @@ export default function AdminPage() {
 
   const handleNextPage = () => {
     const nextPageStart = start + limit;
-
-    console.log(nextPageStart);
-
     setStart(nextPageStart);
   };
 
@@ -109,8 +104,11 @@ export default function AdminPage() {
         </Table>
 
         <div className="flex flex-row justify-between items-center">
-          <p>Закальна кількість: {data?.products?.meta.pagination.total}</p>
-          <p>Поточна сторінка: {data?.products?.meta.pagination.page}</p>
+          <p>
+            Cторінка: {data?.products?.meta.pagination.page}/
+            {data?.products?.meta.pagination.pageCount}
+          </p>
+          <p>Закальна кількість продуктів: {data?.products?.meta.pagination.total}</p>
           <div className="flex gap-3">
             <IconButton
               icon="ArrowCircleLeft"
