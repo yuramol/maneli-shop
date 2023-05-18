@@ -112,12 +112,22 @@ export default function AdminPage() {
           <p>Закальна кількість: {data?.products?.meta.pagination.total}</p>
           <p>Поточна сторінка: {data?.products?.meta.pagination.page}</p>
           <div className="flex gap-3">
-            <IconButton icon="ArrowCircleLeft" onClick={handlePreviousPage} />
+            <IconButton
+              icon="ArrowCircleLeft"
+              onClick={handlePreviousPage}
+              disabled={data?.products?.meta.pagination.page === 1}
+              className={data?.products?.meta.pagination.page === 1 ? 'opacity-20' : ''}
+            />
             <IconButton
               icon="ArrowCircleRight"
               onClick={handleNextPage}
               disabled={
                 data?.products?.meta.pagination.page === data?.products?.meta.pagination.pageCount
+              }
+              className={
+                data?.products?.meta.pagination.page === data?.products?.meta.pagination.pageCount
+                  ? 'opacity-20'
+                  : ''
               }
             />
           </div>
