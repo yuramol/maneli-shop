@@ -11,7 +11,9 @@ export type IconsNames =
   | 'Scales'
   | 'ShieldTick'
   | 'Minus'
-  | 'Plus';
+  | 'Plus'
+  | 'Edit'
+  | 'Delete';
 
 export type IconsNamesMapType = {
   [key in IconsNames]: ElementType;

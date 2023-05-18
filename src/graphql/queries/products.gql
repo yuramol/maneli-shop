@@ -1,0 +1,15 @@
+query Products($start: Int, $limit: Int) {
+  products(pagination: { start: $start, limit: $limit }) {
+    data {
+      ...productEntity
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
+      }
+    }
+  }
+}

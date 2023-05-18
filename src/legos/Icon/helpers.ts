@@ -10,6 +10,8 @@ import {
   Scales,
   Minus,
   Plus,
+  Edit,
+  Delete,
 } from './Icons';
 import { IconsNamesMapType } from './types';
 
@@ -25,4 +27,6 @@ export const IconsMap: IconsNamesMapType = {
   ShieldTick,
   Minus,
   Plus,
+  Edit,
+  Delete,
 };
