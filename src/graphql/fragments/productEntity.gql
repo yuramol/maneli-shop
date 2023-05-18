@@ -1,0 +1,16 @@
+fragment productEntity on ProductEntity {
+  id
+  attributes {
+    title
+    imagePreview {
+      data {
+        attributes {
+          formats
+        }
+      }
+    }
+    price
+    rating
+    discount
+  }
+}

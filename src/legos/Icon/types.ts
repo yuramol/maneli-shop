@@ -1,6 +1,19 @@
 import { CSSProperties, ElementType } from 'react';
 
-export type IconsNames = 'Close' | 'Burger';
+export type IconsNames =
+  | 'Close'
+  | 'Burger'
+  | 'Login'
+  | 'ArrowCircleLeft'
+  | 'ArrowCircleRight'
+  | 'CalendarDate'
+  | 'CreditCardShield'
+  | 'Scales'
+  | 'ShieldTick'
+  | 'Minus'
+  | 'Plus'
+  | 'Edit'
+  | 'Delete';
 
 export type IconsNamesMapType = {
   [key in IconsNames]: ElementType;

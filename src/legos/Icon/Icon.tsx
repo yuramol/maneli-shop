@@ -14,7 +14,6 @@ export const Icon: FC<IconProps> = ({ icon, height, width, color, size, ...props
       height={height || size}
       width={width || size}
       color={computedColor}
-      fill={computedColor}
       {...props}
     />
   );

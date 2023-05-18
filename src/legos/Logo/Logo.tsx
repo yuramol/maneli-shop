@@ -2,12 +2,12 @@ import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 import logo from '../../assets/Logo.svg';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Logo = () => {
   const [isXsScreen, setIsXsScreen] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateSize = () => {
       setIsXsScreen(window.innerWidth > 640);
     };

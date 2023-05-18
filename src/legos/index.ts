@@ -5,3 +5,8 @@ export * from './DiscountLabel';
 export * from './Rate';
 export * from './Button';
 export * from './Icon';
+export * from './Modal';
+export * from './TextField';
+export * from './QuantitySelector';
+export * from './OptionsSwitcher';
+export * from './Table';

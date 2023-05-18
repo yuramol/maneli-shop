@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-}
+  env: {
+    BASE_URL: 'https://strapi.maneli.softbee.io',
+    GRAPHQL_API: 'https://strapi.maneli.softbee.io/graphql/',
+    NEXTAUTH_URL: 'https://strapi.maneli.softbee.io/api/auth',
+    NEXTAUTH_SECRET: 'Wq+i1/gD+i1LjQG20a8XgHOZSBSsJXsJ52DSFymliD8=',
+  },
+  images: {
+    domains: ['strapi.maneli.softbee.io'],
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

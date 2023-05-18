@@ -1,5 +1,5 @@
 import { IconButton } from '@/legos/Button/IconButton';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Nav = ({
   isBurgerMenuOpen,
@@ -10,7 +10,7 @@ export const Nav = ({
 }) => {
   const [xsScreen, setXsScreen] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateSize = () => {
       setXsScreen(window.innerWidth > 640);
     };
@@ -33,8 +33,8 @@ export const Nav = ({
   };
 
   return xsScreen ? (
-    <nav className="flex align-middle">
-      <ul className="flex flex-row gap-12 font-bold text-xl">
+    <nav className="flex">
+      <ul className="flex items-center flex-row gap-12 font-bold text-xl">
         <li className="cursor-pointer" onClick={scrollToTop}>
           Головна
         </li>

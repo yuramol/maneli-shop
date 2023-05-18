@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ComponentContainer } from '@/layouts';
 import { Logo, BurgerButton } from '@/legos';
@@ -10,7 +10,7 @@ export const Header = () => {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
   const [xsScreen, setXsScreen] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const updateSize = () => {
       setXsScreen(window.innerWidth > 640);
     };
@@ -24,7 +24,7 @@ export const Header = () => {
   };
 
   return (
-    <header className=" z-[1000] sticky top-0 h-16 sm:h-24 flex items-center justify-between bg-[#E6E6E6] border-b-[1px] border-b-[#D5D2F2] border-b-solid">
+    <header className="sticky z-50 top-0 h-16 sm:h-24 flex items-center justify-between bg-[#E6E6E6] border-b-[1px] border-b-[#D5D2F2] border-b-solid">
       <ComponentContainer>
         <div className="flex justify-between">
           <div className="flex gap-4">

@@ -4,7 +4,24 @@
 
 body {
   color: #2e0f42;
-  background: #e6e6e6;
+}
+
+.before\:bg-radial-gradient-purple::before,
+.after\:bg-radial-gradient-purple::after {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #9d19f1 0%,
+    rgba(157, 25, 241, 0) 100%
+  );
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @layer components {
