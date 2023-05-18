@@ -2,9 +2,7 @@ import React, { FC } from 'react';
 import { Avatar, Box, Button, Stack } from '@mui/material';
 import { TranslatedField } from '../../../components/Layout/components/TranslatedField/TranslatedField';
 import { CustomModal } from '../../../components';
-import { useLocalization } from '../../../localization';
-import { HEIGHT_UPLOAD_IMAGE, WIDTH_UPLOAD_IMAGE } from '../utils/constans';
-import { AUTO_BRO_API } from '../../../helpers/constants';
+import { HEIGHT_UPLOAD_IMAGE, WIDTH_UPLOAD_IMAGE } from '../helper';
 
 const Scale = 0.32;
 interface Props {

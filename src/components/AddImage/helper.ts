@@ -1,7 +1,6 @@
 import { Enum_Banner_Size } from '../../../__generated__/types';
 
-export const WIDTH_UPLOAD_IMAGE = 1212;
-export const WIDTH_UPLOAD_IMAGE_MOBILE = 600;
+export const WIDTH_UPLOAD_IMAGE = 300;
 export const HEIGHT_UPLOAD_IMAGE = 300;
 
 export function validateImg(
