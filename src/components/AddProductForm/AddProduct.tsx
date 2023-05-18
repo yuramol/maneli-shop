@@ -2,9 +2,10 @@ import { FormikValues, useFormikContext } from 'formik';
 import Image from 'next/legacy/image';
 
 import { DiscountLabel, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
-import productImage from '../../assets/rectangle-25.png';
+import productImage from '../../assets/rectangle-21.png';
 import { AddProductFields } from './types';
 import { TextArea } from '@/legos/TextArea';
+import { AddImage } from '../AddImage/AddImage';
 
 export const AddProductForm = ({ toggleModal }) => {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -14,12 +15,16 @@ export const AddProductForm = ({ toggleModal }) => {
     <form className="flex flex-col  h-full justify-between gap-4" onSubmit={handleSubmit}>
       <h2 className="font-bold text-xl mb-6 mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
       <div className="flex gap-4">
-        <div className="relative flex w-full h-full max-w-[198px] max-h-[198px] overflow-hidden rounded-2xl border border-[#9142C4]">
-          {values[AddProductFields.Discount] && (
-            <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
-          )}
-          <Image src={productImage} objectFit="cover" alt="Product photo" />
-        </div>
+        {values[AddProductFields.Title] ? (
+          <div className="relative flex w-full h-full max-w-[198px] max-h-[198px] overflow-hidden rounded-2xl border border-[#9142C4]">
+            {values[AddProductFields.Discount] && (
+              <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
+            )}
+            {/* <Image src={productImage} objectFit="cover" alt="Product photo" /> */}
+          </div>
+        ) : (
+          <AddImage />
+        )}
         <TextField
           label="Назва продукту"
           name={AddProductFields.Title}
