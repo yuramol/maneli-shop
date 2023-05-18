@@ -24,7 +24,7 @@ export const TextField: FC<Props> = ({
   onChange,
 }) => {
   return (
-    <label className="relative flex flex-col gap-2 font-semibold">
+    <label className="relative flex flex-col gap-2 font-semibold w-full">
       {label}
       <input
         className={`font-normal px-4 py-3 rounded-[50px] transition-all duration-150 outline-none border ${
