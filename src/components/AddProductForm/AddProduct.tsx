@@ -14,30 +14,32 @@ export const AddProductForm = ({ toggleModal }) => {
   return (
     <form className="flex flex-col  h-full justify-between gap-4" onSubmit={handleSubmit}>
       <h2 className="font-bold text-xl mb-6 mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
-      <div className="flex gap-4">
-        {values[AddProductFields.Title] ? (
-          <div className="relative flex w-full h-full max-w-[198px] max-h-[198px] overflow-hidden rounded-2xl border border-[#9142C4]">
-            {values[AddProductFields.Discount] && (
-              <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
-            )}
-            {/* <Image src={productImage} objectFit="cover" alt="Product photo" /> */}
-          </div>
-        ) : (
-          <AddImage />
-        )}
-        <TextField
-          label="Назва продукту"
-          name={AddProductFields.Title}
-          value={values[AddProductFields.Title]}
-          placeholder="Продукт"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          isError={!!errors[AddProductFields.Title] && (touched[AddProductFields.Title] as boolean)}
-          errorText={errors[AddProductFields.Title] as string}
-        />
-      </div>
-      <div className="flex flex-col gap-6 w-full">
-        <div className="flex flex-col sm:flex-row gap-4 w-full justify-stretch">
+      <div className="flex flex-col sm:flex-row gap-4">
+        <div className="relative flex w-[198px] h-[254px] shrink-0">
+          {values[AddProductFields.ImageUrl] ? (
+            <div className="relative flex w-[198px] h-[254px] overflow-hidden rounded-2xl border border-[#9142C4]">
+              {/* <Image src={productImage} objectFit="cover" alt="Product photo" /> */}
+            </div>
+          ) : (
+            <AddImage />
+          )}
+          {values[AddProductFields.Discount] && (
+            <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
+          )}
+        </div>
+        <div className="flex flex-col gap-4 w-full justify-stretch">
+          <TextField
+            label="Назва продукту"
+            name={AddProductFields.Title}
+            value={values[AddProductFields.Title]}
+            placeholder="Продукт"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            isError={
+              !!errors[AddProductFields.Title] && (touched[AddProductFields.Title] as boolean)
+            }
+            errorText={errors[AddProductFields.Title] as string}
+          />
           <TextField
             label="Ціна"
             type="number"
@@ -65,7 +67,8 @@ export const AddProductForm = ({ toggleModal }) => {
             errorText={errors[AddProductFields.Discount] as string}
           />
         </div>
-
+      </div>
+      <div className="flex flex-col gap-6 w-full">
         <TextArea
           label="Опис"
           type="description"
