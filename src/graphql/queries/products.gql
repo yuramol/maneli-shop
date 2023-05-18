@@ -1,19 +1,14 @@
-query Products {
-  products {
+query Products($start: Int, $limit: Int) {
+  products(pagination: { start: $start, limit: $limit }) {
     data {
-      id
-      attributes {
-        title
-        imagePreview {
-          data {
-            attributes {
-              formats
-            }
-          }
-        }
-        price
-        rating
-        discount
+      ...productEntity
+    }
+    meta {
+      pagination {
+        total
+        page
+        pageSize
+        pageCount
       }
     }
   }

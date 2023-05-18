@@ -18,6 +18,7 @@ export type IconButtonProps = {
   type?: 'submit' | 'reset' | 'button';
   className?: string;
   color?: string;
+  disabled?: boolean;
   size?: string | number;
   height?: string | number;
   width?: string | number;
