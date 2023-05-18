@@ -2,16 +2,6 @@ import { useState } from 'react';
 import { BannerImage } from './components/BannerImage';
 import { ButtonAddBanner } from './components/ButtonAddBanner';
 
-interface ModalType {
-  isOpen: boolean;
-  fileImg: HTMLImageElement | null;
-}
-interface ModalTypeRemove {
-  isOpen: boolean;
-  imgUrl: string;
-  imgID: string;
-}
-
 export const AddImage = () => {
   const [loadingSrc, setLoadingSrc] = useState(undefined);
 
