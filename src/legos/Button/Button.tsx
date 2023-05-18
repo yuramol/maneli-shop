@@ -1,16 +1,17 @@
 import { ButtonProps } from './types';
 
-export const Button = ({
-  title,
-  onClick,
-  width = '120px',
-  height = '40px',
-  color,
-  disabled = false,
-  className,
-  type,
-  props,
-}: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+  const {
+    title,
+    onClick,
+    width = '120px',
+    height = '40px',
+    color,
+    disabled = false,
+    className,
+    type,
+    ...rest
+  } = props;
   return (
     <button
       className={`w-[${width}] h-[${height}] bg-[${color}] ${
@@ -23,7 +24,7 @@ export const Button = ({
         height: height || 'unset',
         width: width || 'unset',
       }}
-      {...props}
+      {...rest}
     >
       {title}
     </button>
