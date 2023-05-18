@@ -1,6 +1,7 @@
+import React from 'react';
 import { IconProps, IconsNames } from '../Icon/types';
 
-export type ButtonProps = {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   onClick?: () => void;
   width?: string;
@@ -9,10 +10,9 @@ export type ButtonProps = {
   disabled?: boolean;
   className?: string;
   type?: 'button' | 'reset' | 'submit';
-  props?: any;
-};
+}
 
-export type IconButtonProps = {
+export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
   icon: IconsNames;
   type?: 'submit' | 'reset' | 'button';
@@ -22,5 +22,4 @@ export type IconButtonProps = {
   size?: string | number;
   height?: string | number;
   width?: string | number;
-  props?: any;
-};
+}
