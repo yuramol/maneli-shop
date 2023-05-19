@@ -3,8 +3,8 @@ import { ChangeEventHandler, FC, FocusEventHandler } from 'react';
 type Props = {
   name: string;
   value: string;
-  type?: 'text' | 'email' | 'tel' | 'password' | 'number';
   label?: string;
+  rows?: string;
   placeholder?: string;
   isError?: boolean;
   errorText?: string;
@@ -12,10 +12,10 @@ type Props = {
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-export const TextField: FC<Props> = ({
+export const TextArea: FC<Props> = ({
   name,
   value,
-  type = 'text',
+  rows,
   label,
   placeholder,
   isError,
@@ -24,16 +24,16 @@ export const TextField: FC<Props> = ({
   onChange,
 }) => {
   return (
-    <label className="relative flex flex-col gap-2 font-semibold w-full">
+    <label className="relative flex flex-col gap-2 font-semibold">
       {label}
-      <input
-        className={`font-normal px-4 py-3 rounded-[50px] transition-all duration-150 outline-none border ${
+      <textarea
+        className={`font-normal px-5 py-4 rounded-[50px] transition-all duration-150 outline-none border ${
           isError
             ? 'border-red-400 focus:border-red-400'
             : 'border-slate-300 focus:border-slate-500'
         }`}
-        type={type}
         name={name}
+        rows={rows ?? '4'}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
