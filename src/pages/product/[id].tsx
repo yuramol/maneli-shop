@@ -12,6 +12,9 @@ import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
 import { ProductCharacteristicItem } from '@/components/ProductDescriptionItem';
+import { OrderUserFields, colorOptions, modelOptions } from '@/components/OrderForm';
+import { AddProductForm } from '@/components/AddProductForm';
+import { AddProductFields } from '@/components/AddProductForm/types';
 
 const CHARACTERISTICS = [
   {
@@ -32,18 +35,23 @@ const CHARACTERISTICS = [
   },
 ];
 
-import { OrderUserFields, colorOptions, modelOptions } from '@/components/OrderForm';
-
 export default function Product() {
   const { query } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+  // const initialValues = {
+  //   [OrderUserFields.Quantity]: 1,
+  //   [OrderUserFields.Name]: '',
+  //   [OrderUserFields.Phone]: '',
+  //   [OrderUserFields.Color]: colorOptions[0].value ?? '',
+  //   [OrderUserFields.Model]: modelOptions[0].value ?? '',
+  // };
+
   const initialValues = {
-    [OrderUserFields.Quantity]: 1,
-    [OrderUserFields.Name]: '',
-    [OrderUserFields.Phone]: '',
-    [OrderUserFields.Color]: colorOptions[0].value ?? '',
-    [OrderUserFields.Model]: modelOptions[0].value ?? '',
+    [AddProductFields.Title]: '',
+    [AddProductFields.Description]: '',
+    [AddProductFields.Discount]: 40,
+    [AddProductFields.Price]: 0,
   };
 
   const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
@@ -57,7 +65,7 @@ export default function Product() {
 
   const formik = useFormik({
     initialValues,
-    validationSchema,
+    // validationSchema,
     onSubmit: values => {
       console.log(values);
     },
@@ -218,7 +226,8 @@ export default function Product() {
 
         <FormikContext.Provider value={formik}>
           <Modal isOpen={isOpen} toggleModal={toggleModal}>
-            <OrderForm />
+            {/* <OrderForm /> */}
+            <AddProductForm toggleModal={toggleModal} />
           </Modal>
         </FormikContext.Provider>
       </ComponentContainer>
