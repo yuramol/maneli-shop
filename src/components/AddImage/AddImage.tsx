@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 import { BannerImage } from './components/BannerImage';
 import { ButtonAddBanner } from './components/ButtonAddBanner';
 

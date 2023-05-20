@@ -5,15 +5,15 @@ import { Button } from '@/legos';
 import productImage from '../../../assets/rectangle-25.png';
 
 interface Props {
-  imgUrl: string;
-  handleUploadImg: () => void;
+  imgUrl?: string;
+  handleUploadImg: (evt: BaseSyntheticEvent<object, any, any>) => Promise<void>;
 }
 
 export const BannerImage: FC<Props> = ({ imgUrl, handleUploadImg }) => {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
-    inputRef.current.click();
+    inputRef?.current?.click();
   };
 
   return (
@@ -29,8 +29,8 @@ export const BannerImage: FC<Props> = ({ imgUrl, handleUploadImg }) => {
         className="absolute flex flex-col top-0 left-0 w-full h-full justify-center content-center bg-black
           transition-opacity duration-500 linear opacity-0 hover:opacity-50"
       >
-        <div color="#fff" mt={3}>
-          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+        <div className="mt-3">
+          <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <button
               className="rounded-full border border-[#FFFFFF] text-white font-semibold py-4 px-6"
               onClick={handleClick}
@@ -42,7 +42,7 @@ export const BannerImage: FC<Props> = ({ imgUrl, handleUploadImg }) => {
             ref={inputRef}
             id="dropzone-file"
             type="file"
-            class="hidden"
+            className="hidden"
             onChange={handleUploadImg}
           />
         </div>

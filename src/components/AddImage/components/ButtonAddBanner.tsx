@@ -7,21 +7,23 @@ import loader from '../../../assets/Rolling.svg';
 
 interface Props {
   loadingSrc?: File;
-  handleUploadImg: () => void;
+  handleUploadImg: (evt: BaseSyntheticEvent<object, any, any>) => Promise<void>;
 }
 export const ButtonAddBanner: FC<Props> = ({ loadingSrc, handleUploadImg }) => {
-  const inputRef = useRef(null);
-  const imageRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   const handleClick = () => {
-    inputRef.current.click();
+    inputRef?.current?.click();
   };
 
   useEffect(() => {
     if (imageRef?.current && loadingSrc) {
       const reader = new FileReader();
       reader.addEventListener('load', function () {
-        imageRef.current.src = reader.result;
+        if (imageRef.current != undefined) {
+          imageRef.current.src = reader.result as string;
+        }
       });
       reader.readAsDataURL(loadingSrc);
       return () =>
@@ -32,7 +34,7 @@ export const ButtonAddBanner: FC<Props> = ({ loadingSrc, handleUploadImg }) => {
   }, [loadingSrc]);
 
   return (
-    <div class="flex items-center justify-center w-full">
+    <div className="flex items-center justify-center w-full">
       {loadingSrc ? (
         <div className="relative">
           <Image
@@ -58,10 +60,10 @@ export const ButtonAddBanner: FC<Props> = ({ loadingSrc, handleUploadImg }) => {
         </div>
       ) : (
         <label
-          for="dropzone-file"
-          class="flex flex-col items-center justify-center w-full h-full border-2 border-[#7613B5] border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          aria-label="dropzone-file"
+          className="flex flex-col items-center justify-center w-full h-full border-2 border-[#7613B5] border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
         >
-          <div class="flex flex-col items-center justify-center pt-5 pb-6">
+          <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <button
               className="rounded-full border border-[#7613B5] text-base font-semibold py-4 px-6"
               onClick={handleClick}
@@ -73,7 +75,7 @@ export const ButtonAddBanner: FC<Props> = ({ loadingSrc, handleUploadImg }) => {
             ref={inputRef}
             id="dropzone-file"
             type="file"
-            class="hidden"
+            className="hidden"
             onChange={handleUploadImg}
           />
         </label>
