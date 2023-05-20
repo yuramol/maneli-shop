@@ -7,7 +7,7 @@ import { AddProductFields } from './types';
 import { TextArea } from '@/legos/TextArea';
 import { AddImage } from '../AddImage/AddImage';
 
-export const AddProductForm = ({ toggleModal }) => {
+export const AddProductForm = ({ toggleModal }: { toggleModal: () => void }) => {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormikContext<FormikValues>();
 
@@ -71,8 +71,7 @@ export const AddProductForm = ({ toggleModal }) => {
       <div className="flex flex-col gap-6 w-full">
         <TextArea
           label="Опис"
-          type="description"
-          rows="5"
+          rows={5}
           name={AddProductFields.Description}
           value={values[AddProductFields.Description]}
           placeholder="Чому це дуже файний продукт"

@@ -4,12 +4,12 @@ type Props = {
   name: string;
   value: string;
   label?: string;
-  rows?: string;
+  rows?: number;
   placeholder?: string;
   isError?: boolean;
   errorText?: string;
-  onBlur?: FocusEventHandler<HTMLInputElement>;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onBlur?: FocusEventHandler<HTMLTextAreaElement>;
+  onChange: ChangeEventHandler<HTMLTextAreaElement>;
 };
 
 export const TextArea: FC<Props> = ({
@@ -33,7 +33,7 @@ export const TextArea: FC<Props> = ({
             : 'border-slate-300 focus:border-slate-500'
         }`}
         name={name}
-        rows={rows ?? '4'}
+        rows={rows ?? 4}
         value={value}
         placeholder={placeholder}
         onChange={onChange}
