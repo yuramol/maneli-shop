@@ -21,7 +21,7 @@ export const AddImage = () => {
     }
   };
 
-  return loadingSrc ? (
+  return !loadingSrc ? (
     <BannerImage
       // imgUrl={banner.imgUrl}
       handleUploadImg={handleUploadImg}

@@ -4,6 +4,7 @@ import React, { BaseSyntheticEvent, FC, useEffect, useRef, useState } from 'reac
 import { Button } from '@/legos';
 import Image from 'next/image';
 import loader from '../../../assets/Rolling.svg';
+import { ChangeImage } from './ChangeImage';
 
 interface Props {
   loadingSrc?: File;
@@ -36,15 +37,8 @@ export const ButtonAddBanner: FC<Props> = ({ loadingSrc, handleUploadImg }) => {
   return (
     <div className="flex items-center justify-center w-full">
       {loadingSrc ? (
-        <div className="relative">
-          <Image
-            className="absolute"
-            src={loader}
-            alt="Loader"
-            width={40}
-            height={40}
-            style={{ display: 'block', top: 'calc(50% - 20px)', left: 'calc(50% - 20px)' }}
-          />
+        <div className="relative flex w-full h-full">
+          <ChangeImage handleUploadImg={handleUploadImg} />
           <Image
             className="w-[198px] h-[198px]"
             ref={imageRef}
