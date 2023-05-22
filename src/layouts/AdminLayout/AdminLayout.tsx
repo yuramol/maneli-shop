@@ -8,7 +8,7 @@ interface LayoutProps {
 
 export const AdminLayout: FC<LayoutProps> = ({ children }) => (
   <div className="flex flex-col sm:flex-row max-w-[1232px] mx-auto">
-    <div className="sticky top-0 bg-white">
+    <div className="sticky z-10 top-0 bg-white">
       <SideBar />
     </div>
     <AdminComponentContainer>{children}</AdminComponentContainer>

@@ -118,7 +118,6 @@ export default function AdminPage() {
               onClick={handlePreviousPage}
               disabled={data?.products?.meta.pagination.page === 1}
               className={data?.products?.meta.pagination.page === 1 ? 'opacity-20' : ''}
-              style={{ zIndex: -1 }}
             />
             <IconButton
               icon="ArrowCircleRight"
@@ -131,7 +130,6 @@ export default function AdminPage() {
                   ? 'opacity-20'
                   : ''
               }
-              style={{ zIndex: -1 }}
             />
           </div>
         </div>
