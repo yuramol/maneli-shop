@@ -13,5 +13,10 @@ fragment productEntity on ProductEntity {
     rating
     discount
     description
+    productTableDescriptions {
+      id
+      text
+      value
+    }
   }
 }

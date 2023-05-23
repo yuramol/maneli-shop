@@ -50,9 +50,6 @@ export default function Product() {
               <Rate rate={4.8} />
             </div>
             <CountdownTimer />
-            <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full md:w-80">
-              Замовити зараз
-            </button>
           </div>
           <div className="hidden relative md:flex">
             <div className="absolute top-2 right-2 sm:top-6 sm:right-6 z-10">
@@ -104,10 +101,6 @@ export default function Product() {
           </div>
           <Image src={productImage} alt="Product photo" />
         </section>
-
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mt-8 md:w-80 md:hidden">
-          Замовити зараз
-        </button>
 
         <section className="mt-8 md:mt-12">
           <h2 className="font-bold text-2xl md:text-5xl">Варіанти користування</h2>
@@ -173,10 +166,6 @@ export default function Product() {
             </div>
           </div>
         </section>
-
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mx-auto my-8 md:my-20 md:w-80">
-          Замовити зараз
-        </button>
       </ComponentContainer>
     </AdminLayout>
   );
