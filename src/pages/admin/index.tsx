@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FormikContext, useFormik } from 'formik';
 import * as yup from 'yup';
 import { AdminLayout } from '@/layouts/AdminLayout';
@@ -15,34 +15,6 @@ import { useDeleteProductMutation } from '@/graphql/mutations/__generated__/dele
 import { Scalars } from '@/__generated__/types';
 import { useCreateProductMutation } from '@/graphql/mutations/__generated__/createProduct';
 import { useRouter } from 'next/router';
-
-const CountdownTimer = () => {
-  const [countdown, setCountdown] = useState('');
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
-      const timeRemaining = +midnight - +now;
-
-      const hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((timeRemaining / (1000 * 60)) % 60);
-      const seconds = Math.floor((timeRemaining / 1000) % 60);
-
-      setCountdown(
-        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds
-          .toString()
-          .padStart(2, '0')}`,
-      );
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  return <div>{countdown}</div>;
-};
 
 const columns = ['ID', 'Фото', 'Назва', 'Ціна, грн.', 'Знижка, %', ''];
 
@@ -126,7 +98,6 @@ export default function AdminPage() {
         <div className="flex flex-col gap-8">
           <div className="flex justify-between items-center gap-5">
             <h1 className="font-bold text-3xl">Продукти</h1>
-            <CountdownTimer />
             <button
               onClick={toggleModal}
               className="flex items-center gap-3 rounded-full border border-[#7613B5] font-semibold mt-2 p-4"
