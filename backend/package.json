@@ -21,10 +21,10 @@
     "prettier": "^2.8.1"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "4.10.2",
-    "@strapi/plugin-i18n": "4.10.2",
-    "@strapi/plugin-users-permissions": "4.10.2",
-    "@strapi/strapi": "4.10.2",
+    "@strapi/plugin-graphql": "4.10.4",
+    "@strapi/plugin-i18n": "4.10.4",
+    "@strapi/plugin-users-permissions": "4.10.4",
+    "@strapi/strapi": "4.10.4",
     "pg": "^8.10.0"
   },
   "engines": {
