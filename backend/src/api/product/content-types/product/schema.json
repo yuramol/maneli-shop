@@ -66,6 +66,9 @@
       "type": "component",
       "repeatable": true,
       "component": "product.product-modifications"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }
