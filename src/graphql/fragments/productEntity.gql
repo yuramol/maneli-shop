@@ -12,5 +12,6 @@ fragment productEntity on ProductEntity {
     price
     rating
     discount
+    description
   }
 }
