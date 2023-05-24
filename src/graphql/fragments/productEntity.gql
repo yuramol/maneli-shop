@@ -5,6 +5,10 @@ fragment productEntity on ProductEntity {
     imagePreview {
       data {
         attributes {
+          url
+          width
+          height
+          alternativeText
           formats
         }
       }

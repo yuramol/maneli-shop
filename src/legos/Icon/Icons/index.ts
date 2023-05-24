@@ -11,3 +11,4 @@ export * from './Plus';
 export * from './Minus';
 export * from './Edit';
 export * from './Delete';
+export * from './Check';

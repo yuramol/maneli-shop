@@ -1,0 +1,7 @@
+mutation UpdateProduct($id: ID!, $data: ProductInput!) {
+  updateProduct(id: $id, data: $data) {
+    data {
+      ...productEntity
+    }
+  }
+}
