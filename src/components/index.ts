@@ -4,3 +4,5 @@ export * from './CatalogPageContainer';
 export * from './SideBar';
 export { ProductOptionCard } from './ProductOptionCard';
 export { OrderForm } from './OrderForm';
+export * from './ProductDescriptionItem';
+export * from './AddEditProductTableDescriptionForm';

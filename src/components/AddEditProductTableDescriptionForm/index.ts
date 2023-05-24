@@ -1,0 +1,1 @@
+export { AddEditProductTableDescriptionForm } from './AddEditProductTableDescriptionForm';
