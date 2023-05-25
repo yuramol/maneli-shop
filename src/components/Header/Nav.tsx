@@ -47,7 +47,7 @@ export const Nav = ({
     <>
       <div
         className={
-          'flex fixed top-0 left-0 z-20 w-[90%] h-full transition-all duration-500 transform -translate-x-full ' +
+          'flex fixed top-0 left-0 w-[90%] h-full transition-all duration-500 transform -translate-x-full ' +
           (isBurgerMenuOpen ? 'translate-x-0' : '-translate-x-full')
         }
       >

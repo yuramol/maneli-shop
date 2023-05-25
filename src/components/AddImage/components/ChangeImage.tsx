@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { BaseSyntheticEvent, FC, useRef } from 'react';
 
 interface Props {
   handleUploadImg: (evt: BaseSyntheticEvent<object, any, any>) => Promise<void>;
@@ -10,6 +10,7 @@ export const ChangeImage: FC<Props> = ({ handleUploadImg }) => {
   const handleClick = () => {
     inputRef?.current?.click();
   };
+  
   return (
     <div
       className="absolute flex flex-col top-0 left-0 w-full h-full justify-center content-center bg-black
