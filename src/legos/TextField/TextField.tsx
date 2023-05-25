@@ -6,6 +6,9 @@ type Props = {
   type?: 'text' | 'email' | 'tel' | 'password' | 'number';
   label?: string;
   placeholder?: string;
+  step?: number | string;
+  min?: number | string;
+  max?: number | string;
   isError?: boolean;
   errorText?: string;
   onBlur?: FocusEventHandler<HTMLInputElement>;
@@ -18,6 +21,9 @@ export const TextField: FC<Props> = ({
   type = 'text',
   label,
   placeholder,
+  step,
+  min,
+  max,
   isError,
   errorText,
   onBlur,
@@ -35,6 +41,9 @@ export const TextField: FC<Props> = ({
         type={type}
         name={name}
         value={value}
+        step={step}
+        min={min}
+        max={max}
         placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur}

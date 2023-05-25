@@ -3,5 +3,6 @@ export enum AddProductFields {
   Description = 'description',
   Price = 'price',
   Discount = 'discount',
-  ImageUrl = 'imageUrl',
+  Rating = 'rating',
+  ImagePreview = 'imagePreview'
 }

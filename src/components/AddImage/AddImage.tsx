@@ -1,11 +1,15 @@
-import { BaseSyntheticEvent, useState } from 'react';
+import { BaseSyntheticEvent, FC, useState } from 'react';
 import { BannerImage } from './components/BannerImage';
 import { ButtonAddBanner } from './components/ButtonAddBanner';
+import { Scalars } from '@/__generated__/types';
+import { Maybe } from '@/__generated__/types';
 
-export const AddImage = () => {
+type Props = {
+  currentImageID?: Maybe<Scalars['ID']>;
+};
+
+export const AddImage: FC<Props> = ({ currentImageID }) => {
   const [loadingSrc, setLoadingSrc] = useState(undefined);
-
-  // const { banners } = useGetBanners({ size: variantBanner });
 
   const handleUploadImg = async (evt: BaseSyntheticEvent) => {
     const file = evt.target.files[0];
@@ -21,9 +25,9 @@ export const AddImage = () => {
     }
   };
 
-  return loadingSrc ? (
+  return !loadingSrc ? (
     <BannerImage
-      // imgUrl={banner.imgUrl}
+      imgUrl={currentImageID}
       handleUploadImg={handleUploadImg}
     />
   ) : (

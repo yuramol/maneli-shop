@@ -37,7 +37,7 @@ export const SideBar = () => {
           (isBurgerMenuOpen ? 'translate-x-0' : '-translate-x-full')
         }
       >
-        <div className="flex w-full justify-between  bg-white">
+        <div className="flex w-full justify-between bg-white">
           <NavBarAdmin />
           <IconButton className="mt-7 mr-7 w-6 h-6" icon="Close" onClick={handleMenuClick} />
         </div>

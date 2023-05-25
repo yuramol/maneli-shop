@@ -4,7 +4,7 @@ import { FormikContext, useFormik } from 'formik';
 import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
-import { OrderForm, ProductOptionCard } from '@/components';
+import { CountdownTimer, OrderForm, ProductOptionCard } from '@/components';
 import { ComponentContainer, MainLayout } from '@/layouts';
 import { DiscountLabel, Icon, IconButton, Modal, Rate } from '@/legos';
 
@@ -13,8 +13,6 @@ import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
 import { ProductCharacteristicItem } from '@/components/ProductDescriptionItem';
 import { OrderUserFields, colorOptions, modelOptions } from '@/components/OrderForm';
-import { AddProductForm } from '@/components/AddProductForm';
-import { AddProductFields } from '@/components/AddProductForm/types';
 
 const CHARACTERISTICS = [
   {
@@ -39,19 +37,12 @@ export default function Product() {
   const { query } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
-  // const initialValues = {
-  //   [OrderUserFields.Quantity]: 1,
-  //   [OrderUserFields.Name]: '',
-  //   [OrderUserFields.Phone]: '',
-  //   [OrderUserFields.Color]: colorOptions[0].value ?? '',
-  //   [OrderUserFields.Model]: modelOptions[0].value ?? '',
-  // };
-
   const initialValues = {
-    [AddProductFields.Title]: '',
-    [AddProductFields.Description]: '',
-    [AddProductFields.Discount]: 40,
-    [AddProductFields.Price]: 0,
+    [OrderUserFields.Quantity]: 1,
+    [OrderUserFields.Name]: '',
+    [OrderUserFields.Phone]: '',
+    [OrderUserFields.Color]: colorOptions[0].value ?? '',
+    [OrderUserFields.Model]: modelOptions[0].value ?? '',
   };
 
   const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
@@ -65,7 +56,7 @@ export default function Product() {
 
   const formik = useFormik({
     initialValues,
-    // validationSchema,
+    validationSchema,
     onSubmit: values => {
       console.log(values);
     },
@@ -101,23 +92,7 @@ export default function Product() {
               </div>
               <Rate rate={4.8} />
             </div>
-            <div className="font-bold text-sm md:text-2xl">
-              <p className="mb-4">До кінця акції:</p>
-              <ul className="grid grid-cols-3 rounded-md p-4 bg-[#F4F3FD]">
-                <li className="flex flex-col items-center relative after:content-[':'] after:absolute after:-right-1">
-                  <span>22</span>
-                  <span>годин</span>
-                </li>
-                <li className="flex flex-col items-center relative after:content-[':'] after:absolute after:-right-1">
-                  <span>16</span>
-                  <span>хвилин</span>
-                </li>
-                <li className="flex flex-col items-center">
-                  <span>22</span>
-                  <span>секунд</span>
-                </li>
-              </ul>
-            </div>
+            <CountdownTimer />
             <button
               onClick={toggleModal}
               className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full md:w-80"
@@ -226,8 +201,7 @@ export default function Product() {
 
         <FormikContext.Provider value={formik}>
           <Modal isOpen={isOpen} toggleModal={toggleModal}>
-            {/* <OrderForm /> */}
-            <AddProductForm toggleModal={toggleModal} />
+            <OrderForm />
           </Modal>
         </FormikContext.Provider>
       </ComponentContainer>
