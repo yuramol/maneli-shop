@@ -2,7 +2,7 @@ import { ChangeEventHandler, FC, FocusEventHandler } from 'react';
 
 type Props = {
   name: string;
-  value: string;
+  value: string | number;
   type?: 'text' | 'email' | 'tel' | 'password' | 'number';
   label?: string;
   placeholder?: string;
