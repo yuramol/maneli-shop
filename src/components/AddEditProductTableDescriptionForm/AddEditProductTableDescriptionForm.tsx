@@ -42,6 +42,7 @@ export const AddEditProductTableDescriptionForm: FC<Props> = ({
   const { values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm } = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: values => {
       const data = {
         productTableDescriptions: [
