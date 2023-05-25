@@ -80,7 +80,7 @@ export default function Product() {
           <div className="flex flex-col gap-4 md:gap-8">
             <h1 className="font-bold text-2xl md:text-5xl">{product?.attributes?.title}</h1>
             <p className="text-sm md:text-lg">{product?.attributes?.description}</p>
-            {product?.attributes?.imagePreview && (
+            {product?.attributes?.imagePreview?.data?.attributes?.formats?.large?.url && (
               <div className="relative flex md:hidden overflow-hidden rounded-2xl">
                 <DiscountLabel discount={product?.attributes?.discount ?? 0} />
                 <Image
@@ -91,10 +91,10 @@ export default function Product() {
                   }
                   src={
                     process.env.BASE_URL +
-                    product.attributes.imagePreview.data?.attributes?.formats.large.url
+                    product.attributes.imagePreview.data?.attributes?.formats?.large?.url
                   }
-                  width={product.attributes.imagePreview.data?.attributes?.formats.large.width}
-                  height={product.attributes.imagePreview.data?.attributes?.formats.large.height}
+                  width={product.attributes.imagePreview.data?.attributes?.formats?.large?.width}
+                  height={product.attributes.imagePreview.data?.attributes?.formats?.large?.height}
                   priority
                 />
               </div>
@@ -115,21 +115,21 @@ export default function Product() {
             </div>
             <CountdownTimer />
           </div>
-          {product?.attributes?.imagePreview && (
+          {product?.attributes?.imagePreview?.data?.attributes?.formats?.large?.url && (
             <div className="relative hidden md:flex overflow-hidden rounded-2xl">
               <DiscountLabel discount={product?.attributes?.discount ?? 0} />
               <Image
                 alt={
-                  product.attributes.imagePreview.data?.attributes?.alternativeText ??
+                  product.attributes.imagePreview.data.attributes.alternativeText ??
                   product.attributes.title ??
                   'Фото продукту'
                 }
                 src={
                   process.env.BASE_URL +
-                  product.attributes.imagePreview.data?.attributes?.formats.large.url
+                  product.attributes.imagePreview.data.attributes.formats.large.url
                 }
-                width={product.attributes.imagePreview.data?.attributes?.formats.large.width}
-                height={product.attributes.imagePreview.data?.attributes?.formats.large.height}
+                width={product.attributes.imagePreview.data.attributes.formats.large.width}
+                height={product.attributes.imagePreview.data.attributes.formats.large.height}
                 priority
               />
             </div>
