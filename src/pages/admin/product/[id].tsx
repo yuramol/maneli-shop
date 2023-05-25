@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import Image from 'next/legacy/image';
 
-import { ProductOptionCard } from '@/components';
+import { CountdownTimer, ProductOptionCard } from '@/components';
 import { ComponentContainer, MainLayout } from '@/layouts';
 import {
   ArrowCircleLeft,
@@ -49,23 +49,7 @@ export default function Product() {
               </div>
               <Rate rate={4.8} />
             </div>
-            <div className="font-bold text-sm md:text-2xl">
-              <p className="mb-4">До кінця акції:</p>
-              <ul className="grid grid-cols-3 rounded-md p-4 bg-[#F4F3FD]">
-                <li className="flex flex-col items-center relative after:content-[':'] after:absolute after:-right-1">
-                  <span>22</span>
-                  <span>годин</span>
-                </li>
-                <li className="flex flex-col items-center relative after:content-[':'] after:absolute after:-right-1">
-                  <span>16</span>
-                  <span>хвилин</span>
-                </li>
-                <li className="flex flex-col items-center">
-                  <span>22</span>
-                  <span>секунд</span>
-                </li>
-              </ul>
-            </div>
+            <CountdownTimer />
             <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full md:w-80">
               Замовити зараз
             </button>
