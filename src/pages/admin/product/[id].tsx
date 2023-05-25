@@ -3,8 +3,8 @@ import Image from 'next/legacy/image';
 import { FormikContext, useFormik } from 'formik';
 import * as yup from 'yup';
 
-import { CountdownTimer, ProductOptionCard } from '@/components';
 import {
+  CountdownTimer,
   AddEditProductTableDescriptionForm,
   ProductCharacteristicItem,
   ProductOptionCard,

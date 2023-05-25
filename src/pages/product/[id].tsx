@@ -12,25 +12,6 @@ import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
 import { OrderUserFields, colorOptions, modelOptions } from '@/components/OrderForm';
-
-const CHARACTERISTICS = [
-  {
-    title: 'Матеріал',
-    text: 'Пластик',
-  },
-  {
-    title: 'Матеріал',
-    text: 'Пластик',
-  },
-  {
-    title: 'Матеріал',
-    text: 'Пластик',
-  },
-  {
-    title: 'Матеріал',
-    text: 'Пластик',
-  },
-];
 import { AddProductForm } from '@/components/AddProductForm';
 import { AddProductFields } from '@/components/AddProductForm/types';
 import { useProductQuery } from '@/graphql/queries/__generated__/product';
