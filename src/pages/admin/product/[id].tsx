@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { AdminLayout } from '@/layouts/AdminLayout';
+import { getToken } from 'next-auth/jwt';
+import { GetServerSideProps } from 'next/types';
 import Image from 'next/legacy/image';
-import { FormikContext, useFormik } from 'formik';
-import * as yup from 'yup';
 
 import {
   CountdownTimer,
@@ -9,7 +11,7 @@ import {
   ProductCharacteristicItem,
   ProductOptionCard,
 } from '@/components';
-import { ComponentContainer, MainLayout } from '@/layouts';
+import { ComponentContainer } from '@/layouts';
 import {
   ArrowCircleLeft,
   ArrowCircleRight,
@@ -17,30 +19,19 @@ import {
   CreditCardShield,
   DiscountLabel,
   IconButton,
-  Modal,
   Plus,
   Rate,
   Scales,
   ShieldTick,
-  TextField,
 } from '@/legos';
+
+import { ProductDocument, useProductQuery } from '@/graphql/queries/__generated__/product';
+import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
+import { TableDescriptionFields } from '@/components/AddEditProductTableDescriptionForm/types';
 
 import productImage21 from '../../../assets/rectangle-21.png';
 import productImage from '../../../assets/rectangle-25.png';
 import review from '../../../assets/review.png';
-import { AdminLayout } from '@/layouts/AdminLayout';
-import { getToken } from 'next-auth/jwt';
-import { GetServerSideProps } from 'next/types';
-import { ProductDocument, useProductQuery } from '@/graphql/queries/__generated__/product';
-import { Fragment, useState } from 'react';
-import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
-import { ProductInput } from '@/__generated__/types';
-
-enum TableDescriptionFields {
-  ID = 'id',
-  Text = 'text',
-  Value = 'value',
-}
 
 export default function Product() {
   const { query } = useRouter();
@@ -153,10 +144,7 @@ export default function Product() {
                 {product?.attributes?.productTableDescriptions?.map(
                   item =>
                     item?.text && (
-                      <div
-                        key={item.id}
-                        className="flex justify-between items-center mb-2 sm:mb-4"
-                      >
+                      <div key={item.id} className="flex justify-between items-center mb-2 sm:mb-4">
                         <ProductCharacteristicItem title={item.text} value={item.value} />
                         <div className="flex gap-2">
                           <IconButton

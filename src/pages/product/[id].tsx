@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { FormikContext, useFormik } from 'formik';
-import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
-import { CountdownTimer, OrderForm, ProductCharacteristicItem, ProductOptionCard } from '@/components';
+import {
+  CountdownTimer,
+  OrderForm,
+  ProductCharacteristicItem,
+  ProductOptionCard,
+} from '@/components';
 import { ComponentContainer, MainLayout } from '@/layouts';
-import { DiscountLabel, Icon, IconButton, Modal, Rate } from '@/legos';
+import { DiscountLabel, Icon, IconButton, Rate } from '@/legos';
+
+import { useProductQuery } from '@/graphql/queries/__generated__/product';
 
 import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
-import { OrderUserFields, colorOptions, modelOptions } from '@/components/OrderForm';
-import { AddProductForm } from '@/components/AddProductForm';
-import { AddProductFields } from '@/components/AddProductForm/types';
-import { useProductQuery } from '@/graphql/queries/__generated__/product';
 
 export default function Product() {
   const { query } = useRouter();
@@ -28,42 +29,8 @@ export default function Product() {
 
   const product = data?.product?.data;
 
-  // const initialValues = {
-  //   [OrderUserFields.Quantity]: 1,
-  //   [OrderUserFields.Name]: '',
-  //   [OrderUserFields.Phone]: '',
-  //   [OrderUserFields.Color]: colorOptions[0].value ?? '',
-  //   [OrderUserFields.Model]: modelOptions[0].value ?? '',
-  // };
-
-  const initialValues = {
-    [OrderUserFields.Quantity]: 1,
-    [OrderUserFields.Name]: '',
-    [OrderUserFields.Phone]: '',
-    [OrderUserFields.Color]: colorOptions[0].value ?? '',
-    [OrderUserFields.Model]: modelOptions[0].value ?? '',
-  };
-
-  const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
-  const validationSchema = yup.object({
-    [OrderUserFields.Name]: yup.string().required('Будь ласка, заповніть дане поле'),
-    [OrderUserFields.Phone]: yup
-      .string()
-      .required('Будь ласка, заповніть дане поле')
-      .matches(phoneRegExp, 'Будь ласка, вкажіть коректно телефон'),
-  });
-
-  const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit: values => {
-      console.log(values);
-    },
-  });
-
-  const toggleModal = () => {
-    formik.resetForm();
-    setIsOpen(open => !open);
+  const toggleOrderForm = () => {
+    setIsOpen(isOpen => !isOpen);
   };
 
   return (
@@ -106,7 +73,7 @@ export default function Product() {
             </div>
             <CountdownTimer />
             <button
-              onClick={toggleModal}
+              onClick={toggleOrderForm}
               className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full md:w-80"
             >
               Замовити зараз
@@ -152,7 +119,7 @@ export default function Product() {
         </section>
 
         <button
-          onClick={toggleModal}
+          onClick={toggleOrderForm}
           className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mt-8 md:w-80 md:hidden"
         >
           Замовити зараз
@@ -220,17 +187,13 @@ export default function Product() {
         </section>
 
         <button
-          onClick={toggleModal}
+          onClick={toggleOrderForm}
           className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold p-4 w-full mx-auto my-8 md:my-20 md:w-80"
         >
           Замовити зараз
         </button>
 
-        <FormikContext.Provider value={formik}>
-          <Modal isOpen={isOpen} toggleModal={toggleModal}>
-            <OrderForm />
-          </Modal>
-        </FormikContext.Provider>
+        <OrderForm isOpen={isOpen} toggleForm={toggleOrderForm} />
       </ComponentContainer>
     </MainLayout>
   );
