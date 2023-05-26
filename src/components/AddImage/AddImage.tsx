@@ -26,10 +26,7 @@ export const AddImage: FC<Props> = ({ currentImageID }) => {
   };
 
   return !loadingSrc ? (
-    <BannerImage
-      imgUrl={currentImageID}
-      handleUploadImg={handleUploadImg}
-    />
+    <BannerImage imgUrl={currentImageID as string} handleUploadImg={handleUploadImg} />
   ) : (
     <ButtonAddBanner loadingSrc={loadingSrc} handleUploadImg={handleUploadImg} />
   );
