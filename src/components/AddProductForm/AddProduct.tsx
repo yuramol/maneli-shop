@@ -8,13 +8,16 @@ import { AddProductFields, Props } from './types';
 import { TextArea } from '@/legos/TextArea';
 import { AddEditImage } from '../AddEditImage';
 
-import { useCreateProductMutation } from '@/graphql/mutations/__generated__/createProduct';
 import { ProductsDocument } from '@/graphql/queries/__generated__/products';
+import { useCreateProductMutation } from '@/graphql/mutations/__generated__/createProduct';
+import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 
 export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
   const { query, push } = useRouter();
+  const [imagePreviewId, setImagePreviewId] = useState<string | null>('');
+
   const [createProductMutation] = useCreateProductMutation();
-  const [imagePreviewId, setImagePreviewId] = useState(null);
+  const [updateProductMutation] = useUpdateProductMutation();
 
   const initialValues = {
     [AddProductFields.Title]: '',
@@ -64,7 +67,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
         <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
         <div className="flex gap-4 items-center">
           <div className="relative flex shrink-0 w-[198px] h-[254px]">
-            <AddEditImage handleSetImagePreviewId={id => setImagePreviewId(id)} />
+            <AddEditImage handleSetImagePreviewId={(id = '') => setImagePreviewId(id)} />
             {!!values[AddProductFields.Discount] && (
               <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
             )}

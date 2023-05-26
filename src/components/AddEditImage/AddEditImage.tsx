@@ -12,7 +12,7 @@ import { useUploadMutation } from '@/graphql/mutations/__generated__/upload';
 
 type Props = {
   currentImageID?: string;
-  handleSetImagePreviewId?: (id?: string | null | undefined) => void;
+  handleSetImagePreviewId?: (id?: string | null) => void;
 };
 
 export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetImagePreviewId }) => {
@@ -64,7 +64,9 @@ export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetImagePre
                 },
               });
             } else {
-              handleSetImagePreviewId(data?.upload.data?.id);
+              if (handleSetImagePreviewId) {
+                handleSetImagePreviewId(data?.upload.data?.id || '');
+              }
             }
           });
         }
