@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { DiscountLabel, Modal, TextField } from '@/legos';
 import { AddProductFields, Props } from './types';
 import { TextArea } from '@/legos/TextArea';
-import { AddImage } from '../AddImage/AddImage';
+import { AddEditImage } from '../AddEditImage';
 
 import { useCreateProductMutation } from '@/graphql/mutations/__generated__/createProduct';
 import { ProductsDocument } from '@/graphql/queries/__generated__/products';
@@ -52,8 +52,8 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
         <div className="flex gap-4 items-center">
-          <div className="relative flex w-[198px] h-[254px] shrink-0">
-            <AddImage currentImageID={values[AddProductFields.ImagePreview]} />
+          <div className="relative flex shrink-0 w-[198px] h-[254px]">
+            <AddEditImage />
             {!!values[AddProductFields.Discount] && (
               <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
             )}
