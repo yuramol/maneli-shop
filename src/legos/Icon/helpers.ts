@@ -12,6 +12,7 @@ import {
   Plus,
   Edit,
   Delete,
+Check
 } from './Icons';
 import { IconsNamesMapType } from './types';
 
@@ -29,4 +30,5 @@ export const IconsMap: IconsNamesMapType = {
   Plus,
   Edit,
   Delete,
+  Check
 };

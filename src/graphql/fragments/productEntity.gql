@@ -4,14 +4,17 @@ fragment productEntity on ProductEntity {
     title
     imagePreview {
       data {
-        attributes {
-          formats
-        }
+        ...uploadFileEntity
       }
     }
     price
     rating
     discount
     description
+    productTableDescriptions {
+      id
+      text
+      value
+    }
   }
 }

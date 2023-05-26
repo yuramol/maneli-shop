@@ -1,9 +1,11 @@
-import { FormikValues, useFormikContext } from 'formik';
+import { FC } from 'react';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
-import { DiscountLabel, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
+import { DiscountLabel, Modal, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
 import productImage from '../../assets/rectangle-25.png';
-import { OrderUserFields } from './types';
+import { OrderUserFields, Props } from './types';
 
 export const colorOptions = [{ value: '#FFFFFF' }, { value: '#A9A9A9' }, { value: '#464646' }];
 export const modelOptions = [
@@ -12,12 +14,48 @@ export const modelOptions = [
   { label: '12W', value: '12' },
 ];
 
-export const OrderForm = () => {
-  const { values, errors, touched, setFieldValue, handleBlur, handleChange, handleSubmit } =
-    useFormikContext<FormikValues>();
+export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
+  const initialValues = {
+    [OrderUserFields.Quantity]: 1,
+    [OrderUserFields.Name]: '',
+    [OrderUserFields.Phone]: '',
+    [OrderUserFields.Color]: colorOptions[0].value ?? '',
+    [OrderUserFields.Model]: modelOptions[0].value ?? '',
+  };
+
+  const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
+  const validationSchema = yup.object({
+    [OrderUserFields.Name]: yup.string().required('Будь ласка, заповніть дане поле'),
+    [OrderUserFields.Phone]: yup
+      .string()
+      .required('Будь ласка, заповніть дане поле')
+      .matches(phoneRegExp, 'Будь ласка, вкажіть коректно телефон'),
+  });
+
+  const {
+    values,
+    errors,
+    touched,
+    setFieldValue,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: values => {
+      console.log(values);
+    },
+  });
+
+  const handleToggleForm = () => {
+    resetForm();
+    toggleForm();
+  };
 
   return (
-    <>
+    <Modal isOpen={isOpen} toggleModal={handleToggleForm}>
       <h2 className="font-bold text-xl mb-6 mt-3 sm:mt-0 md:text-3xl ">Ваше замовлення:</h2>
       <form className="flex flex-col gap-6 sm:gap-10" onSubmit={handleSubmit}>
         <div className="flex gap-4">
@@ -88,6 +126,6 @@ export const OrderForm = () => {
           </button>
         </div>
       </form>
-    </>
+    </Modal>
   );
 };

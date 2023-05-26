@@ -1,113 +1,180 @@
+import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { AdminLayout } from '@/layouts/AdminLayout';
+import { getToken } from 'next-auth/jwt';
+import { GetServerSideProps } from 'next/types';
 import Image from 'next/legacy/image';
 
-import { CountdownTimer, ProductOptionCard } from '@/components';
-import { ComponentContainer, MainLayout } from '@/layouts';
+import {
+  CountdownTimer,
+  AddEditProductTableDescriptionForm,
+  ProductCharacteristicItem,
+  ProductOptionCard,
+} from '@/components';
+import { ComponentContainer } from '@/layouts';
 import {
   ArrowCircleLeft,
   ArrowCircleRight,
   CalendarDate,
   CreditCardShield,
   DiscountLabel,
+  IconButton,
+  Plus,
   Rate,
   Scales,
   ShieldTick,
 } from '@/legos';
 
+import { ProductDocument, useProductQuery } from '@/graphql/queries/__generated__/product';
+import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
+import { TableDescriptionFields } from '@/components/AddEditProductTableDescriptionForm/types';
+
 import productImage21 from '../../../assets/rectangle-21.png';
 import productImage from '../../../assets/rectangle-25.png';
 import review from '../../../assets/review.png';
-import { AdminLayout } from '@/layouts/AdminLayout';
-import { getToken } from 'next-auth/jwt';
-import { GetServerSideProps } from 'next/types';
 
 export default function Product() {
   const { query } = useRouter();
+  const { data, loading, error } = useProductQuery({
+    variables: {
+      id: query.id as string,
+    },
+  });
+  const [updateProductMutation] = useUpdateProductMutation();
+
+  const product = data?.product?.data;
+
+  const [isOpenTableDescriptionForm, setIsOpenTableDescriptionForm] = useState(false);
+  const [editTableDescriptionID, setEditTableDescriptionID] = useState<string | undefined>(
+    undefined,
+  );
+
+  const toggleTableDescriptionForm = (id?: string) => {
+    setEditTableDescriptionID(id);
+    setIsOpenTableDescriptionForm(isOpen => !isOpen);
+  };
+
+  const handleDeleteProductTableDescription = (id: string) => {
+    const data = {
+      productTableDescriptions: [
+        ...(product?.attributes?.productTableDescriptions
+          ?.filter(item => item?.id !== id)
+          .map(item => ({
+            [TableDescriptionFields.ID]: item?.[TableDescriptionFields.ID],
+            [TableDescriptionFields.Text]: item?.[TableDescriptionFields.Text],
+            [TableDescriptionFields.Value]: item?.[TableDescriptionFields.Value],
+          })) ?? []),
+      ],
+    };
+
+    updateProductMutation({
+      variables: { id: query.id as string, data },
+      refetchQueries: [ProductDocument],
+    });
+  };
 
   return (
     <AdminLayout>
       <ComponentContainer>
         <section className="relative grid md:grid-cols-2 gap-11 items-center mt-4 md:mt-20 before:w-[400px] before:h-[400px] before:absolute before:-top-20 before:-left-44 before:bg-radial-gradient-purple before:opacity-10 before:-z-10 after:w-[400px] after:h-[400px] after:absolute after:-bottom-20 after:-right-44 after:bg-radial-gradient-purple after:opacity-10 after:-z-10">
           <div className="flex flex-col gap-4 md:gap-8">
-            <h1 className="font-bold text-2xl md:text-5xl">Портативна світлодіодна USB лампа</h1>
-            <p className="text-sm md:text-lg">
-              Зручна портативна світлодіодна лампа USB. Підійде для походів, кемпінгу, наметів,
-              подорожей, роботи з блокнотом. Живлення здійснюється від power bank.
-            </p>
-            <div className="flex relative md:hidden">
-              <div className="absolute right-2 sm:right-6 top-2 sm:top-6 z-10">
-                <DiscountLabel discount={40} />
+            <h1 className="font-bold text-2xl md:text-5xl">{product?.attributes?.title}</h1>
+            <p className="text-sm md:text-lg">{product?.attributes?.description}</p>
+            {product?.attributes?.imagePreview?.data?.attributes?.formats?.large?.url && (
+              <div className="relative flex md:hidden overflow-hidden rounded-2xl">
+                <DiscountLabel discount={product?.attributes?.discount ?? 0} />
+                <Image
+                  alt={
+                    product.attributes.imagePreview.data?.attributes?.alternativeText ??
+                    product.attributes.title ??
+                    'Фото продукту'
+                  }
+                  src={
+                    process.env.BASE_URL +
+                    product.attributes.imagePreview.data?.attributes?.formats?.large?.url
+                  }
+                  width={product.attributes.imagePreview.data?.attributes?.formats?.large?.width}
+                  height={product.attributes.imagePreview.data?.attributes?.formats?.large?.height}
+                  priority
+                />
               </div>
-              <Image src={productImage} alt="Product photo" />
-            </div>
+            )}
             <div className="flex justify-between items-center">
               <div className="flex items-end gap-2">
                 <p className="text-[#F6543E] font-bold text-4xl">
-                  🔥 {`${270 * (1 - 40 / 100)} грн`}
+                  🔥{' '}
+                  {(product?.attributes?.price ?? 0) *
+                    (1 - (product?.attributes?.discount ?? 0) / 100)}{' '}
+                  грн
                 </p>
-                <p className="text-[#828282] text-base line-through">{`${270} грн`}</p>
+                <p className="text-[#828282] text-base line-through">
+                  {product?.attributes?.price} грн
+                </p>
               </div>
-              <Rate rate={4.8} />
+              <Rate rate={product?.attributes?.rating ?? 4.8} />
             </div>
             <CountdownTimer />
-            <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full md:w-80">
-              Замовити зараз
-            </button>
           </div>
-          <div className="hidden relative md:flex">
-            <div className="absolute top-2 right-2 sm:top-6 sm:right-6 z-10">
-              <DiscountLabel discount={40} />
+          {product?.attributes?.imagePreview?.data?.attributes?.formats?.large?.url && (
+            <div className="relative hidden md:flex overflow-hidden rounded-2xl">
+              <DiscountLabel discount={product?.attributes?.discount ?? 0} />
+              <Image
+                alt={
+                  product.attributes.imagePreview.data.attributes.alternativeText ??
+                  product.attributes.title ??
+                  'Фото продукту'
+                }
+                src={
+                  process.env.BASE_URL +
+                  product.attributes.imagePreview.data.attributes.formats.large.url
+                }
+                width={product.attributes.imagePreview.data.attributes.formats.large.width}
+                height={product.attributes.imagePreview.data.attributes.formats.large.height}
+                priority
+              />
             </div>
-            <Image src={productImage} alt="Product photo" />
-          </div>
+          )}
         </section>
 
         <section className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-20">
           <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD]">
             <h2 className="font-bold text-2xl md:text-5xl">Докладний опис</h2>
-            <dl className="mt-4 sm:mt-7">
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Матеріал:</dt>
-                <dd>Пластик</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Розмір:</dt>
-                <dd>92 * 58mm</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Напруга:</dt>
-                <dd>5V</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Потужність:</dt>
-                <dd>3Вт / 5Вт / 7Вт</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Джерело живлення:</dt>
-                <dd>120-мм лінія живлення USB (в т.ч.)</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Чіп:</dt>
-                <dd>5730</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Тривалість життя:</dt>
-                <dd>50000H</dd>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg mb-2 sm:mb-6">
-                <dt className="font-semibold">Підходить для всіх USB-розємів</dt>
-              </span>
-              <span className="flex flex-row gap-1 text-sm sm:text-lg">
-                <dt className="font-semibold">Постачання живлення від USB</dt>
-              </span>
-            </dl>
+            {!!product?.attributes?.productTableDescriptions?.length && (
+              <dl className="mt-4 sm:mt-7">
+                {product?.attributes?.productTableDescriptions?.map(
+                  item =>
+                    item?.text && (
+                      <div key={item.id} className="flex justify-between items-center mb-2 sm:mb-4">
+                        <ProductCharacteristicItem title={item.text} value={item.value} />
+                        <div className="flex gap-2">
+                          <IconButton
+                            onClick={() => toggleTableDescriptionForm(item.id)}
+                            icon="Edit"
+                            className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-purple-700"
+                          />
+                          <IconButton
+                            icon="Delete"
+                            className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-red-500"
+                            onClick={() => handleDeleteProductTableDescription(item.id)}
+                          />
+                        </div>
+                      </div>
+                    ),
+                )}
+              </dl>
+            )}
+            {!isOpenTableDescriptionForm && (
+              <button
+                onClick={() => toggleTableDescriptionForm()}
+                className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
+              >
+                <Plus />
+                Додати опис
+              </button>
+            )}
           </div>
           <Image src={productImage} alt="Product photo" />
         </section>
-
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mt-8 md:w-80 md:hidden">
-          Замовити зараз
-        </button>
 
         <section className="mt-8 md:mt-12">
           <h2 className="font-bold text-2xl md:text-5xl">Варіанти користування</h2>
@@ -174,9 +241,12 @@ export default function Product() {
           </div>
         </section>
 
-        <button className="flex justify-center items-center rounded-full bg-[#7613B5] text-white text-base font-semibold h-16 w-full mx-auto my-8 md:my-20 md:w-80">
-          Замовити зараз
-        </button>
+        <AddEditProductTableDescriptionForm
+          isOpen={isOpenTableDescriptionForm}
+          toggleForm={toggleTableDescriptionForm}
+          editTableDescriptionID={editTableDescriptionID}
+          productTableDescriptions={product?.attributes?.productTableDescriptions}
+        />
       </ComponentContainer>
     </AdminLayout>
   );

@@ -1,0 +1,7 @@
+query UploadFile($id: ID!) {
+  uploadFile(id: $id) {
+    data {
+      ...uploadFileEntity
+    }
+  }
+}
