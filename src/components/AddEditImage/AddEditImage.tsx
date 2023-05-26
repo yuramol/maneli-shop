@@ -12,9 +12,10 @@ import { useUploadMutation } from '@/graphql/mutations/__generated__/upload';
 
 type Props = {
   currentImageID?: string;
+  handleSetImagePreviewId?: (id?: string | null | undefined) => void;
 };
 
-export const AddEditImage: FC<Props> = ({ currentImageID = '' }) => {
+export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetImagePreviewId }) => {
   const { query } = useRouter();
   const [loadingSrc, setLoadingSrc] = useState(undefined);
 
@@ -55,12 +56,16 @@ export const AddEditImage: FC<Props> = ({ currentImageID = '' }) => {
           console.log('Upload File!');
 
           uploadMutation({ variables: { file } }).then(({ data }) => {
-            updateProductMutation({
-              variables: {
-                id: query.id as string,
-                data: { imagePreview: data?.upload.data?.id },
-              },
-            });
+            if (query.id) {
+              updateProductMutation({
+                variables: {
+                  id: query.id as string,
+                  data: { imagePreview: data?.upload.data?.id },
+                },
+              });
+            } else {
+              handleSetImagePreviewId(data?.upload.data?.id);
+            }
           });
         }
       } catch (err: unknown) {

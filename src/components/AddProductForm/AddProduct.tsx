@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useRouter } from 'next/router';
@@ -12,8 +12,9 @@ import { useCreateProductMutation } from '@/graphql/mutations/__generated__/crea
 import { ProductsDocument } from '@/graphql/queries/__generated__/products';
 
 export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
-  const router = useRouter();
+  const { query, push } = useRouter();
   const [createProductMutation] = useCreateProductMutation();
+  const [imagePreviewId, setImagePreviewId] = useState(null);
 
   const initialValues = {
     [AddProductFields.Title]: '',
@@ -32,13 +33,23 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
     initialValues,
     validationSchema,
     onSubmit: values => {
-      createProductMutation({ variables: { ...values }, refetchQueries: [ProductsDocument] }).then(
-        ({ data }) => {
+      if (query.id) {
+        updateProductMutation({
+          variables: {
+            id: query.id as string,
+            data: { ...values, imagePreview: imagePreviewId },
+          },
+        });
+      } else {
+        createProductMutation({
+          variables: { ...values, imagePreview: imagePreviewId },
+          refetchQueries: [ProductsDocument],
+        }).then(({ data }) => {
           setTimeout(() => {
-            router.push(`admin/product/${data?.createProduct?.data?.id}`);
+            push(`admin/product/${data?.createProduct?.data?.id}`);
           }, 100);
-        },
-      );
+        });
+      }
     },
   });
 
@@ -53,7 +64,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
         <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
         <div className="flex gap-4 items-center">
           <div className="relative flex shrink-0 w-[198px] h-[254px]">
-            <AddEditImage />
+            <AddEditImage handleSetImagePreviewId={id => setImagePreviewId(id)} />
             {!!values[AddProductFields.Discount] && (
               <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
             )}
