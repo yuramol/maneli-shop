@@ -10,3 +10,4 @@ export * from './AddProductForm';
 export * from './CountdownTimer';
 export * from './ProductDescriptionItem';
 export * from './AddEditProductTableDescriptionForm';
+export * from './AddEditImage';

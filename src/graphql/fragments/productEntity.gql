@@ -4,13 +4,7 @@ fragment productEntity on ProductEntity {
     title
     imagePreview {
       data {
-        attributes {
-          url
-          width
-          height
-          alternativeText
-          formats
-        }
+        ...uploadFileEntity
       }
     }
     price

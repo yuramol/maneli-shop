@@ -10,6 +10,7 @@ import { IncomingHttpHeaders } from 'http';
 import { getAccessToken } from '../helpers/getAccessToken';
 import { GRAPHQL_API } from '../helpers/constants';
 import { apolloCache } from './apolloCacheConfig';
+import { createUploadLink } from 'apollo-upload-client';
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
@@ -41,27 +42,10 @@ export const createApolloClient = (headers: IncomingHttpHeaders | null = null) =
     };
   });
 
-  const httpLink = new HttpLink({
-    uri: GRAPHQL_API,
+  const httpLink = createUploadLink({
+    uri: `${process.env.BASE_URL}/graphql`,
     headers: headers as any,
   });
-
-  // const restLink = new RestLink({
-  //   uri: `${GRAPHQL_API}`,
-  //   endpoints: {
-  //     blob: {
-  //       uri: `${GRAPHQL_API}`,
-  //       responseTransformer: async response => {
-  //         return {
-  //           blob: response.blob(),
-  //         };
-  //       },
-  //     },
-  //   },
-  //   typePatcher: {
-  //     ReportPDFPayload: (data: Promise<{ blob: Blob }>) => data,
-  //   },
-  // });
 
   const link = ApolloLink.from([errorLink, authLink.concat(httpLink)]);
 
