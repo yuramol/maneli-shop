@@ -4,7 +4,7 @@ const plugins = ({ env }) => ({
       endpoint: '/graphql',
       shadowCRUD: true,
       playgroundAlways: true,
-      depthLimit: 7,
+      depthLimit: 10,
       amountLimit: 100,
     },
   },
