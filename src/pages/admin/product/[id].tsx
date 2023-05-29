@@ -36,6 +36,7 @@ import { TableDescriptionFields } from '@/components/AddEditProductTableDescript
 
 import productImage21 from '../../../assets/rectangle-21.png';
 import review from '../../../assets/review.png';
+import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/types';
 
 export default function Product() {
   const { query } = useRouter();
@@ -89,6 +90,32 @@ export default function Product() {
             [TableDescriptionFields.Text]: item?.[TableDescriptionFields.Text],
             [TableDescriptionFields.Value]: item?.[TableDescriptionFields.Value],
           })) ?? []),
+      ],
+    };
+
+    updateProductMutation({
+      variables: { id: query.id as string, data },
+      refetchQueries: [ProductDocument],
+    });
+  };
+
+  const handleDeleteProductPostDescription = (id: string) => {
+    const data = {
+      productDescriptions: [
+        ...(product?.attributes?.productDescriptions?.map(item => ({
+          id: item?.id,
+          title: item?.title,
+          productDescriptionsPost: [
+            ...(item?.productDescriptionsPost
+              ?.filter(i => i?.id !== id)
+              .map(i => ({
+                [DescriptionFields.ID]: i?.[DescriptionFields.ID],
+                [DescriptionFields.Title]: i?.[DescriptionFields.Title],
+                [DescriptionFields.Descriptions]: i?.[DescriptionFields.Descriptions],
+                [DescriptionFields.Image]: i?.[DescriptionFields.Image]?.data?.id,
+              })) ?? []),
+          ],
+        })) ?? []),
       ],
     };
 
@@ -250,14 +277,30 @@ export default function Product() {
               )}
             </div>
             <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
-              {item?.productDescriptionsPost?.map(i => (
-                <ProductOptionCard
-                  key={i?.id}
-                  title={i?.title ?? ''}
-                  text={i?.descriptions ?? ''}
-                  src={productImage21}
-                />
-              ))}
+              {item?.productDescriptionsPost?.map(
+                i =>
+                  i?.title && (
+                    <div key={i.id} className="flex relative">
+                      <ProductOptionCard
+                        title={i.title}
+                        text={i.descriptions ?? ''}
+                        src={productImage21}
+                      />
+                      <div className="flex flex-col gap-1 absolute top-0 -right-10">
+                        <IconButton
+                          onClick={() => toggleProductDescriptionForm(i.id)}
+                          icon="Edit"
+                          className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-purple-700"
+                        />
+                        <IconButton
+                          icon="Delete"
+                          className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-red-500"
+                          onClick={() => handleDeleteProductPostDescription(i.id)}
+                        />
+                      </div>
+                    </div>
+                  ),
+              )}
             </div>
           </section>
         ))}
