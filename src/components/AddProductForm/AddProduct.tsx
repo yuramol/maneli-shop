@@ -45,7 +45,11 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
         });
       } else {
         createProductMutation({
-          variables: { ...values, imagePreview: imagePreviewId },
+          variables: {
+            ...values,
+            imagePreview: imagePreviewId,
+            productDescriptions: [{ title: 'Варіанти користування' }],
+          },
           refetchQueries: [ProductsDocument],
         }).then(({ data }) => {
           setTimeout(() => {

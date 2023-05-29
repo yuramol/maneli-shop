@@ -1,16 +1,10 @@
+import { ComponentProductProductTableDescriptions, Maybe } from '@/__generated__/types';
+
 export type Props = {
   isOpen: boolean;
   toggleForm: () => void;
   editTableDescriptionID?: string;
-  productTableDescriptions:
-    | ({
-        __typename?: 'ComponentProductProductTableDescriptions' | undefined;
-        id: string;
-        text?: string | null | undefined;
-        value?: string | null | undefined;
-      } | null)[]
-    | null
-    | undefined;
+  productTableDescriptions?: Maybe<Array<Maybe<ComponentProductProductTableDescriptions>>>;
 };
 
 export enum TableDescriptionFields {

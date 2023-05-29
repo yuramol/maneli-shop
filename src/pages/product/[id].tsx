@@ -38,9 +38,11 @@ export default function Product() {
       <ComponentContainer>
         <section className="relative grid md:grid-cols-2 gap-11 items-center mt-4 md:mt-20 before:w-[400px] before:h-[400px] before:absolute before:-top-20 before:-left-44 before:bg-radial-gradient-purple before:opacity-10 before:-z-10 after:w-[400px] after:h-[400px] after:absolute after:-bottom-20 after:-right-44 after:bg-radial-gradient-purple after:opacity-10 after:-z-10">
           <div className="flex flex-col gap-4 md:gap-8">
-            <h1 className="font-bold text-2xl md:text-5xl">{product?.attributes?.title}</h1>
+            <h1 className="font-bold text-2xl md:text-5xl break-words">
+              {product?.attributes?.title}
+            </h1>
             <p className="text-sm md:text-lg">{product?.attributes?.description}</p>
-            {product?.attributes?.imagePreview && (
+            {product?.attributes?.imagePreview?.data?.attributes?.url && (
               <div className="relative flex md:hidden overflow-hidden rounded-2xl">
                 <DiscountLabel discount={product?.attributes?.discount ?? 0} />
                 <Image
@@ -49,12 +51,9 @@ export default function Product() {
                     product.attributes.title ??
                     'Фото продукту'
                   }
-                  src={
-                    process.env.BASE_URL +
-                    product.attributes.imagePreview.data?.attributes?.formats.large.url
-                  }
-                  width={product.attributes.imagePreview.data?.attributes?.formats.large.width}
-                  height={product.attributes.imagePreview.data?.attributes?.formats.large.height}
+                  src={process.env.BASE_URL + product.attributes.imagePreview.data?.attributes?.url}
+                  width={product.attributes.imagePreview.data?.attributes?.width ?? 198}
+                  height={product.attributes.imagePreview.data?.attributes?.height ?? 198}
                   priority
                 />
               </div>
@@ -125,33 +124,35 @@ export default function Product() {
           Замовити зараз
         </button>
 
-        <section className="mt-8 md:mt-12">
-          <h2 className="font-bold text-2xl md:text-5xl">Варіанти користування</h2>
-          <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
-            <ProductOptionCard
-              title="Вимкнення світла"
-              text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
+        {product?.attributes?.productDescriptions?.map(item => (
+          <section key={item?.id} className="mt-8 md:mt-12">
+            <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
+            <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
+              <ProductOptionCard
+                title="Вимкнення світла"
+                text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
                   використовувати під час виключень електроенергії."
-              src={productImage21}
-            />
-            <ProductOptionCard
-              title="Кемпінг"
-              text="Оскільки лампа має малі габарити, нею без проблем можна освтлювати в палатаці."
-              src={productImage21}
-            />
-            <ProductOptionCard
-              title="Подорожі"
-              text="Led лампа має низьке енергоспоживання та працює від power bank, тому її зручно брати в подорожі."
-              src={productImage21}
-            />
-            <ProductOptionCard
-              title="Вимкнення світла"
-              text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
+                src={productImage21}
+              />
+              <ProductOptionCard
+                title="Кемпінг"
+                text="Оскільки лампа має малі габарити, нею без проблем можна освтлювати в палатаці."
+                src={productImage21}
+              />
+              <ProductOptionCard
+                title="Подорожі"
+                text="Led лампа має низьке енергоспоживання та працює від power bank, тому її зручно брати в подорожі."
+                src={productImage21}
+              />
+              <ProductOptionCard
+                title="Вимкнення світла"
+                text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
                   використовувати під час виключень електроенергії."
-              src={productImage21}
-            />
-          </div>
-        </section>
+                src={productImage21}
+              />
+            </div>
+          </section>
+        ))}
 
         <section className="mt-8 md:mt-12">
           <div className="flex flex-row gap-6 justify-between items-center">
