@@ -128,28 +128,17 @@ export default function Product() {
           <section key={item?.id} className="mt-8 md:mt-12">
             <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
             <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
-              <ProductOptionCard
-                title="Вимкнення світла"
-                text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
-                  використовувати під час виключень електроенергії."
-                src={productImage21}
-              />
-              <ProductOptionCard
-                title="Кемпінг"
-                text="Оскільки лампа має малі габарити, нею без проблем можна освтлювати в палатаці."
-                src={productImage21}
-              />
-              <ProductOptionCard
-                title="Подорожі"
-                text="Led лампа має низьке енергоспоживання та працює від power bank, тому її зручно брати в подорожі."
-                src={productImage21}
-              />
-              <ProductOptionCard
-                title="Вимкнення світла"
-                text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
-                  використовувати під час виключень електроенергії."
-                src={productImage21}
-              />
+              {item?.productDescriptionsPost?.map(
+                i =>
+                  i?.title && (
+                    <ProductOptionCard
+                      key={i.id}
+                      title={i.title}
+                      text={i.descriptions ?? ''}
+                      src={productImage21}
+                    />
+                  ),
+              )}
             </div>
           </section>
         ))}

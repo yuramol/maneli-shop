@@ -24,10 +24,10 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
   );
 
   const initialValues = {
-    [DescriptionFields.ID]: undefined,
-    [DescriptionFields.Title]: '',
-    [DescriptionFields.Descriptions]: '',
-    [DescriptionFields.Image]: undefined,
+    [DescriptionFields.ID]: finedProductDescriptionPost?.id ?? undefined,
+    [DescriptionFields.Title]: finedProductDescriptionPost?.title ?? '',
+    [DescriptionFields.Descriptions]: finedProductDescriptionPost?.descriptions ?? '',
+    [DescriptionFields.Image]: finedProductDescriptionPost?.image?.data?.id ?? undefined,
   };
 
   const validationSchema = yup.object({
