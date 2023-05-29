@@ -11,4 +11,5 @@ export * from './CountdownTimer';
 export * from './ProductDescriptionItem';
 export * from './AddEditProductTableDescriptionForm';
 export * from './AddEditImage';
+export * from './AddEditProductDescriptionForm';
 export * from './AddEditProductVideoForm';

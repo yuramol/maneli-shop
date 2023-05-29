@@ -13,6 +13,7 @@ import {
   ProductOptionCard,
   AddProductForm,
   AddEditProductVideoForm,
+  AddEditProductDescriptionForm,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
 import {
@@ -53,6 +54,11 @@ export default function Product() {
     undefined,
   );
 
+  const [isOpenProductDescriptionForm, setIsOpenProductDescriptionForm] = useState(false);
+  const [editProductDescriptionID, setEditProductDescriptionID] = useState<string | undefined>(
+    undefined,
+  );
+
   const toggleAddProductForm = () => {
     setIsOpenAddProductForm(isOpen => !isOpen);
   };
@@ -66,6 +72,11 @@ export default function Product() {
 
   const toggleProductVideoForm = () => {
     setIsOpenProductVideoForm(isOpen => !isOpen);
+  };
+
+  const toggleProductDescriptionForm = (id?: string) => {
+    setEditProductDescriptionID(id);
+    setIsOpenProductDescriptionForm(isOpen => !isOpen);
   };
 
   const handleDeleteProductTableDescription = (id: string) => {
@@ -95,7 +106,9 @@ export default function Product() {
         <section className="relative grid md:grid-cols-2 gap-11 items-center mt-4 md:mt-20 before:w-[400px] before:h-[400px] before:absolute before:-top-20 before:-left-44 before:bg-radial-gradient-purple before:opacity-10 before:-z-10 after:w-[400px] after:h-[400px] after:absolute after:-bottom-20 after:-right-44 after:bg-radial-gradient-purple after:opacity-10 after:-z-10">
           <div className="flex flex-col gap-4 md:gap-8">
             <div className="flex justify-between items-center">
-              <h1 className="font-bold text-2xl md:text-5xl">{product?.attributes?.title}</h1>
+              <h1 className="font-bold text-2xl md:text-5xl break-words">
+              {product?.attributes?.title}
+            </h1>
               <IconButton
                 onClick={toggleAddProductForm}
                 icon="Edit"
@@ -138,7 +151,7 @@ export default function Product() {
             </div>
             <CountdownTimer />
           </div>
-          {product?.attributes?.imagePreview?.data?.attributes?.formats?.large?.url && (
+          {product?.attributes?.imagePreview?.data?.attributes?.url && (
             <div className="relative hidden md:flex overflow-hidden rounded-2xl">
               <DiscountLabel discount={product?.attributes?.discount ?? 0} />
               <Image
@@ -147,12 +160,9 @@ export default function Product() {
                   product.attributes.title ??
                   'Фото продукту'
                 }
-                src={
-                  process.env.BASE_URL +
-                  product.attributes.imagePreview.data.attributes.formats.large.url
-                }
-                width={product.attributes.imagePreview.data.attributes.formats.large.width}
-                height={product.attributes.imagePreview.data.attributes.formats.large.height}
+                src={process.env.BASE_URL + product.attributes.imagePreview.data.attributes.url}
+                width={product.attributes.imagePreview.data.attributes.width ?? 198}
+                height={product.attributes.imagePreview.data.attributes.height ?? 198}
                 priority
               />
             </div>
@@ -167,7 +177,10 @@ export default function Product() {
                 {product?.attributes?.productTableDescriptions?.map(
                   item =>
                     item?.text && (
-                      <div key={item.id} className="flex justify-between items-center mb-2 sm:mb-4">
+                      <div
+                        key={item.id}
+                        className="flex justify-between items-center mb-2 sm:mb-4 last:mb-0"
+                      >
                         <ProductCharacteristicItem title={item.text} value={item.value} />
                         <div className="flex gap-2">
                           <IconButton
@@ -189,7 +202,7 @@ export default function Product() {
             {!isOpenTableDescriptionForm && (
               <button
                 onClick={() => toggleTableDescriptionForm()}
-                className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
+                className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 mt-2 sm:mt-4 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
               >
                 <Plus />
                 Додати опис
@@ -222,33 +235,32 @@ export default function Product() {
           </div>
         </section>
 
-        <section className="mt-8 md:mt-12">
-          <h2 className="font-bold text-2xl md:text-5xl">Варіанти користування</h2>
-          <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
-            <ProductOptionCard
-              title="Вимкнення світла"
-              text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
-                  використовувати під час виключень електроенергії."
-              src={productImage21}
-            />
-            <ProductOptionCard
-              title="Кемпінг"
-              text="Оскільки лампа має малі габарити, нею без проблем можна освтлювати в палатаці."
-              src={productImage21}
-            />
-            <ProductOptionCard
-              title="Подорожі"
-              text="Led лампа має низьке енергоспоживання та працює від power bank, тому її зручно брати в подорожі."
-              src={productImage21}
-            />
-            <ProductOptionCard
-              title="Вимкнення світла"
-              text="Світлодіодна лампа випромінює яскраве світло, тому її зручно
-                  використовувати під час виключень електроенергії."
-              src={productImage21}
-            />
-          </div>
-        </section>
+        {product?.attributes?.productDescriptions?.map(item => (
+          <section key={item?.id} className="mt-8 md:mt-12">
+            <div className="flex justify-between items-center gap-4">
+              <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
+              {!isOpenTableDescriptionForm && (
+                <button
+                  onClick={() => toggleProductDescriptionForm()}
+                  className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
+                >
+                  <Plus />
+                  Додати варіант
+                </button>
+              )}
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
+              {item?.productDescriptionsPost?.map(i => (
+                <ProductOptionCard
+                  key={i?.id}
+                  title={i?.title ?? ''}
+                  text={i?.descriptions ?? ''}
+                  src={productImage21}
+                />
+              ))}
+            </div>
+          </section>
+        ))}
 
         <section className="mt-8 md:mt-12">
           <div className="flex flex-row gap-6 justify-between items-center">
@@ -267,24 +279,6 @@ export default function Product() {
               <Image src={review} alt="Review photo" />
             </div>
           </div>
-          <div className="flex flex-row flex-wrap gap-4 sm:gap-10 justify-center mt-8 md:mt-20">
-            <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <CalendarDate />
-              <p className="font-semibold">Доставка 1-3 дні</p>
-            </div>
-            <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <CreditCardShield />
-              <p className="font-semibold">Оплата при отримані</p>
-            </div>
-            <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <Scales />
-              <p className="font-semibold">Вигідна ціна</p>
-            </div>
-            <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
-              <ShieldTick />
-              <p className="font-semibold">Гарантія якості</p>
-            </div>
-          </div>
         </section>
 
         <AddProductForm
@@ -298,6 +292,13 @@ export default function Product() {
           toggleForm={toggleTableDescriptionForm}
           editTableDescriptionID={editTableDescriptionID}
           productTableDescriptions={product?.attributes?.productTableDescriptions}
+        />
+
+        <AddEditProductDescriptionForm
+          isOpen={isOpenProductDescriptionForm}
+          toggleForm={toggleProductDescriptionForm}
+          editProductDescriptionID={editProductDescriptionID}
+          productDescriptions={product?.attributes?.productDescriptions}
         />
 
         <AddEditProductVideoForm

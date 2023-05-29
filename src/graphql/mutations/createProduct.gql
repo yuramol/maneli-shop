@@ -5,6 +5,7 @@ mutation CreateProduct(
   $discount: Int
   $rating: Float
   $imagePreview: ID
+  $productDescriptions: [ComponentProductProductDescriptionsInput]
 ) {
   createProduct(
     data: {
@@ -14,6 +15,7 @@ mutation CreateProduct(
       discount: $discount
       rating: $rating
       imagePreview: $imagePreview
+      productDescriptions: $productDescriptions
     }
   ) {
     data {
