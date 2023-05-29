@@ -10,6 +10,7 @@ import {
   AddEditProductTableDescriptionForm,
   ProductCharacteristicItem,
   ProductOptionCard,
+  AddProductForm,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
 import {
@@ -44,10 +45,15 @@ export default function Product() {
 
   const product = data?.product?.data;
 
+  const [isOpenAddProductForm, setIsOpenAddProductForm] = useState(false);
   const [isOpenTableDescriptionForm, setIsOpenTableDescriptionForm] = useState(false);
   const [editTableDescriptionID, setEditTableDescriptionID] = useState<string | undefined>(
     undefined,
   );
+
+  const toggleAddProductForm = () => {
+    setIsOpenAddProductForm(isOpen => !isOpen);
+  };
 
   const toggleTableDescriptionForm = (id?: string) => {
     setEditTableDescriptionID(id);
@@ -78,7 +84,14 @@ export default function Product() {
       <ComponentContainer>
         <section className="relative grid md:grid-cols-2 gap-11 items-center mt-4 md:mt-20 before:w-[400px] before:h-[400px] before:absolute before:-top-20 before:-left-44 before:bg-radial-gradient-purple before:opacity-10 before:-z-10 after:w-[400px] after:h-[400px] after:absolute after:-bottom-20 after:-right-44 after:bg-radial-gradient-purple after:opacity-10 after:-z-10">
           <div className="flex flex-col gap-4 md:gap-8">
-            <h1 className="font-bold text-2xl md:text-5xl">{product?.attributes?.title}</h1>
+            <div className="flex justify-between items-center">
+              <h1 className="font-bold text-2xl md:text-5xl">{product?.attributes?.title}</h1>
+              <IconButton
+                onClick={toggleAddProductForm}
+                icon="Edit"
+                className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-purple-700"
+              />
+            </div>
             <p className="text-sm md:text-lg">{product?.attributes?.description}</p>
             {product?.attributes?.imagePreview?.data?.attributes?.formats?.large?.url && (
               <div className="relative flex md:hidden overflow-hidden rounded-2xl">
@@ -240,6 +253,12 @@ export default function Product() {
             </div>
           </div>
         </section>
+
+        <AddProductForm
+          isOpen={isOpenAddProductForm}
+          toggleForm={toggleAddProductForm}
+          product={product}
+        />
 
         <AddEditProductTableDescriptionForm
           isOpen={isOpenTableDescriptionForm}

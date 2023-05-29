@@ -12,7 +12,7 @@ import { ProductsDocument } from '@/graphql/queries/__generated__/products';
 import { useCreateProductMutation } from '@/graphql/mutations/__generated__/createProduct';
 import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 
-export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
+export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   const { query, push } = useRouter();
   const [imagePreviewId, setImagePreviewId] = useState<string | null>('');
 
@@ -20,12 +20,12 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
   const [updateProductMutation] = useUpdateProductMutation();
 
   const initialValues = {
-    [AddProductFields.Title]: '',
-    [AddProductFields.Description]: '',
-    [AddProductFields.Discount]: 0,
-    [AddProductFields.Price]: 0,
-    [AddProductFields.Rating]: 0,
-    [AddProductFields.ImagePreview]: null,
+    [AddProductFields.Title]: product?.attributes?.title ?? '',
+    [AddProductFields.Description]: product?.attributes?.description ?? '',
+    [AddProductFields.Discount]: product?.attributes?.discount ?? 0,
+    [AddProductFields.Price]: product?.attributes?.price ?? 0,
+    [AddProductFields.Rating]: product?.attributes?.rating ?? 0,
+    [AddProductFields.ImagePreview]: product?.attributes?.imagePreview?.data?.id ?? undefined,
   };
 
   const validationSchema = yup.object({
@@ -35,14 +35,15 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
   const { values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm } = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: values => {
       if (query.id) {
         updateProductMutation({
           variables: {
             id: query.id as string,
-            data: { ...values, imagePreview: imagePreviewId },
+            data: { ...values },
           },
-        });
+        }).then(() => toggleForm());
       } else {
         createProductMutation({
           variables: { ...values, imagePreview: imagePreviewId },
