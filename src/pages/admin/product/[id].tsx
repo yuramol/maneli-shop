@@ -11,6 +11,7 @@ import {
   AddEditProductTableDescriptionForm,
   ProductCharacteristicItem,
   ProductOptionCard,
+  AddEditProductVideoForm,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
 import {
@@ -19,6 +20,7 @@ import {
   CalendarDate,
   CreditCardShield,
   DiscountLabel,
+  Edit,
   IconButton,
   Plus,
   Rate,
@@ -31,7 +33,6 @@ import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/upda
 import { TableDescriptionFields } from '@/components/AddEditProductTableDescriptionForm/types';
 
 import productImage21 from '../../../assets/rectangle-21.png';
-import productImage from '../../../assets/rectangle-25.png';
 import review from '../../../assets/review.png';
 
 export default function Product() {
@@ -53,6 +54,12 @@ export default function Product() {
   const toggleTableDescriptionForm = (id?: string) => {
     setEditTableDescriptionID(id);
     setIsOpenTableDescriptionForm(isOpen => !isOpen);
+  };
+
+  const [isOpenProductVideoForm, setIsOpenProductVideoForm] = useState(false);
+
+  const toggleProductVideoForm = () => {
+    setIsOpenProductVideoForm(isOpen => !isOpen);
   };
 
   const handleDeleteProductTableDescription = (id: string) => {
@@ -176,9 +183,30 @@ export default function Product() {
               </button>
             )}
           </div>
-          {product?.attributes?.video && (
-            <ReactPlayer url={product?.attributes?.video} controls width="100%" />
-          )}
+          <div className="relative flex">
+            {product?.attributes?.video ? (
+              <>
+                <ReactPlayer url={product?.attributes?.video} controls width="100%" />
+                <button
+                  onClick={toggleProductVideoForm}
+                  className="absolute -top-14 flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
+                >
+                  <Edit />
+                  Редагувати відеопосилання
+                </button>
+              </>
+            ) : (
+              !isOpenTableDescriptionForm && (
+                <button
+                  onClick={toggleProductVideoForm}
+                  className="flex m-auto justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
+                >
+                  <Plus />
+                  Додати відео
+                </button>
+              )
+            )}
+          </div>
         </section>
 
         <section className="mt-8 md:mt-12">
@@ -251,6 +279,12 @@ export default function Product() {
           toggleForm={toggleTableDescriptionForm}
           editTableDescriptionID={editTableDescriptionID}
           productTableDescriptions={product?.attributes?.productTableDescriptions}
+        />
+
+        <AddEditProductVideoForm
+          isOpen={isOpenProductVideoForm}
+          toggleForm={toggleProductVideoForm}
+          productVideo={product?.attributes?.video}
         />
       </ComponentContainer>
     </AdminLayout>
