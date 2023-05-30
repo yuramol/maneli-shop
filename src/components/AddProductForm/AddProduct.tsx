@@ -25,7 +25,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
     [AddProductFields.Discount]: 0,
     [AddProductFields.Price]: 0,
     [AddProductFields.Rating]: 0,
-    [AddProductFields.ImagePreview]: null,
+    [AddProductFields.ImagePreview]: imagePreviewId ?? null,
   };
 
   const validationSchema = yup.object({
@@ -35,6 +35,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
   const { values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm } = useFormik({
     initialValues,
     validationSchema,
+    enableReinitialize: true,
     onSubmit: values => {
       if (query.id) {
         updateProductMutation({
@@ -47,7 +48,6 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm }) => {
         createProductMutation({
           variables: {
             ...values,
-            imagePreview: imagePreviewId,
             productDescriptions: [{ title: 'Варіанти користування' }],
           },
           refetchQueries: [ProductsDocument],
