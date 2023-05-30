@@ -1,3 +1,5 @@
+import { createOrder } from './extensions/createOrder';
+
 const app = {
   /**
    * An asynchronous register function that runs before
@@ -5,7 +7,13 @@ const app = {
    *
    * This gives you an opportunity to extend code.
    */
-  async register() {},
+  async register({ strapi }) {
+    const extensionService = strapi.service(
+      'plugin::graphql.extension'
+    );
+
+    extensionService.use(createOrder);
+  },
 
   /**
    * An asynchronous bootstrap function that runs before
