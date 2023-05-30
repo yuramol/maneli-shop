@@ -25,7 +25,9 @@
     "@strapi/plugin-i18n": "4.10.4",
     "@strapi/plugin-users-permissions": "4.10.4",
     "@strapi/strapi": "4.10.4",
-    "pg": "^8.10.0"
+    "axios": "^1.4.0",
+    "pg": "^8.10.0",
+    "zod": "^3.21.4"
   },
   "engines": {
     "node": ">=14.19.1 <=18.x.x",
