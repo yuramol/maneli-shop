@@ -2,15 +2,16 @@ fragment productEntity on ProductEntity {
   id
   attributes {
     title
+    price
+    rating
+    discount
+    description
+    video
     imagePreview {
       data {
         ...uploadFileEntity
       }
     }
-    price
-    rating
-    discount
-    description
     productTableDescriptions {
       id
       text

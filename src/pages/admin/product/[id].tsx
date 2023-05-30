@@ -4,6 +4,7 @@ import { AdminLayout } from '@/layouts/AdminLayout';
 import { getToken } from 'next-auth/jwt';
 import { GetServerSideProps } from 'next/types';
 import Image from 'next/legacy/image';
+import dynamic from 'next/dynamic';
 
 import {
   CountdownTimer,
@@ -72,6 +73,8 @@ export default function Product() {
       refetchQueries: [ProductDocument],
     });
   };
+
+  const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
   return (
     <AdminLayout>
@@ -173,7 +176,9 @@ export default function Product() {
               </button>
             )}
           </div>
-          <Image src={productImage} alt="Product photo" />
+          {product?.attributes?.video && (
+            <ReactPlayer url={product?.attributes?.video} controls width="100%" />
+          )}
         </section>
 
         <section className="mt-8 md:mt-12">
