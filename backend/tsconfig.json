@@ -4,6 +4,7 @@
     "outDir": "dist",
     "rootDir": "."
   },
+  "strict": true,
   "include": ["./", "./**/*.ts", "./**/*.js", "src/**/*.json"],
   "exclude": [
     "node_modules/",
