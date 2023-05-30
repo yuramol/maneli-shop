@@ -67,11 +67,7 @@ export const createOrderResolver = async (
   return axios
     .post(`${baseUrl}/order`, dataOrderCreate, {
       headers: {
-        Authorization: `Basic ${token}`,
-        'Content-type': 'application/json',
-        Accept: 'application/json',
-        'Cache-Control': 'no-cache',
-        Pragma: 'no-cache',
+        Authorization: `Bearer ${token}`,
       },
     })
     .then(() => {
@@ -81,7 +77,6 @@ export const createOrderResolver = async (
       };
     })
     .catch((error) => {
-      console.log('error', error.response);
       return {
         status: false,
         message: error.response.data.message ?? 'error',
