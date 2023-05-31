@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/legacy/image';
+import dynamic from 'next/dynamic';
 
 import {
   CountdownTimer,
@@ -33,6 +34,8 @@ export default function Product() {
     setIsOpen(isOpen => !isOpen);
   };
 
+  const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
+
   return (
     <MainLayout>
       <ComponentContainer>
@@ -40,7 +43,7 @@ export default function Product() {
           <div className="flex flex-col gap-4 md:gap-8">
             <h1 className="font-bold text-2xl md:text-5xl">{product?.attributes?.title}</h1>
             <p className="text-sm md:text-lg">{product?.attributes?.description}</p>
-            {product?.attributes?.imagePreview && (
+            {product?.attributes?.imagePreview?.data?.attributes?.url && (
               <div className="relative flex md:hidden overflow-hidden rounded-2xl">
                 <DiscountLabel discount={product?.attributes?.discount ?? 0} />
                 <Image
@@ -49,12 +52,9 @@ export default function Product() {
                     product.attributes.title ??
                     'Фото продукту'
                   }
-                  src={
-                    process.env.BASE_URL +
-                    product.attributes.imagePreview.data?.attributes?.formats.large.url
-                  }
-                  width={product.attributes.imagePreview.data?.attributes?.formats.large.width}
-                  height={product.attributes.imagePreview.data?.attributes?.formats.large.height}
+                  src={process.env.BASE_URL + product.attributes.imagePreview.data?.attributes?.url}
+                  width={product.attributes.imagePreview.data?.attributes?.width}
+                  height={product.attributes.imagePreview.data?.attributes?.height}
                   priority
                 />
               </div>
@@ -115,7 +115,9 @@ export default function Product() {
               </dl>
             )}
           </div>
-          <Image src={productImage} alt="Product photo" />
+          {product?.attributes?.video && (
+            <ReactPlayer url={product?.attributes?.video} controls width="100%" />
+          )}
         </section>
 
         <button
