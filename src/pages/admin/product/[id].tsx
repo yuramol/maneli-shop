@@ -89,6 +89,8 @@ export default function Product() {
 
   const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
+  console.log(product?.attributes?.images);
+
   return (
     <AdminLayout>
       <ComponentContainer>
