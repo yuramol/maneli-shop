@@ -32,7 +32,7 @@ import { TableDescriptionFields } from '@/components/AddEditProductTableDescript
 
 import review from '../../../assets/review.png';
 import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/types';
-import { UploadFile } from '@/__generated__/types';
+import { ComponentProductProductDescriptions, ProductEntity, UploadFile } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
@@ -337,7 +337,7 @@ export default function Product() {
           isOpen={isOpenProductDescriptionForm}
           toggleForm={toggleProductDescriptionForm}
           editProductDescriptionID={editProductDescriptionID}
-          productDescriptions={product?.attributes?.productDescriptions}
+          productDescriptions={product?.attributes?.productDescriptions as ComponentProductProductDescriptions[]}
         />
 
         <AddEditProductVideoForm
