@@ -53,8 +53,8 @@ export default function Product() {
                     'Фото продукту'
                   }
                   src={process.env.BASE_URL + product.attributes.imagePreview.data?.attributes?.url}
-                  width={product.attributes.imagePreview.data?.attributes?.width}
-                  height={product.attributes.imagePreview.data?.attributes?.height}
+                  width={product.attributes.imagePreview.data?.attributes?.width as number}
+                  height={product.attributes.imagePreview.data?.attributes?.height as number}
                   priority
                 />
               </div>
