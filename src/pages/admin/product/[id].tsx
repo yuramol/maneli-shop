@@ -35,6 +35,7 @@ import { TableDescriptionFields } from '@/components/AddEditProductTableDescript
 
 import productImage21 from '../../../assets/rectangle-21.png';
 import review from '../../../assets/review.png';
+import { ProductEntity } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
@@ -45,7 +46,7 @@ export default function Product() {
   });
   const [updateProductMutation] = useUpdateProductMutation();
 
-  const product = data?.product?.data;
+  const product = data?.product?.data as ProductEntity;
 
   const [isOpenAddProductForm, setIsOpenAddProductForm] = useState(false);
   const [isOpenTableDescriptionForm, setIsOpenTableDescriptionForm] = useState(false);
