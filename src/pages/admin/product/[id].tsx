@@ -43,7 +43,7 @@ export default function Product() {
   });
   const [updateProductMutation] = useUpdateProductMutation();
 
-  const product = data?.product?.data;
+  const product = data?.product?.data as ProductEntity;
 
   const [isOpenAddProductForm, setIsOpenAddProductForm] = useState(false);
   const [isOpenTableDescriptionForm, setIsOpenTableDescriptionForm] = useState(false);
