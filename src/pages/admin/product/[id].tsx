@@ -13,6 +13,7 @@ import {
   ProductOptionCard,
   AddProductForm,
   AddEditProductVideoForm,
+  ReviewsCarousel,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
 import {
@@ -265,6 +266,7 @@ export default function Product() {
             </div>
           </div>
           <div className="flex justify-center mt-8 md:mt-16">
+            <ReviewsCarousel />
             <div className="flex sm:w-2/4">
               <Image src={review} alt="Review photo" />
             </div>
