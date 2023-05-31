@@ -14,8 +14,6 @@ import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/upda
 
 export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   const { query, push } = useRouter();
-  const [imagePreviewId, setImagePreviewId] = useState<string | null>('');
-
   const [createProductMutation] = useCreateProductMutation();
   const [updateProductMutation] = useUpdateProductMutation();
 
@@ -32,7 +30,16 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
     [AddProductFields.Title]: yup.string().required('Будь ласка, заповніть дане поле'),
   });
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm } = useFormik({
+  const {
+    values,
+    errors,
+    touched,
+    setFieldValue,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
@@ -46,7 +53,10 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
         }).then(() => toggleForm());
       } else {
         createProductMutation({
-          variables: { ...values, imagePreview: imagePreviewId },
+          variables: {
+            ...values,
+            productDescriptions: [{ title: 'Варіанти користування' }],
+          },
           refetchQueries: [ProductsDocument],
         }).then(({ data }) => {
           setTimeout(() => {
@@ -62,13 +72,20 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
     toggleForm();
   };
 
+  const setImagePreviewId = (id?: string | null) => {
+    setFieldValue(AddProductFields.ImagePreview, id)
+  };
+
   return (
     <Modal isOpen={isOpen} toggleModal={handleToggleForm}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
         <div className="flex gap-4 items-center">
           <div className="relative flex shrink-0 w-[198px] h-[254px]">
-            <AddEditImage handleSetImagePreviewId={(id = '') => setImagePreviewId(id)} />
+            <AddEditImage
+              currentImageID={values[AddProductFields.ImagePreview]}
+              handleSetUploadImageId={setImagePreviewId}
+            />
             {!!values[AddProductFields.Discount] && (
               <DiscountLabel smallSize discount={values[AddProductFields.Discount]} />
             )}

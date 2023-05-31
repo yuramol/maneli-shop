@@ -17,5 +17,19 @@ fragment productEntity on ProductEntity {
       text
       value
     }
+    productDescriptions {
+      id
+      title
+      productDescriptionsPost {
+        id
+        title
+        descriptions
+        image {
+          data {
+            ...uploadFileEntity
+          }
+        }
+      }
+    }
   }
 }
