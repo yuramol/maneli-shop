@@ -16,19 +16,7 @@ import {
   AddEditProductDescriptionForm,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
-import {
-  ArrowCircleLeft,
-  ArrowCircleRight,
-  CalendarDate,
-  CreditCardShield,
-  DiscountLabel,
-  Edit,
-  IconButton,
-  Plus,
-  Rate,
-  Scales,
-  ShieldTick,
-} from '@/legos';
+import { ArrowCircleLeft, ArrowCircleRight, DiscountLabel,Edit, IconButton, Plus, Rate } from '@/legos';
 
 import { ProductDocument, useProductQuery } from '@/graphql/queries/__generated__/product';
 import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
@@ -37,6 +25,7 @@ import { TableDescriptionFields } from '@/components/AddEditProductTableDescript
 import productImage21 from '../../../assets/rectangle-21.png';
 import review from '../../../assets/review.png';
 import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/types';
+import { UploadFile } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
@@ -284,7 +273,7 @@ export default function Product() {
                       <ProductOptionCard
                         title={i.title}
                         text={i.descriptions ?? ''}
-                        src={productImage21}
+                        image={i.image?.data?.attributes as UploadFile}
                       />
                       <div className="flex flex-col gap-1 absolute top-0 -right-10">
                         <IconButton

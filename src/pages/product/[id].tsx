@@ -17,6 +17,7 @@ import { useProductQuery } from '@/graphql/queries/__generated__/product';
 import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
+import { UploadFile } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
@@ -140,7 +141,7 @@ export default function Product() {
                       key={i.id}
                       title={i.title}
                       text={i.descriptions ?? ''}
-                      src={productImage21}
+                      image={i.image?.data?.attributes as UploadFile}
                     />
                   ),
               )}

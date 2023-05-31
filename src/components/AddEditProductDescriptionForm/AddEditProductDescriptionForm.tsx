@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
@@ -39,7 +39,16 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
     toggleForm();
   };
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm } = useFormik({
+  const {
+    values,
+    errors,
+    touched,
+    setFieldValue,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
@@ -50,13 +59,18 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
             id: item?.id,
             title: item?.title,
             productDescriptionsPost: [
-              ...(item?.productDescriptionsPost?.map(i => ({
-                [DescriptionFields.ID]: i?.[DescriptionFields.ID],
-                [DescriptionFields.Title]: i?.[DescriptionFields.Title],
-                [DescriptionFields.Descriptions]: i?.[DescriptionFields.Descriptions],
-                [DescriptionFields.Image]: i?.[DescriptionFields.Image]?.data?.id,
-              })) ?? []),
-              values,
+              ...(item?.productDescriptionsPost?.map(i => {
+                if (values[DescriptionFields.ID] === i?.[DescriptionFields.ID]) {
+                  return values;
+                }
+
+                return {
+                  [DescriptionFields.ID]: i?.[DescriptionFields.ID],
+                  [DescriptionFields.Title]: i?.[DescriptionFields.Title],
+                  [DescriptionFields.Descriptions]: i?.[DescriptionFields.Descriptions],
+                  [DescriptionFields.Image]: i?.[DescriptionFields.Image]?.data?.id,
+                };
+              }) ?? []),
             ],
           })) ?? []),
         ],
@@ -65,11 +79,15 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
       updateProductMutation({
         variables: { id: query.id as string, data },
         refetchQueries: [ProductDocument],
-      }).then(data => {
+      }).then(() => {
         handleToggleForm();
       });
     },
   });
+
+  const setImageID = (id?: string | null) => {
+    setFieldValue(DescriptionFields.Image, id);
+  };
 
   return (
     <Modal isOpen={isOpen} toggleModal={handleToggleForm}>
@@ -79,7 +97,10 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
         </h2>
         <div className="flex gap-8">
           <div className="flex shrink-0 w-[198px] h-[254px]">
-            <AddEditImage />
+            <AddEditImage
+              currentImageID={values[DescriptionFields.Image]}
+              handleSetUploadImageId={setImageID}
+            />
           </div>
           <div className="flex flex-col w-full gap-8">
             <TextField
