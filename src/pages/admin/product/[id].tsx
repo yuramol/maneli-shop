@@ -49,6 +49,11 @@ export default function Product() {
     undefined,
   );
 
+  const [isOpenProductDescriptionForm, setIsOpenProductDescriptionForm] = useState(false);
+  const [editProductDescriptionID, setEditProductDescriptionID] = useState<string | undefined>(
+    undefined,
+  );
+
   const toggleAddProductForm = () => {
     setIsOpenAddProductForm(isOpen => !isOpen);
   };
