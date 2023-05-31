@@ -14,8 +14,6 @@ import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/upda
 
 export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   const { query, push } = useRouter();
-  const [imagePreviewId, setImagePreviewId] = useState<string | undefined>(undefined);
-
   const [createProductMutation] = useCreateProductMutation();
   const [updateProductMutation] = useUpdateProductMutation();
 
@@ -32,7 +30,16 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
     [AddProductFields.Title]: yup.string().required('Будь ласка, заповніть дане поле'),
   });
 
-  const { values, errors, touched, handleChange, handleBlur, handleSubmit, resetForm } = useFormik({
+  const {
+    values,
+    errors,
+    touched,
+    setFieldValue,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    resetForm,
+  } = useFormik({
     initialValues,
     validationSchema,
     enableReinitialize: true,
@@ -63,6 +70,10 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   const handleToggleForm = () => {
     resetForm();
     toggleForm();
+  };
+
+  const setImagePreviewId = (id?: string | null) => {
+    setFieldValue(AddProductFields.ImagePreview, id)
   };
 
   return (

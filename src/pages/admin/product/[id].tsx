@@ -16,13 +16,20 @@ import {
   AddEditProductDescriptionForm,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
-import { ArrowCircleLeft, ArrowCircleRight, DiscountLabel,Edit, IconButton, Plus, Rate } from '@/legos';
+import {
+  ArrowCircleLeft,
+  ArrowCircleRight,
+  DiscountLabel,
+  Edit,
+  IconButton,
+  Plus,
+  Rate,
+} from '@/legos';
 
 import { ProductDocument, useProductQuery } from '@/graphql/queries/__generated__/product';
 import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 import { TableDescriptionFields } from '@/components/AddEditProductTableDescriptionForm/types';
 
-import productImage21 from '../../../assets/rectangle-21.png';
 import review from '../../../assets/review.png';
 import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/types';
 import { UploadFile } from '@/__generated__/types';
@@ -41,11 +48,6 @@ export default function Product() {
   const [isOpenAddProductForm, setIsOpenAddProductForm] = useState(false);
   const [isOpenTableDescriptionForm, setIsOpenTableDescriptionForm] = useState(false);
   const [editTableDescriptionID, setEditTableDescriptionID] = useState<string | undefined>(
-    undefined,
-  );
-
-  const [isOpenProductDescriptionForm, setIsOpenProductDescriptionForm] = useState(false);
-  const [editProductDescriptionID, setEditProductDescriptionID] = useState<string | undefined>(
     undefined,
   );
 
@@ -128,8 +130,8 @@ export default function Product() {
           <div className="flex flex-col gap-4 md:gap-8">
             <div className="flex justify-between items-center">
               <h1 className="font-bold text-2xl md:text-5xl break-words">
-              {product?.attributes?.title}
-            </h1>
+                {product?.attributes?.title}
+              </h1>
               <IconButton
                 onClick={toggleAddProductForm}
                 icon="Edit"
