@@ -1,73 +1,51 @@
-import { BaseSyntheticEvent, FC, useState } from 'react';
-import { useRouter } from 'next/router';
+import { BaseSyntheticEvent, Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import Image from 'next/legacy/image';
 
 import { ChangeImage } from './components/ChangeImage';
-import { ButtonAddImage } from './components/ButtonAddImage';
 
 import { useUploadFileQuery } from '@/graphql/queries/__generated__/uploadFile';
-import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 import { useRemoveFileMutation } from '@/graphql/mutations/__generated__/removeFile';
 import { useUploadMutation } from '@/graphql/mutations/__generated__/upload';
+import { UploadFileEntity } from '@/__generated__/types';
+import { ProductsDocument } from '@/graphql/queries/__generated__/products';
 
 type Props = {
-  currentImageID?: string;
-  handleSetImagePreviewId?: (id?: string | null) => void;
+  currentImageID?: string | null;
+  handleSetUploadImageId: (id?: string | null) => void;
 };
 
-export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetImagePreviewId }) => {
-  const { query } = useRouter();
-  const [loadingSrc, setLoadingSrc] = useState(undefined);
-
+export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetUploadImageId }) => {
   const { data } = useUploadFileQuery({
     variables: {
-      id: currentImageID,
+      id: currentImageID as string,
     },
   });
 
   const [uploadMutation] = useUploadMutation();
   const [removeFileMutation] = useRemoveFileMutation();
-  const [updateProductMutation] = useUpdateProductMutation();
 
-  const uploadFile = data?.uploadFile?.data;
+  const [localUploadImg, setLocalUploadImg] = useState<UploadFileEntity | undefined>(undefined);
+
+  useEffect(() => {
+    setLocalUploadImg(data?.uploadFile?.data as UploadFileEntity);
+  }, [data]);
 
   const handleUploadImg = async (e: BaseSyntheticEvent) => {
     const file = e.target.files[0];
-    setLoadingSrc(file);
 
     if (file) {
       try {
-        console.log('debug > handleClick===', file);
-
-        if (uploadFile) {
-          console.log('Remove and upload File!');
-
-          removeFileMutation({ variables: { id: uploadFile.id as string } }).then(() => {
+        if (localUploadImg?.id) {
+          removeFileMutation({ variables: { id: localUploadImg?.id } }).then(() => {
             uploadMutation({ variables: { file } }).then(({ data }) => {
-              updateProductMutation({
-                variables: {
-                  id: query.id as string,
-                  data: { imagePreview: data?.upload.data?.id },
-                },
-              });
+              handleSetUploadImageId(data?.upload.data?.id);
+              setLocalUploadImg(data?.upload.data as UploadFileEntity);
             });
           });
         } else {
-          console.log('Upload File!');
-
           uploadMutation({ variables: { file } }).then(({ data }) => {
-            if (query.id) {
-              updateProductMutation({
-                variables: {
-                  id: query.id as string,
-                  data: { imagePreview: data?.upload.data?.id },
-                },
-              });
-            } else {
-              if (handleSetImagePreviewId) {
-                handleSetImagePreviewId(data?.upload.data?.id || '');
-              }
-            }
+            handleSetUploadImageId(data?.upload.data?.id);
+            setLocalUploadImg(data?.upload.data as UploadFileEntity);
           });
         }
       } catch (err: unknown) {
@@ -76,11 +54,18 @@ export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetImagePre
     }
   };
 
-  return !loadingSrc ? (
+  const handleDeleteImg = (id: string) => {
+    removeFileMutation({ variables: { id } }).then(() => {
+      handleSetUploadImageId(undefined);
+      setLocalUploadImg(undefined);
+    });
+  };
+
+  return (
     <div className="relative flex w-full h-full">
-      {uploadFile?.attributes?.url ? (
+      {localUploadImg?.attributes?.url ? (
         <Image
-          src={process.env.BASE_URL + uploadFile?.attributes?.url}
+          src={process.env.BASE_URL + localUploadImg.attributes.url}
           alt="Фото продукту"
           objectFit="cover"
           width={198}
@@ -89,9 +74,11 @@ export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetImagePre
       ) : (
         <span className="m-auto">Додайте фото</span>
       )}
-      <ChangeImage handleUploadImg={handleUploadImg} />
+      <ChangeImage
+        imageId={localUploadImg?.id as string}
+        handleUploadImg={handleUploadImg}
+        handleDeleteImg={handleDeleteImg}
+      />
     </div>
-  ) : (
-    <ButtonAddImage loadingSrc={loadingSrc} handleUploadImg={handleUploadImg} />
   );
 };
