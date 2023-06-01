@@ -143,7 +143,7 @@ export default function AdminPage() {
             Cторінка: {data?.products?.meta.pagination.page}/
             {data?.products?.meta.pagination.pageCount}
           </p>
-          <p>Закальна кількість продуктів: {data?.products?.meta.pagination.total}</p>
+          <p>Загальна кількість продуктів: {data?.products?.meta.pagination.total}</p>
           <div className="flex gap-3">
             <IconButton
               icon="ArrowCircleLeft"
