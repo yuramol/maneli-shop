@@ -8,7 +8,6 @@ import merge from 'deepmerge';
 import isEqual from 'lodash/isEqual';
 import { IncomingHttpHeaders } from 'http';
 import { getAccessToken } from '../helpers/getAccessToken';
-import { GRAPHQL_API } from '../helpers/constants';
 import { apolloCache } from './apolloCacheConfig';
 import { createUploadLink } from 'apollo-upload-client';
 
