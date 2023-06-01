@@ -55,7 +55,9 @@ export default function Product() {
                     product.attributes.title ??
                     'Фото продукту'
                   }
-                  src={process.env.BASE_URL + product.attributes.imagePreview.data?.attributes?.url}
+                  src={
+                    process.env.BASE_API_URL + product.attributes.imagePreview.data?.attributes?.url
+                  }
                   width={product.attributes.imagePreview.data?.attributes?.width as number}
                   height={product.attributes.imagePreview.data?.attributes?.height as number}
                   priority
@@ -91,7 +93,9 @@ export default function Product() {
                   product.attributes.title ??
                   'Фото продукту'
                 }
-                src={process.env.BASE_URL + product.attributes.imagePreview.data?.attributes?.url}
+                src={
+                  process.env.BASE_API_URL + product.attributes.imagePreview.data?.attributes?.url
+                }
                 width={product.attributes.imagePreview.data?.attributes?.width as number}
                 height={product.attributes.imagePreview.data?.attributes?.height as number}
                 priority
