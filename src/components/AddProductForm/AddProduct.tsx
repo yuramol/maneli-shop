@@ -80,7 +80,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
     <Modal isOpen={isOpen} toggleModal={handleToggleForm}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
-        <div className="flex gap-4 items-center">
+        <div className="flex flex-col sm:flex-row gap-4 items-center">
           <div className="relative flex shrink-0 w-[198px] h-[254px]">
             <AddEditImage
               currentImageID={values[AddProductFields.ImagePreview]}
@@ -114,7 +114,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
             />
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <TextField
             label="Знижка"
             type="number"

@@ -32,7 +32,7 @@ import { TableDescriptionFields } from '@/components/AddEditProductTableDescript
 
 import review from '../../../assets/review.png';
 import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/types';
-import { UploadFile } from '@/__generated__/types';
+import { ProductEntity, UploadFile } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
@@ -194,7 +194,7 @@ export default function Product() {
 
         <section className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-20">
           <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD]">
-            <h2 className="font-bold text-2xl md:text-5xl">Докладний опис</h2>
+            <h2 className="font-bold text-2xl md:text-5xl break-words">Докладний опис</h2>
             {!!product?.attributes?.productTableDescriptions?.length && (
               <dl className="mt-4 sm:mt-7">
                 {product?.attributes?.productTableDescriptions?.map(
@@ -232,7 +232,11 @@ export default function Product() {
               </button>
             )}
           </div>
-          <div className="relative flex">
+          <div
+            className={`relative flex mt-14 md:mt-0 ${
+              !product?.attributes?.video ? 'mb-10 md:mb-0' : ''
+            }`}
+          >
             {product?.attributes?.video ? (
               <>
                 <ReactPlayer url={product?.attributes?.video} controls width="100%" />
@@ -260,7 +264,7 @@ export default function Product() {
 
         {product?.attributes?.productDescriptions?.map(item => (
           <section key={item?.id} className="mt-8 md:mt-12">
-            <div className="flex justify-between items-center gap-4">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
               {!isOpenTableDescriptionForm && (
                 <button
