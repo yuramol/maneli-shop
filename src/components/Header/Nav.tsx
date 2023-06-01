@@ -47,11 +47,11 @@ export const Nav = ({
     <>
       <div
         className={
-          'flex fixed top-0 left-0 w-[90%] h-full transition-all duration-500 transform -translate-x-full ' +
+          'flex fixed z-10 top-0 left-0 w-[90%] h-full transition-all duration-500 transform -translate-x-full ' +
           (isBurgerMenuOpen ? 'translate-x-0' : '-translate-x-full')
         }
       >
-        <div className="flex w-full justify-between  bg-white">
+        <div className="flex w-full justify-between bg-white">
           <nav className="flex">
             <ul className="flex flex-col gap-6 px-4 py-20 font-bold text-xl">
               <li
@@ -78,7 +78,7 @@ export const Nav = ({
         </div>
       </div>
       {isBurgerMenuOpen && (
-        <div className="flex fixed top-0 left-0 h-full w-full z-19 bg-black opacity-40" />
+        <div className="flex fixed top-0 left-0 h-full w-full bg-black opacity-40" />
       )}
     </>
   );

@@ -19,7 +19,7 @@ export const Modal: FC<Props> = ({ isOpen, toggleModal, children }) => {
     const touchEndY = e.changedTouches[0].clientY;
     const deltaY = touchEndY - touchStartY;
 
-    if (deltaY > 350) {
+    if (deltaY > 200) {
       toggleModal();
     }
   };

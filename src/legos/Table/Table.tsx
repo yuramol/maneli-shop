@@ -6,7 +6,7 @@ type TableProps = {
 
 export const Table: FC<TableProps> = ({ children }) => {
   return (
-    <div className="border-0 xl:border rounded-md">
+    <div className="border-0 xl:border rounded-md overflow-auto">
       <table className="w-full whitespace-nowrap border-collapse border-spacing-0">
         {children}
       </table>
