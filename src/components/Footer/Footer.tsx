@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 import { ComponentContainer } from '@/layouts';
 import { Button, Login, Logo } from '@/legos';

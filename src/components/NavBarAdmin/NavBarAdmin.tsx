@@ -30,7 +30,7 @@ export const NavBarAdmin = () => {
             redirect: false,
             callbackUrl: '/',
           });
-          push(data.url);
+          push('/');
         }}
       />
     </div>
