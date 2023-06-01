@@ -17,7 +17,7 @@ export const ProductOptionCard: FC<Props> = ({ title, text, image }) => {
       </div>
       {image && (
         <Image
-          src={process.env.BASE_URL + image.url}
+          src={process.env.BASE_API_URL + image.url}
           alt="Product photo"
           width={image.width as number}
           height={image.height as number}

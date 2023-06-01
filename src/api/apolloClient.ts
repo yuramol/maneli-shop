@@ -43,7 +43,7 @@ export const createApolloClient = (headers: IncomingHttpHeaders | null = null) =
   });
 
   const httpLink = createUploadLink({
-    uri: `${process.env.BASE_URL}/graphql`,
+    uri: `${process.env.BASE_API_URL}/graphql`,
     headers: headers as any,
   });
 

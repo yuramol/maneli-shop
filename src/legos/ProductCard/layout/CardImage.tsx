@@ -19,7 +19,7 @@ export const CardImage: FC<Props> = ({ id, image, discount }) => (
       {!!discount && <DiscountLabel discount={discount} />}
       {image && (
         <Image
-          src={(process.env.BASE_URL + image) as string}
+          src={(process.env.BASE_API_URL + image) as string}
           alt={'preview-photo'}
           objectFit="contain"
           layout="fill"

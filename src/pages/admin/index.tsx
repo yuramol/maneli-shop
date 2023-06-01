@@ -95,7 +95,7 @@ export default function AdminPage() {
                           alt="Product photo"
                           className="rounded-full overflow-hidden"
                           src={
-                            process.env.BASE_URL +
+                            process.env.BASE_API_URL +
                             attributes?.imagePreview?.data?.attributes?.formats.thumbnail.url
                           }
                         />

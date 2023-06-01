@@ -65,7 +65,7 @@ export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetUploadIm
     <div className="relative flex w-full h-full">
       {localUploadImg?.attributes?.url ? (
         <Image
-          src={process.env.BASE_URL + localUploadImg.attributes.url}
+          src={process.env.BASE_API_URL + localUploadImg.attributes.url}
           alt="Фото продукту"
           objectFit="cover"
           width={198}
