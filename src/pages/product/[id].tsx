@@ -193,7 +193,7 @@ export default function Product() {
           Замовити зараз
         </button>
 
-        <OrderForm isOpen={isOpen} toggleForm={toggleOrderForm} />
+        <OrderForm productId={query.id as string} isOpen={isOpen} toggleForm={toggleOrderForm} />
       </ComponentContainer>
     </MainLayout>
   );

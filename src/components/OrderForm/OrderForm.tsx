@@ -3,23 +3,24 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
-import { DiscountLabel, Modal, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
+import { DiscountLabel, Modal, QuantitySelector, TextField } from '@/legos';
 import productImage from '../../assets/rectangle-25.png';
 import { OrderUserFields, Props } from './types';
+import { useCreateOrderMutation } from '@/graphql/mutations/__generated__/createOrder';
 
-export const colorOptions = [{ value: '#FFFFFF' }, { value: '#A9A9A9' }, { value: '#464646' }];
 export const modelOptions = [
   { label: '5W', value: '5' },
   { label: '7W', value: '7' },
   { label: '12W', value: '12' },
 ];
 
-export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
+export const OrderForm: FC<Props> = ({ isOpen, productId, toggleForm }) => {
+  const [createOrderMutation] = useCreateOrderMutation();
+
   const initialValues = {
     [OrderUserFields.Quantity]: 1,
     [OrderUserFields.Name]: '',
     [OrderUserFields.Phone]: '',
-    [OrderUserFields.Color]: colorOptions[0].value ?? '',
     [OrderUserFields.Model]: modelOptions[0].value ?? '',
   };
 
@@ -44,8 +45,19 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: ({ model, name, phone, quantity }) => {
+      const data = {
+        productId: productId,
+        productModification: model,
+        quantity,
+        userName: name,
+        userPhone: phone,
+      };
+      createOrderMutation({
+        variables: {
+          data: data,
+        },
+      });
     },
   });
 
@@ -81,21 +93,6 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
           </div>
         </div>
         <div className="flex flex-col gap-6 w-full md:w-4/6 self-center">
-          <OptionsSwitcher
-            title="Колір"
-            showLabels={false}
-            name={OrderUserFields.Color}
-            value={values[OrderUserFields.Color]}
-            options={colorOptions}
-            onChange={handleChange}
-          />
-          <OptionsSwitcher
-            title="Модель"
-            name={OrderUserFields.Model}
-            value={values[OrderUserFields.Model]}
-            options={modelOptions}
-            onChange={handleChange}
-          />
           <TextField
             label="Імʼя отримувача"
             type="text"
