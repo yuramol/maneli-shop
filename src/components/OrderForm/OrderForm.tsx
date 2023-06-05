@@ -65,7 +65,7 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
           </div>
           <div className="flex flex-col justify-between w-full">
             <h3 className="font-semibold md:text-2xl">Портативна світлодіодна USB лампа</h3>
-            <div className="flex justify-between items-center">
+            <div className="flex  flex-col gap-2">
               <div className="flex gap-2 items-baseline sm:gap-6">
                 <p className="text-[#F6543E] font-bold sm:font-semibold sm:text-2xl">
                   {`${240 * (1 - 40 / 100)} грн`}
