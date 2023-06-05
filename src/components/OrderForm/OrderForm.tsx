@@ -4,7 +4,6 @@ import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
 import { DiscountLabel, Modal, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
-import productImage from '../../assets/rectangle-25.png';
 import { OrderUserFields, Props } from './types';
 import { useCreateOrderMutation } from '@/graphql/mutations/__generated__/createOrder';
 
