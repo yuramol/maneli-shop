@@ -141,7 +141,9 @@ export default function Product() {
             <p className="text-sm md:text-lg">{product?.attributes?.description}</p>
             {product?.attributes?.imagePreview?.data?.attributes?.formats?.large?.url && (
               <div className="relative flex md:hidden overflow-hidden rounded-2xl">
-                <DiscountLabel discount={product?.attributes?.discount ?? 0} />
+                {product?.attributes?.discount ? (
+                  <DiscountLabel discount={product.attributes.discount} />
+                ) : null}
                 <Image
                   alt={
                     product.attributes.imagePreview.data?.attributes?.alternativeText ??
@@ -176,7 +178,9 @@ export default function Product() {
           </div>
           {product?.attributes?.imagePreview?.data?.attributes?.url && (
             <div className="relative hidden md:flex overflow-hidden rounded-2xl">
-              <DiscountLabel discount={product?.attributes?.discount ?? 0} />
+              {product?.attributes?.discount ? (
+                <DiscountLabel discount={product.attributes.discount} />
+              ) : null}
               <Image
                 alt={
                   product.attributes.imagePreview.data.attributes.alternativeText ??
