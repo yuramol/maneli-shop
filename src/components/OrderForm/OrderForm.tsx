@@ -75,7 +75,9 @@ export const OrderForm: FC<Props> = ({ isOpen, productId, toggleForm, productDat
       <form className="flex flex-col gap-6 sm:gap-10" onSubmit={handleSubmit}>
         <div className="flex gap-4">
           <div className="relative flex w-full h-full max-w-[98px] max-h-[98px] sm:max-w-[134px] sm:max-h-[134px] overflow-hidden rounded-2xl border border-[#9142C4]">
-            <DiscountLabel smallSize discount={productData?.attributes?.discount ?? 0} />
+            {productData?.attributes?.discount ? (
+              <DiscountLabel smallSize discount={productData.attributes.discount} />
+            ) : null}
             <Image
               alt={
                 productData?.attributes.imagePreview.data?.attributes?.alternativeText ??
