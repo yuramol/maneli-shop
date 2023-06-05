@@ -2,6 +2,7 @@ export type Props = {
   isOpen: boolean;
   toggleForm: () => void;
   productId: string;
+  productData: any;
 };
 
 export enum OrderUserFields {
@@ -9,4 +10,5 @@ export enum OrderUserFields {
   Name = 'name',
   Phone = 'phone',
   Model = 'model',
+  Color = 'color',
 }
