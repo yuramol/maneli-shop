@@ -4,17 +4,20 @@ import * as yup from 'yup';
 import Image from 'next/legacy/image';
 
 import { DiscountLabel, Modal, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
-import productImage from '../../assets/rectangle-25.png';
 import { OrderUserFields, Props } from './types';
+import { useCreateOrderMutation } from '@/graphql/mutations/__generated__/createOrder';
 
 export const colorOptions = [{ value: '#FFFFFF' }, { value: '#A9A9A9' }, { value: '#464646' }];
+
 export const modelOptions = [
   { label: '5W', value: '5' },
   { label: '7W', value: '7' },
   { label: '12W', value: '12' },
 ];
 
-export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
+export const OrderForm: FC<Props> = ({ isOpen, productId, toggleForm, productData }) => {
+  const [createOrderMutation] = useCreateOrderMutation();
+
   const initialValues = {
     [OrderUserFields.Quantity]: 1,
     [OrderUserFields.Name]: '',
@@ -44,8 +47,19 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: ({ model, name, phone, quantity }) => {
+      const data = {
+        productId: productData?.id,
+        productModification: model,
+        quantity,
+        userName: name,
+        userPhone: phone,
+      };
+      createOrderMutation({
+        variables: {
+          data: data,
+        },
+      });
     },
   });
 
@@ -60,17 +74,36 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
       <form className="flex flex-col gap-6 sm:gap-10" onSubmit={handleSubmit}>
         <div className="flex gap-4">
           <div className="relative flex w-full h-full max-w-[98px] max-h-[98px] sm:max-w-[134px] sm:max-h-[134px] overflow-hidden rounded-2xl border border-[#9142C4]">
-            <DiscountLabel smallSize discount={40} />
-            <Image src={productImage} objectFit="cover" alt="Product photo" />
+            {productData?.attributes?.discount ? (
+              <DiscountLabel smallSize discount={productData.attributes.discount} />
+            ) : null}
+            <Image
+              alt={
+                productData?.attributes.imagePreview.data?.attributes?.alternativeText ??
+                productData?.attributes.title ??
+                'Фото продукту'
+              }
+              src={
+                process.env.BASE_API_URL +
+                productData?.attributes.imagePreview.data?.attributes?.url
+              }
+              width={productData?.attributes.imagePreview.data?.attributes?.width as number}
+              height={productData?.attributes.imagePreview.data?.attributes?.height as number}
+              priority
+            />
           </div>
           <div className="flex flex-col justify-between w-full">
-            <h3 className="font-semibold md:text-2xl">Портативна світлодіодна USB лампа</h3>
+            <h3 className="font-semibold md:text-2xl">{productData?.attributes?.title}</h3>
             <div className="flex justify-between items-center">
               <div className="flex gap-2 items-baseline sm:gap-6">
                 <p className="text-[#F6543E] font-bold sm:font-semibold sm:text-2xl">
-                  {`${240 * (1 - 40 / 100)} грн`}
+                  {(productData?.attributes?.price ?? 0) *
+                    (1 - (productData?.attributes?.discount ?? 0) / 100)}{' '}
+                  грн
                 </p>
-                <p className="text-[#828282] text-xs sm:text-2xl line-through">240 грн</p>
+                <p className="text-[#828282] text-xs sm:text-2xl line-through">
+                  {productData?.attributes?.price ?? 0} грн
+                </p>
               </div>
               <QuantitySelector
                 name={OrderUserFields.Quantity}
@@ -81,7 +114,7 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
           </div>
         </div>
         <div className="flex flex-col gap-6 w-full md:w-4/6 self-center">
-          <OptionsSwitcher
+          {/* <OptionsSwitcher
             title="Колір"
             showLabels={false}
             name={OrderUserFields.Color}
@@ -95,7 +128,7 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm }) => {
             value={values[OrderUserFields.Model]}
             options={modelOptions}
             onChange={handleChange}
-          />
+          /> */}
           <TextField
             label="Імʼя отримувача"
             type="text"
