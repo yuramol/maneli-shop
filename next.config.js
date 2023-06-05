@@ -5,7 +5,7 @@ const nextConfig = {
     BASE_URL: 'https://maneli-shop.netlify.app',
     BASE_API_URL: 'https://strapi.maneli.softbee.io',
     GRAPHQL_API: 'https://strapi.maneli.softbee.io/graphql/',
-    NEXTAUTH_URL: 'https://strapi.maneli.softbee.io/api/auth',
+    NEXTAUTH_URL: 'https://maneli-shop.netlify.app/api/auth',
     NEXTAUTH_SECRET: 'Wq+i1/gD+i1LjQG20a8XgHOZSBSsJXsJ52DSFymliD8=',
   },
   images: {
