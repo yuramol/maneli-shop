@@ -6,8 +6,8 @@ import { Maybe } from '@/__generated__/types';
 type Props = {
   productId?: Maybe<string>;
   title?: Maybe<string>;
-  price?: Maybe<number>;
-  discount?: Maybe<number>;
+  price: number;
+  discount: number;
 };
 
 export const CardBody: FC<Props> = ({ productId, title, price, discount }) => (
@@ -17,7 +17,7 @@ export const CardBody: FC<Props> = ({ productId, title, price, discount }) => (
     </h3>
     <div className="flex items-center gap-2 sm:gap-6">
       <p className="text-[#F6543E] font-bold sm:font-semibold text-base sm:text-2xl leading-5 sm:leading-8">
-        {`${price ?? 0 * (1 - (discount ?? 0) / 100)} ₴`}
+        {`${price * (1 - discount / 100)} ₴`}
       </p>
       <p className="text-[#828282] text-xs sm:text-2xl line-through leading-5 sm:leading-8">{`${price} ₴`}</p>
     </div>
