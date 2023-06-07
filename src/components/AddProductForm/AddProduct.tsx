@@ -21,6 +21,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
     [AddProductFields.Title]: product?.attributes?.title ?? '',
     [AddProductFields.Description]: product?.attributes?.description ?? '',
     [AddProductFields.Discount]: product?.attributes?.discount ?? 0,
+    [AddProductFields.PriceOld]: product?.attributes?.priceOld ?? 0,
     [AddProductFields.Price]: product?.attributes?.price ?? 0,
     [AddProductFields.Rating]: product?.attributes?.rating ?? 0,
     [AddProductFields.ImagePreview]: product?.attributes?.imagePreview?.data?.id ?? undefined,
@@ -73,7 +74,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   };
 
   const setImagePreviewId = (id?: string | null) => {
-    setFieldValue(AddProductFields.ImagePreview, id)
+    setFieldValue(AddProductFields.ImagePreview, id);
   };
 
   return (
@@ -105,6 +106,15 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
             />
             <TextField
               label="Ціна"
+              type="number"
+              name={AddProductFields.PriceOld}
+              value={values[AddProductFields.PriceOld]}
+              min={0}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+            <TextField
+              label="Ціна із знижкою"
               type="number"
               name={AddProductFields.Price}
               value={values[AddProductFields.Price]}

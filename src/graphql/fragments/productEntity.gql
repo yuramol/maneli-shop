@@ -3,6 +3,7 @@ fragment productEntity on ProductEntity {
   attributes {
     title
     price
+    priceOld
     rating
     discount
     description
