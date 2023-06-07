@@ -18,7 +18,6 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
 }) => {
   const { query } = useRouter();
   const [updateProductMutation] = useUpdateProductMutation();
-
   const finedProductDescriptionPost = productDescriptions?.[0]?.productDescriptionsPost?.find(
     item => item?.id === editProductDescriptionID,
   );
@@ -59,18 +58,13 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
             id: item?.id,
             title: item?.title,
             productDescriptionsPost: [
-              ...(item?.productDescriptionsPost?.map(i => {
-                if (values[DescriptionFields.ID] === i?.[DescriptionFields.ID]) {
-                  return values;
-                }
-
-                return {
-                  [DescriptionFields.ID]: i?.[DescriptionFields.ID],
-                  [DescriptionFields.Title]: i?.[DescriptionFields.Title],
-                  [DescriptionFields.Descriptions]: i?.[DescriptionFields.Descriptions],
-                  [DescriptionFields.Image]: i?.[DescriptionFields.Image]?.data?.id,
-                };
-              }) ?? []),
+              ...(item?.productDescriptionsPost?.map(i => ({
+                [DescriptionFields.ID]: i?.[DescriptionFields.ID],
+                [DescriptionFields.Title]: i?.[DescriptionFields.Title],
+                [DescriptionFields.Descriptions]: i?.[DescriptionFields.Descriptions],
+                [DescriptionFields.Image]: i?.[DescriptionFields.Image]?.data?.id,
+              })) ?? []),
+              values,
             ],
           })) ?? []),
         ],
