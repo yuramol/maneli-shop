@@ -87,7 +87,7 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
     <Modal isOpen={isOpen} toggleModal={handleToggleForm}>
       <form className="flex flex-col justify-between h-full gap-4" onSubmit={handleSubmit}>
         <h2 className="font-bold text-xl mb-6 mt-3 sm:mt-0 md:text-3xl ">
-          Додати/редагувати варіанти користування:
+          Додати/редагувати продукт:
         </h2>
         <div className="flex gap-8">
           <div className="flex shrink-0 w-[198px] h-[254px]">
