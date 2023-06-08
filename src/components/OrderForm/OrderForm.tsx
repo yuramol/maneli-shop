@@ -47,10 +47,10 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: ({ model, name, phone, quantity }) => {
+    onSubmit: ({ name, phone, quantity }) => {
       const data = {
         productId: productData?.id,
-        productModification: model,
+        productModification: '',
         quantity,
         userName: name,
         userPhone: phone,
