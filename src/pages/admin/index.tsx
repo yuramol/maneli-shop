@@ -127,7 +127,7 @@ export default function AdminPage() {
                       )}
                     </TableCell>
                     <TableCell>{attributes?.title}</TableCell>
-                    <TableCell>{attributes?.price}</TableCell>
+                    <TableCell>{attributes?.price?.toFixed(0)}</TableCell>
                     <TableCell>{attributes?.discount}</TableCell>
                     <TableCell>
                       <input
