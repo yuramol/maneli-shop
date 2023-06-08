@@ -25,18 +25,21 @@ export const ProductOptionCard: FC<Props> = ({ title, text, image }) => {
         <h3 className="font-bold text-xl md:text-3xl">{title}</h3>
         <p className="text-sm md:text-lg mt-1 md:mt-2">{text}</p>
       </div>
-      {image && (
-        <Image
-          src={process.env.BASE_API_URL + image.url}
-          alt="Product photo"
-          width={image.width as number}
-          height={mdScreen ? 300 : 500}
-          style={{
-            borderBottomRightRadius: '16px',
-            borderBottomLeftRadius: '16px',
-          }}
-        />
-      )}
+      <div className="flex flex-auto">
+        {image && (
+          <Image
+            src={process.env.BASE_API_URL + image.url}
+            alt="Product photo"
+            width={image.width as number}
+            height={image.height}
+            objectFit="cover"
+            style={{
+              borderBottomRightRadius: '16px',
+              borderBottomLeftRadius: '16px',
+            }}
+          />
+        )}
+      </div>
     </article>
   );
 };
