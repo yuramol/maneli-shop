@@ -3,7 +3,9 @@ import { useProductsQuery } from '@/graphql/queries/__generated__/products';
 import { ProductCard } from '@/legos';
 
 export const CatalogPageContainer = () => {
-  const { data } = useProductsQuery({ variables: { limit: -1 } });
+  const { data } = useProductsQuery({
+    variables: { limit: -1, filters: { status: { eq: 'active' } } },
+  });
 
   return (
     <div className="flex flex-col w-full my-4 sm:my-10 lg:my-20">

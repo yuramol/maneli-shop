@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { IconButton } from '@/legos/Button/IconButton';
 import { getToken } from 'next-auth/jwt';
@@ -10,11 +10,15 @@ import { AddProductForm } from '@/components';
 import { Icon, Plus, Table, TableBody, TableCell, TableHead, TableRow } from '@/legos';
 import { ProductsDocument, useProductsQuery } from '@/graphql/queries/__generated__/products';
 import { useDeleteProductMutation } from '@/graphql/mutations/__generated__/deleteProduct';
-import { Scalars } from '@/__generated__/types';
+import { Enum_Product_Status, Scalars } from '@/__generated__/types';
+import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 
-const columns = ['ID', 'Фото', 'Назва', 'Ціна, грн.', 'Знижка, %', ''];
+const COLUMNS = ['ID', 'Фото', 'Назва', 'Ціна, грн.', 'Знижка, %', 'Активний', ''];
 
 export default function AdminPage() {
+  const [updateProductMutation] = useUpdateProductMutation();
+  const [deleteProductMutation] = useDeleteProductMutation();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const [start, setStart] = useState(0);
@@ -26,7 +30,6 @@ export default function AdminPage() {
       limit,
     },
   });
-  const [deleteProductMutation] = useDeleteProductMutation();
 
   const toggleAddProductForm = () => {
     setIsOpen(open => !open);
@@ -44,6 +47,20 @@ export default function AdminPage() {
           cache.gc();
         },
       }).then(() => setStart(0));
+    }
+  };
+
+  const handleUpdateProductStatus = (event: ChangeEvent<HTMLInputElement>, id: string) => {
+    if (event.target.checked) {
+      updateProductMutation({
+        variables: { id: id, data: { status: Enum_Product_Status.Active } },
+        refetchQueries: [ProductsDocument],
+      });
+    } else {
+      updateProductMutation({
+        variables: { id: id, data: { status: Enum_Product_Status.Inactive } },
+        refetchQueries: [ProductsDocument],
+      });
     }
   };
 
@@ -74,7 +91,7 @@ export default function AdminPage() {
           <Table>
             <TableHead>
               <TableRow>
-                {columns.map(col => (
+                {COLUMNS.map(col => (
                   <TableCell key={col} head>
                     {col}
                   </TableCell>
@@ -113,6 +130,15 @@ export default function AdminPage() {
                     <TableCell>{attributes?.price}</TableCell>
                     <TableCell>{attributes?.discount}</TableCell>
                     <TableCell>
+                      <input
+                        type="checkbox"
+                        checked={attributes?.status === 'active'}
+                        onChange={event => {
+                          handleUpdateProductStatus(event, id as string);
+                        }}
+                      ></input>
+                    </TableCell>
+                    <TableCell>
                       <div className="flex gap-2 justify-around">
                         <Link href={`admin/product/${id}`}>
                           <IconButton
@@ -131,7 +157,7 @@ export default function AdminPage() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={columns.length}>Немає жодного продукта</TableCell>
+                  <TableCell colSpan={COLUMNS.length}>Немає жодного продукта</TableCell>
                 </TableRow>
               )}
             </TableBody>
