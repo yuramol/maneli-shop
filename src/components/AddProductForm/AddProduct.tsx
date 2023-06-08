@@ -17,6 +17,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   const [createProductMutation] = useCreateProductMutation();
   const [updateProductMutation] = useUpdateProductMutation();
 
+  console.log('DEBUG >>> isOpen ===>', isOpen);
   const initialValues = {
     [AddProductFields.Title]: product?.attributes?.title ?? '',
     [AddProductFields.Description]: product?.attributes?.description ?? '',
