@@ -15,15 +15,15 @@ export const modelOptions = [
   { label: '12W', value: '12' },
 ];
 
-export const OrderForm: FC<Props> = ({ isOpen, productId, toggleForm, productData }) => {
+export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
   const [createOrderMutation] = useCreateOrderMutation();
 
   const initialValues = {
     [OrderUserFields.Quantity]: 1,
     [OrderUserFields.Name]: '',
     [OrderUserFields.Phone]: '',
-    [OrderUserFields.Color]: colorOptions[0].value ?? '',
-    [OrderUserFields.Model]: modelOptions[0].value ?? '',
+    // [OrderUserFields.Color]: colorOptions[0].value ?? '',
+    // [OrderUserFields.Model]: modelOptions[0].value ?? '',
   };
 
   const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;
@@ -47,10 +47,10 @@ export const OrderForm: FC<Props> = ({ isOpen, productId, toggleForm, productDat
   } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: ({ model, name, phone, quantity }) => {
+    onSubmit: ({ name, phone, quantity }) => {
       const data = {
         productId: productData?.id,
-        productModification: model,
+        productModification: '',
         quantity,
         userName: name,
         userPhone: phone,
@@ -94,15 +94,13 @@ export const OrderForm: FC<Props> = ({ isOpen, productId, toggleForm, productDat
           </div>
           <div className="flex flex-col justify-between w-full">
             <h3 className="font-semibold md:text-2xl">{productData?.attributes?.title}</h3>
-            <div className="flex  flex-col gap-2">
+            <div className="flex justify-between items-center">
               <div className="flex gap-2 items-baseline sm:gap-6">
                 <p className="text-[#F6543E] font-bold sm:font-semibold sm:text-2xl">
-                  {(productData?.attributes?.price ?? 0) *
-                    (1 - (productData?.attributes?.discount ?? 0) / 100)}{' '}
-                  грн
+                  {productData?.attributes?.price} грн
                 </p>
                 <p className="text-[#828282] text-xs sm:text-2xl line-through">
-                  {productData?.attributes?.price ?? 0} грн
+                  {productData?.attributes?.priceOld ?? 0} грн
                 </p>
               </div>
               <QuantitySelector
@@ -112,6 +110,12 @@ export const OrderForm: FC<Props> = ({ isOpen, productId, toggleForm, productDat
               />
             </div>
           </div>
+        </div>
+        <div className="flex justify-between items-center">
+          <p className="font-semibold md:text-2xl">Загальна вартість:</p>
+          <p className="font-semibold md:text-2xl pr-2">
+            {productData?.attributes?.price * values.quantity} грн
+          </p>
         </div>
         <div className="flex flex-col gap-6 w-full md:w-4/6 self-center">
           {/* <OptionsSwitcher
