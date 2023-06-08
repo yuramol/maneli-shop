@@ -22,8 +22,8 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
     [OrderUserFields.Quantity]: 1,
     [OrderUserFields.Name]: '',
     [OrderUserFields.Phone]: '',
-    [OrderUserFields.Color]: colorOptions[0].value ?? '',
-    [OrderUserFields.Model]: modelOptions[0].value ?? '',
+    // [OrderUserFields.Color]: colorOptions[0].value ?? '',
+    // [OrderUserFields.Model]: modelOptions[0].value ?? '',
   };
 
   const phoneRegExp = /^(\+380|0)\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/;

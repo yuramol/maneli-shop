@@ -17,7 +17,7 @@ export const CardBody: FC<Props> = ({ productId, title, priceOld, price }) => (
     </h3>
     <div className="flex items-center gap-2 sm:gap-6">
       <p className="text-[#F6543E] font-bold sm:font-semibold text-base sm:text-2xl leading-5 sm:leading-8">
-        {price} ₴`
+        {price} ₴
       </p>
       <p className="text-[#828282] text-xs sm:text-2xl line-through leading-5 sm:leading-8">
         {priceOld} ₴
