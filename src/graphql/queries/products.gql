@@ -1,5 +1,5 @@
-query Products($start: Int, $limit: Int) {
-  products(sort: "id:asc", pagination: { start: $start, limit: $limit }) {
+query Products($start: Int, $limit: Int, $filters: ProductFiltersInput) {
+  products(filters: $filters, sort: "id:asc", pagination: { start: $start, limit: $limit }) {
     data {
       ...productEntity
     }
