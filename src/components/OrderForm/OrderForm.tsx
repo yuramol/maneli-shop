@@ -97,10 +97,10 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
             <div className="flex justify-between items-center">
               <div className="flex gap-2 items-baseline sm:gap-6">
                 <p className="text-[#F6543E] font-bold sm:font-semibold sm:text-2xl">
-                  {productData?.attributes?.price} грн
+                  {productData?.attributes?.price.toFixed(0)} грн
                 </p>
                 <p className="text-[#828282] text-xs sm:text-2xl line-through">
-                  {productData?.attributes?.priceOld ?? 0} грн
+                  {productData?.attributes?.priceOld.toFixed(0) ?? 0} грн
                 </p>
               </div>
               <QuantitySelector
@@ -114,7 +114,7 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
         <div className="flex justify-between items-center">
           <p className="font-semibold md:text-2xl">Загальна вартість:</p>
           <p className="font-semibold md:text-2xl pr-2">
-            {productData?.attributes?.price * values.quantity} грн
+            {(productData?.attributes?.price * values.quantity).toFixed(0)} грн
           </p>
         </div>
         <div className="flex flex-col gap-6 w-full md:w-4/6 self-center">

@@ -163,10 +163,10 @@ export default function Product() {
             <div className="flex justify-between items-center">
               <div className="flex items-end gap-2">
                 <p className="text-[#F6543E] font-bold text-4xl">
-                  🔥 {product?.attributes?.price} грн
+                  🔥 {product?.attributes?.price?.toFixed(0)} грн
                 </p>
                 <p className="text-[#828282] text-base line-through">
-                  {product?.attributes?.priceOld} грн
+                  {product?.attributes?.priceOld?.toFixed(0)} грн
                 </p>
               </div>
               <Rate rate={product?.attributes?.rating ?? 4.8} />
@@ -195,7 +195,7 @@ export default function Product() {
 
         <section className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-20">
           <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD]">
-            <h2 className="font-bold text-2xl md:text-5xl break-words">Докладний опис</h2>
+            <h2 className="font-bold text-2xl md:text-5xl break-words">Характеристики</h2>
             {!!product?.attributes?.productTableDescriptions?.length && (
               <dl className="mt-4 sm:mt-7">
                 {product?.attributes?.productTableDescriptions?.map(

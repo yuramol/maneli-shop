@@ -22,11 +22,11 @@ import { UploadFile } from '@/__generated__/types';
 export default function Product() {
   const { query } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
   const { data, loading, error } = useProductQuery({
     variables: {
       id: query.id as string,
     },
+    fetchPolicy: 'network-only',
   });
 
   const product = data?.product?.data;
@@ -37,10 +37,14 @@ export default function Product() {
 
   const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
+  if (!data) {
+    return null;
+  }
+
   return (
     <MainLayout>
       <ComponentContainer>
-        <section className="relative grid md:grid-cols-2 gap-11 items-center mt-4 md:mt-20 before:w-[400px] before:h-[400px] before:absolute before:-top-20 before:-left-44 before:bg-radial-gradient-purple before:opacity-10 before:-z-10 after:w-[400px] after:h-[400px] after:absolute after:-bottom-20 after:-right-44 after:bg-radial-gradient-purple after:opacity-10 after:-z-10">
+        <section className="relative grid md:grid-cols-2 gap-11 items-center mt-4 md:mt-20 before:w-[400px] before:740px400px] before:absolute before:-top-20 before:-left-44 before:bg-radial-gradient-purple before:opacity-10 before:-z-10 after:w-[400px] after:h-[400px] after:absolute after:-bottom-20 after:-right-44 after:bg-radial-gradient-purple after:opacity-10 after:-z-10">
           <div className="flex flex-col gap-4 md:gap-8">
             <h1 className="font-bold text-2xl md:text-5xl break-words max-w-[100%]">
               {product?.attributes?.title}
@@ -69,9 +73,11 @@ export default function Product() {
             <div className="flex justify-between items-center">
               <div className="flex items-baseline gap-2">
                 <p className="text-[#F6543E] font-bold text-4xl">
-                  🔥 {product?.attributes?.price} грн
+                  🔥 {product?.attributes?.price?.toFixed(0)} грн
                 </p>
-                <p className="text-[#828282] line-through">{product?.attributes?.priceOld} грн</p>
+                <p className="text-[#828282] line-through">
+                  {product?.attributes?.priceOld?.toFixed(0)} грн
+                </p>
               </div>
               <Rate rate={product?.attributes?.rating ?? 4.8} />
             </div>
@@ -83,7 +89,7 @@ export default function Product() {
               Замовити зараз
             </button>
           </div>
-          {product?.attributes?.imagePreview?.data?.attributes && (
+          {product?.attributes?.imagePreview?.data?.attributes?.url && (
             <div className="relative hidden md:flex overflow-hidden rounded-2xl">
               {product?.attributes?.discount ? (
                 <DiscountLabel discount={product.attributes.discount} />
@@ -106,8 +112,8 @@ export default function Product() {
         </section>
 
         <section className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-20">
-          <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD]">
-            <h2 className="font-bold text-2xl md:text-5xl">Докладний опис</h2>
+          <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD] h-[740px]">
+            <h2 className="font-bold text-2xl md:text-5xl">Характеристики</h2>
             {!!product?.attributes?.productTableDescriptions?.length && (
               <dl className="mt-4 sm:mt-7">
                 {product?.attributes?.productTableDescriptions?.map(
@@ -138,7 +144,7 @@ export default function Product() {
         {product?.attributes?.productDescriptions?.map(item => (
           <section key={item?.id} className="mt-8 md:mt-12">
             <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
-            <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
+            <div className="grid md:grid-cols-2 gap-8 pt-8 md:gap-11 md:pt-10">
               {item?.productDescriptionsPost?.map(
                 i =>
                   i?.title && (
