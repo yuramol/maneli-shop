@@ -2,6 +2,7 @@ mutation CreateProduct(
   $title: String!
   $description: String
   $price: Int
+  $priceOld: Int
   $discount: Int
   $rating: Float
   $imagePreview: ID
@@ -12,6 +13,7 @@ mutation CreateProduct(
       title: $title
       description: $description
       price: $price
+      priceOld: $priceOld
       discount: $discount
       rating: $rating
       imagePreview: $imagePreview
