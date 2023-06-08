@@ -18,9 +18,6 @@ export const modelOptions = [
 export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
   const [createOrderMutation] = useCreateOrderMutation();
 
-  const priceWithDiscount =
-    (productData?.attributes?.price ?? 0) * (1 - (productData?.attributes?.discount ?? 0) / 100);
-
   const initialValues = {
     [OrderUserFields.Quantity]: 1,
     [OrderUserFields.Name]: '',
@@ -100,10 +97,10 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
             <div className="flex justify-between items-center">
               <div className="flex gap-2 items-baseline sm:gap-6">
                 <p className="text-[#F6543E] font-bold sm:font-semibold sm:text-2xl">
-                  {priceWithDiscount} грн
+                  {productData?.attributes?.price} грн
                 </p>
                 <p className="text-[#828282] text-xs sm:text-2xl line-through">
-                  {productData?.attributes?.price ?? 0} грн
+                  {productData?.attributes?.priceOld ?? 0} грн
                 </p>
               </div>
               <QuantitySelector
@@ -117,7 +114,7 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
         <div className="flex justify-between items-center">
           <p className="font-semibold md:text-2xl">Загальна вартість:</p>
           <p className="font-semibold md:text-2xl pr-2">
-            {priceWithDiscount * values.quantity} грн
+            {productData?.attributes?.price * values.quantity} грн
           </p>
         </div>
         <div className="flex flex-col gap-6 w-full md:w-4/6 self-center">
