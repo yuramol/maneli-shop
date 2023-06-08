@@ -69,10 +69,10 @@ export default function Product() {
             <div className="flex justify-between items-center">
               <div className="flex items-baseline gap-2">
                 <p className="text-[#F6543E] font-bold text-4xl">
-                  🔥 {product?.attributes?.price?.toFixed(2)} грн
+                  🔥 {product?.attributes?.price?.toFixed(0)} грн
                 </p>
                 <p className="text-[#828282] line-through">
-                  {product?.attributes?.priceOld?.toFixed(2)} грн
+                  {product?.attributes?.priceOld?.toFixed(0)} грн
                 </p>
               </div>
               <Rate rate={product?.attributes?.rating ?? 4.8} />
