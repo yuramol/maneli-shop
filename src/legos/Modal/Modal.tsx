@@ -41,7 +41,7 @@ export const Modal: FC<Props> = ({ isOpen, toggleModal, children }) => {
       }`}
     >
       <div
-        className={`relative overflow-auto w-full  sm:max-h-[780px] rounded-t-3xl transition-all duration-200 ease-in py-4 md:py-10 sm:w-5/6 md:w-4/6 xl:w-3/6 sm:rounded-2xl bg-white before:sm:hidden before:absolute before:w-20 before:h-1 before:top-2 before:left-1/2 before:-ml-10 before:rounded-xl before:bg-[#2E0F42] ${
+        className={`relative overflow-auto max-w-[660px] sm:max-h-[780px] rounded-t-3xl transition-all duration-200 ease-in py-4 md:py-10 sm:w-5/6 md:w-4/6 xl:w-3/6 sm:rounded-2xl bg-white before:sm:hidden before:absolute before:w-20 before:h-1 before:top-2 before:left-1/2 before:-ml-10 before:rounded-xl before:bg-[#2E0F42] ${
           isOpen ? 'translate-y-0' : 'translate-y-full sm:translate-y-96'
         }`}
       >
