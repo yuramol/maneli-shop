@@ -31,7 +31,7 @@ export const ProductOptionCard: FC<Props> = ({ title, text, image }) => {
             src={process.env.BASE_API_URL + image.url}
             alt="Product photo"
             width={image.width as number}
-            height={image.height}
+            height={image.height as number}
             objectFit="cover"
             style={{
               borderBottomRightRadius: '16px',
