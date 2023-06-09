@@ -75,6 +75,9 @@
       "enum": ["active", "inactive"],
       "default": "inactive",
       "required": true
+    },
+    "sku": {
+      "type": "string"
     }
   }
 }

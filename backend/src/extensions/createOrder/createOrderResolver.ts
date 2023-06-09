@@ -55,6 +55,7 @@ export const createOrderResolver = async (
     },
     products: [
       {
+        sku: product.sku,
         price: product.price,
         quantity: quantity,
         name: product.title,
