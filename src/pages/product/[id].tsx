@@ -130,7 +130,9 @@ export default function Product() {
             )}
           </div>
           {product?.attributes?.video && (
-            <ReactPlayer url={product?.attributes?.video} controls width="100%" />
+            <div className="w-full min-h-[450px] h-full">
+              <ReactPlayer url={product?.attributes?.video} controls width="100" height="100%" />
+            </div>
           )}
         </section>
 
