@@ -9,7 +9,7 @@ interface Props {
 export const ProductCard: FC<Props> = ({ product }) => {
   const { id, attributes } = product;
   return (
-    <div className="max-w-[373px]  flex flex-col pt-4 pb-8 sm:py-10">
+    <div className="flex flex-col h-full w-full pt-4 pb-8 sm:py-10">
       <CardImage
         id={id}
         image={attributes?.imagePreview?.data?.attributes?.url}
