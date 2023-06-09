@@ -14,7 +14,8 @@ export type IconsNames =
   | 'Plus'
   | 'Edit'
   | 'Delete'
-  | 'Check';
+  | 'Check'
+  | 'Successful';
 
 export type IconsNamesMapType = {
   [key in IconsNames]: ElementType;

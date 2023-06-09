@@ -17,8 +17,8 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   const [createProductMutation] = useCreateProductMutation();
   const [updateProductMutation] = useUpdateProductMutation();
 
-  console.log('DEBUG >>> isOpen ===>', isOpen);
   const initialValues = {
+    [AddProductFields.SKU]: product?.attributes?.sku ?? '',
     [AddProductFields.Title]: product?.attributes?.title ?? '',
     [AddProductFields.Description]: product?.attributes?.description ?? '',
     [AddProductFields.Discount]: product?.attributes?.discount ?? 0,
@@ -29,6 +29,7 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
   };
 
   const validationSchema = yup.object({
+    [AddProductFields.SKU]: yup.string().required('Будь ласка, заповніть дане поле'),
     [AddProductFields.Title]: yup.string().required('Будь ласка, заповніть дане поле'),
   });
 
@@ -104,6 +105,16 @@ export const AddProductForm: FC<Props> = ({ isOpen, toggleForm, product }) => {
                 !!errors[AddProductFields.Title] && (touched[AddProductFields.Title] as boolean)
               }
               errorText={errors[AddProductFields.Title] as string}
+            />
+            <TextField
+              label="Артикул продукту"
+              name={AddProductFields.SKU}
+              value={values[AddProductFields.SKU]}
+              placeholder="Артикул"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              isError={!!errors[AddProductFields.SKU] && (touched[AddProductFields.SKU] as boolean)}
+              errorText={errors[AddProductFields.SKU] as string}
             />
             <TextField
               label="Ціна"

@@ -112,7 +112,7 @@ export default function Product() {
         </section>
 
         <section className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-20">
-          <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD] h-[740px]">
+          <div className="rounded-2xl p-6 sm:p-8 bg-[#F4F3FD] ">
             <h2 className="font-bold text-2xl md:text-5xl">Характеристики</h2>
             {!!product?.attributes?.productTableDescriptions?.length && (
               <dl className="mt-4 sm:mt-7">
@@ -130,7 +130,9 @@ export default function Product() {
             )}
           </div>
           {product?.attributes?.video && (
-            <ReactPlayer url={product?.attributes?.video} controls width="100%" />
+            <div className="w-full min-h-[450px] h-full">
+              <ReactPlayer url={product?.attributes?.video} controls width="100" height="100%" />
+            </div>
           )}
         </section>
 

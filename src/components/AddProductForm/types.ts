@@ -8,6 +8,7 @@ export type Props = {
 };
 
 export enum AddProductFields {
+  SKU = 'sku',
   Title = 'title',
   Description = 'description',
   Price = 'price',
