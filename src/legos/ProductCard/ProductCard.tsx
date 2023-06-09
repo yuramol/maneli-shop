@@ -18,8 +18,8 @@ export const ProductCard: FC<Props> = ({ product }) => {
       <CardBody
         productId={id}
         title={attributes?.title}
+        priceOld={attributes?.priceOld as number}
         price={attributes?.price as number}
-        discount={attributes?.discount as number}
       />
     </div>
   );
