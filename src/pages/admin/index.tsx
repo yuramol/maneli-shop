@@ -13,7 +13,7 @@ import { useDeleteProductMutation } from '@/graphql/mutations/__generated__/dele
 import { Enum_Product_Status, Scalars } from '@/__generated__/types';
 import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 
-const COLUMNS = ['ID', 'Фото', 'Назва', 'Ціна, грн.', 'Знижка, %', 'Активний', ''];
+const COLUMNS = ['Артикул', 'Фото', 'Назва', 'Ціна, грн.', 'Знижка, %', 'Активний', ''];
 
 export default function AdminPage() {
   const [updateProductMutation] = useUpdateProductMutation();
@@ -102,7 +102,7 @@ export default function AdminPage() {
               {data?.products?.data.length ? (
                 data?.products?.data.map(({ id, attributes }) => (
                   <TableRow key={id}>
-                    <TableCell>{id}</TableCell>
+                    <TableCell>{attributes?.sku}</TableCell>
                     <TableCell>
                       {attributes?.imagePreview?.data ? (
                         <Image

@@ -9,6 +9,7 @@ fragment productEntity on ProductEntity {
     description
     video
     status
+    sku
     imagePreview {
       data {
         ...uploadFileEntity
