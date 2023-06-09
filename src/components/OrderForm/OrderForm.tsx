@@ -6,6 +6,7 @@ import Image from 'next/legacy/image';
 import { DiscountLabel, Modal, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
 import { OrderUserFields, Props } from './types';
 import { useCreateOrderMutation } from '@/graphql/mutations/__generated__/createOrder';
+import { useRouter } from 'next/router';
 
 export const colorOptions = [{ value: '#FFFFFF' }, { value: '#A9A9A9' }, { value: '#464646' }];
 
@@ -17,7 +18,7 @@ export const modelOptions = [
 
 export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
   const [createOrderMutation] = useCreateOrderMutation();
-
+  const { push } = useRouter();
   const initialValues = {
     [OrderUserFields.Quantity]: 1,
     [OrderUserFields.Name]: '',
@@ -59,6 +60,10 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
         variables: {
           data: data,
         },
+      }).then(({ data }) => {
+        if (data?.createOrder?.message === 'Success') {
+          push({ pathname: '/', query: { successful: true } });
+        }
       });
     },
   });
