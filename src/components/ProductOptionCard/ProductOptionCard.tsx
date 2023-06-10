@@ -35,6 +35,8 @@ export const ProductOptionCard: FC<Props> = ({ title, text, image }) => {
             layout="fill"
             objectFit="cover"
             style={{
+              borderTopRightRadius: !title ? '16px' : 0,
+              borderTopLeftRadius: !title ? '16px' : 0,
               borderBottomRightRadius: '16px',
               borderBottomLeftRadius: '16px',
             }}

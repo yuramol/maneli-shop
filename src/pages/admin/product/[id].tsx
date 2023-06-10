@@ -278,30 +278,27 @@ export default function Product() {
               )}
             </div>
             <div className="grid md:grid-cols-2 gap-8 mt-8 md:gap-11 md:mt-10">
-              {item?.productDescriptionsPost?.map(
-                i =>
-                  i?.title && (
-                    <div key={i.id} className="flex relative">
-                      <ProductOptionCard
-                        title={i.title}
-                        text={i.descriptions ?? ''}
-                        image={i.image?.data?.attributes as UploadFile}
-                      />
-                      <div className="flex flex-col gap-1 absolute top-0 -right-10">
-                        <IconButton
-                          onClick={() => toggleProductDescriptionForm(i.id)}
-                          icon="Edit"
-                          className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-purple-700"
-                        />
-                        <IconButton
-                          icon="Delete"
-                          className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-red-500"
-                          onClick={() => handleDeleteProductPostDescription(i.id)}
-                        />
-                      </div>
-                    </div>
-                  ),
-              )}
+              {item?.productDescriptionsPost?.map(i => (
+                <div key={i?.id} className="flex relative">
+                  <ProductOptionCard
+                    title={i?.title ?? ''}
+                    text={i?.descriptions ?? ''}
+                    image={i?.image?.data?.attributes as UploadFile}
+                  />
+                  <div className="flex flex-col gap-1 absolute top-0 -right-10">
+                    <IconButton
+                      onClick={() => toggleProductDescriptionForm(i?.id)}
+                      icon="Edit"
+                      className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-purple-700"
+                    />
+                    <IconButton
+                      icon="Delete"
+                      className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-red-500"
+                      onClick={() => handleDeleteProductPostDescription(i?.id as string)}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         ))}
