@@ -29,10 +29,6 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
     [DescriptionFields.Image]: finedProductDescriptionPost?.image?.data?.id ?? undefined,
   };
 
-  const validationSchema = yup.object({
-    [DescriptionFields.Title]: yup.string().required('Будь ласка, заповніть дане поле'),
-  });
-
   const handleToggleForm = () => {
     resetForm();
     toggleForm();
@@ -49,7 +45,6 @@ export const AddEditProductDescriptionForm: FC<Props> = ({
     resetForm,
   } = useFormik({
     initialValues,
-    validationSchema,
     enableReinitialize: true,
     onSubmit: values => {
       const data = {
