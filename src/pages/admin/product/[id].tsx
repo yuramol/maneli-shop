@@ -14,28 +14,17 @@ import {
   AddProductForm,
   AddEditProductVideoForm,
   AddEditProductDescriptionForm,
-  ReviewCarousel,
+  Reviews,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
-import {
-  ArrowCircleLeft,
-  ArrowCircleRight,
-  Button,
-  DiscountLabel,
-  Edit,
-  IconButton,
-  Plus,
-  Rate,
-} from '@/legos';
+import { DiscountLabel, Edit, IconButton, Plus, Rate } from '@/legos';
 
 import { ProductDocument, useProductQuery } from '@/graphql/queries/__generated__/product';
 import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 import { TableDescriptionFields } from '@/components/AddEditProductTableDescriptionForm/types';
 
-import review from '../../../assets/review.png';
 import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/types';
 import { ProductEntity, UploadFile } from '@/__generated__/types';
-import { AddEditReview } from '@/components/AddEditReview';
 
 export default function Product() {
   const { query } = useRouter();
@@ -49,7 +38,6 @@ export default function Product() {
   const product = data?.product?.data as ProductEntity;
 
   const [isOpenAddProductForm, setIsOpenAddProductForm] = useState(false);
-  const [isOpenAddEditReviewForm, setIsOpenAddEditReviewForm] = useState(false);
   const [isOpenTableDescriptionForm, setIsOpenTableDescriptionForm] = useState(false);
   const [editTableDescriptionID, setEditTableDescriptionID] = useState<string | undefined>(
     undefined,
@@ -62,9 +50,6 @@ export default function Product() {
 
   const toggleAddProductForm = () => {
     setIsOpenAddProductForm(isOpen => !isOpen);
-  };
-  const toggleAddEditReviewForm = () => {
-    setIsOpenAddEditReviewForm(isOpen => !isOpen);
   };
 
   const toggleTableDescriptionForm = (id?: string) => {
@@ -128,17 +113,23 @@ export default function Product() {
     });
   };
 
-  const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const reviews = product?.attributes?.reviews?.data;
 
-  const carouselRef = useRef(null);
-  console.log('%c jordan carouselRef', 'color: lime;', carouselRef.current);
-  const handlePrev = () => {
-    carouselRef?.current?.onClickPrev();
+  const handleAddReviews = (id: string) => {
+    const reviewsPrevIds = reviews?.map(({ id }) => `${id}`);
+    const data = {
+      reviews: [...(reviewsPrevIds ? reviewsPrevIds : []), id],
+    };
+
+    updateProductMutation({
+      variables: { id: query.id as string, data },
+      refetchQueries: [ProductDocument],
+    });
   };
-  const handleNext = () => {
-    carouselRef?.current?.onClickNext();
-  };
+
+  const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
+
+  console.log('%c jordan product', 'color: lime;', product?.attributes?.reviews?.data);
   return (
     <AdminLayout>
       <ComponentContainer>
@@ -322,63 +313,18 @@ export default function Product() {
           </section>
         ))}
 
-        <section className="mt-8 md:mt-12">
-          <div className="flex flex-row gap-6 justify-between items-center">
-            <div className="flex gap-6 items-center">
-              <h2 className="font-bold text-2xl md:text-5xl">Відгуки</h2>
-              <button
-                onClick={() => toggleAddEditReviewForm()}
-                className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
-              >
-                <Plus />
-                Додати відгук
-              </button>
-            </div>
-            <div className="flex flex-row gap-6 md:gap-10">
-              <button onClick={() => handlePrev()}>
-                <ArrowCircleLeft />
-              </button>
-              <button onClick={() => handleNext()}>
-                <ArrowCircleRight />
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-center mt-8 md:mt-16">
-            <div className="flex sm:w-2/4 relative">
-              <ReviewCarousel ref={carouselRef}>
-                {[1, 2, 3].map(key => (
-                  <div key={key} className="relative flex w-100 h-full">
-                    <Image src={review} alt="Review photo" />
-                    <div
-                      className="absolute flex flex-col top-0 left-0 w-full h-full justify-center content-center bg-black
-                      transition-opacity duration-500 linear opacity-0 hover:opacity-70"
-                    >
-                      <div className="flex flex-col items-center justify-center pt-5 pb-6 gap-3">
-                        <button
-                          type="button"
-                          className="rounded-full border border-[#FFFFFF] text-white font-semibold py-4 px-6"
-                        >
-                          + Змінити
-                        </button>
-                        <IconButton
-                          icon="Delete"
-                          className="border border-white p-4 rounded-full text-white transition-all duration-150 hover:text-red-500 hover:border-red-500"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </ReviewCarousel>
-            </div>
-          </div>
-        </section>
+        <Reviews
+          handleAddReviews={handleAddReviews}
+          reviews={reviews}
+          product={product}
+          id={query.id as string}
+        />
 
         <AddProductForm
           isOpen={isOpenAddProductForm}
           toggleForm={toggleAddProductForm}
           product={product}
         />
-        <AddEditReview isOpen={isOpenAddEditReviewForm} toggleForm={toggleAddEditReviewForm} />
 
         <AddEditProductTableDescriptionForm
           isOpen={isOpenTableDescriptionForm}

@@ -14,3 +14,4 @@ export * from './AddEditImage';
 export * from './AddEditProductDescriptionForm';
 export * from './AddEditProductVideoForm';
 export * from './ReviewCarousel';
+export * from './Reviews';

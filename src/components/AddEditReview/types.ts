@@ -5,8 +5,5 @@ export type Props = {
   isOpen: boolean;
   toggleForm: () => void;
   product?: ProductEntity | null;
+  handleAddReviews?: (id: string) => void;
 };
-
-export enum AddProductFields {
-  ImagePreview = 'imagePreview',
-}

@@ -1,32 +1,42 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
 
 import { Modal } from '@/legos';
 import { Props } from './types';
 import { AddEditImage } from '../AddEditImage';
-import { ChangeImage } from '../AddEditImage/components/ChangeImage';
-import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { ProductDocument } from '@/graphql/queries/__generated__/product';
+import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 
 export const AddEditReview: FC<Props> = ({ isOpen, toggleForm, product }) => {
-  const initialValues = {
-    imagePreview: product?.attributes?.imagePreview?.data?.id ?? undefined,
-  };
+  const [updateProductMutation] = useUpdateProductMutation();
+  const reviews = product?.attributes?.reviews?.data;
+  const { query } = useRouter();
 
-  const {
-    values,
-    errors,
-    touched,
-    setFieldValue,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    resetForm,
-  } = useFormik({
-    initialValues,
+  const { setFieldValue, handleSubmit, resetForm } = useFormik({
+    initialValues: {
+      id: '',
+    },
     enableReinitialize: true,
     onSubmit: values => {
-      console.log('%c jordan values', 'color: lime;', values);
+      const reviewsPrevIds = reviews?.map(({ id }) => `${id}`);
+      const data = {
+        reviews: [...(reviewsPrevIds ? reviewsPrevIds : []), values.id],
+      };
+
+      updateProductMutation({
+        variables: { id: query.id as string, data },
+        refetchQueries: [ProductDocument],
+      })
+        .then(({ data }) => {
+          if (data?.updateProduct?.data?.id) {
+            handleToggleForm();
+            resetForm();
+          }
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
     },
   });
 
@@ -36,32 +46,17 @@ export const AddEditReview: FC<Props> = ({ isOpen, toggleForm, product }) => {
   };
 
   const setImagePreviewId = (id?: string | null) => {
-    setFieldValue('imagePreview', id);
+    setFieldValue('id', id);
   };
 
   return (
     <Modal isOpen={isOpen} toggleModal={handleToggleForm}>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-        <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати новий продукт:</h2>
+        <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати відгук:</h2>
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
           <div className="relative flex shrink-0 w-[198px] h-[254px] ">
             <div className="relative flex w-full h-full">
-              {/* {false ? (
-                <Image
-                  src={process.env.BASE_API_URL}
-                  alt="Фото продукту"
-                  objectFit="cover"
-                  width={198}
-                  height={198}
-                />
-              ) : (
-                <span className="m-auto">Додайте фото</span>
-              )}
-              <ChangeImage
-              // imageId={localUploadImg?.id as string}
-              // handleUploadImg={handleUploadImg}
-              // handleDeleteImg={handleDeleteImg}
-              /> */}
+              <AddEditImage handleSetUploadImageId={setImagePreviewId} currentImageID={null} />
             </div>
           </div>
         </div>
