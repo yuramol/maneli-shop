@@ -11,8 +11,8 @@ type Props = {
 };
 
 export const CardBody: FC<Props> = ({ productId, title, priceOld, price }) => (
-  <div className="flex flex-col gap-1 sm:gap-4 mt-4 mb-2">
-    <h3 className="font-semibold sm:font-bold text-sm sm:text-base text-ellipsis overflow-hidden">
+  <div className="flex flex-col grow gap-1 sm:gap-4 mt-4 mb-2">
+    <h3 className="font-semibold grow sm:font-bold text-sm sm:text-base text-ellipsis overflow-hidden">
       {title}
     </h3>
     <div className="flex items-center gap-2 sm:gap-6">
