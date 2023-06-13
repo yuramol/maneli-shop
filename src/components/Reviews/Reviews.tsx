@@ -87,8 +87,8 @@ export const Reviews: FC<Props> = ({ product, id, isAdmin }) => {
                   <Image
                     src={process.env.BASE_API_URL + attributes.url}
                     alt="Review photo"
-                    width={attributes.formats?.large?.width as number}
-                    height={attributes.formats?.large?.height as number}
+                    width={(attributes.formats?.large?.width as number) || 1000}
+                    height={(attributes.formats?.large?.height as number) || 1000}
                     style={{ objectFit: 'cover' }}
                   />
                 )}
