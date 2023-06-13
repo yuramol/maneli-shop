@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/legacy/image';
 import dynamic from 'next/dynamic';
+import * as fbq from '../../lib/fpixel';
 
 import {
   CountdownTimer,
   OrderForm,
   ProductCharacteristicItem,
   ProductOptionCard,
+  Reviews,
 } from '@/components';
 import { ComponentContainer, MainLayout } from '@/layouts';
 import { DiscountLabel, Icon, IconButton, Rate } from '@/legos';
@@ -17,7 +19,7 @@ import { useProductQuery } from '@/graphql/queries/__generated__/product';
 import productImage21 from '../../assets/rectangle-21.png';
 import productImage from '../../assets/rectangle-25.png';
 import review from '../../assets/review.png';
-import { UploadFile } from '@/__generated__/types';
+import { ProductEntity, UploadFile } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
@@ -34,6 +36,12 @@ export default function Product() {
   const toggleOrderForm = () => {
     setIsOpen(isOpen => !isOpen);
   };
+
+  useEffect(() => {
+    if (data) {
+      fbq.event('track', 'PageView');
+    }
+  }, [data]);
 
   const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
@@ -159,19 +167,9 @@ export default function Product() {
           </section>
         ))}
 
+        <Reviews product={product as ProductEntity} id={query.id as string} />
+
         <section className="mt-8 md:mt-12">
-          <div className="flex flex-row gap-6 justify-between items-center">
-            <h2 className="font-bold text-2xl md:text-5xl">Відгуки</h2>
-            <div className="flex flex-row gap-6 md:gap-10">
-              <IconButton icon="ArrowCircleLeft" />
-              <IconButton icon="ArrowCircleRight" />
-            </div>
-          </div>
-          <div className="flex justify-center mt-8 md:mt-16">
-            <div className="flex sm:w-2/4">
-              <Image src={review} alt="Review photo" />
-            </div>
-          </div>
           <div className="flex flex-row flex-wrap gap-4 sm:gap-10 justify-center mt-8 md:mt-20">
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
               <Icon icon="CalendarDate" />

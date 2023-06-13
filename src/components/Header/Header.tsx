@@ -12,7 +12,7 @@ export const Header = () => {
 
   useEffect(() => {
     const updateSize = () => {
-      setXsScreen(window.innerWidth > 640);
+      setXsScreen(window.innerWidth < 640);
     };
     updateSize();
     window.addEventListener('resize', updateSize);
@@ -28,7 +28,7 @@ export const Header = () => {
       <ComponentContainer>
         <div className="flex justify-between">
           <div className="flex gap-4">
-            {!xsScreen ? <IconButton icon="Burger" onClick={handleMenuClick} /> : null}
+            {xsScreen ? <IconButton icon="Burger" onClick={handleMenuClick} /> : null}
             <Logo />
           </div>
           <Nav handleMenuClick={handleMenuClick} isBurgerMenuOpen={isBurgerMenuOpen} />
