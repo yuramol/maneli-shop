@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useFormik } from 'formik';
 
 import { Modal } from '@/legos';
@@ -54,9 +54,11 @@ export const AddEditReview: FC<Props> = ({ isOpen, toggleForm, product }) => {
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <h2 className="font-bold text-xl mt-3 sm:mt-0 md:text-3xl ">Додати відгук:</h2>
         <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-          <div className="relative flex shrink-0 w-[198px] h-[254px] ">
-            <div className="relative flex w-full h-full">
-              <AddEditImage handleSetUploadImageId={setImagePreviewId} currentImageID={null} />
+          <div className="relative flex shrink-0 w-full min-h-[200px] h-[300px] ">
+            <div className="relative flex w-full h-full items-center justify-center">
+              {isOpen && (
+                <AddEditImage handleSetUploadImageId={setImagePreviewId} currentImageID={''} />
+              )}
             </div>
           </div>
         </div>

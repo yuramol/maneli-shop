@@ -1,4 +1,4 @@
-import { MouseEvent, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { AdminLayout } from '@/layouts/AdminLayout';
 import { getToken } from 'next-auth/jwt';
@@ -28,7 +28,7 @@ import { ProductEntity, UploadFile } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
-  const { data, loading, error } = useProductQuery({
+  const { data } = useProductQuery({
     variables: {
       id: query.id as string,
     },
@@ -113,23 +113,8 @@ export default function Product() {
     });
   };
 
-  const reviews = product?.attributes?.reviews?.data;
-
-  const handleAddReviews = (id: string) => {
-    const reviewsPrevIds = reviews?.map(({ id }) => `${id}`);
-    const data = {
-      reviews: [...(reviewsPrevIds ? reviewsPrevIds : []), id],
-    };
-
-    updateProductMutation({
-      variables: { id: query.id as string, data },
-      refetchQueries: [ProductDocument],
-    });
-  };
-
   const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 
-  console.log('%c jordan product', 'color: lime;', product?.attributes?.reviews?.data);
   return (
     <AdminLayout>
       <ComponentContainer>
@@ -313,12 +298,7 @@ export default function Product() {
           </section>
         ))}
 
-        <Reviews
-          handleAddReviews={handleAddReviews}
-          reviews={reviews}
-          product={product}
-          id={query.id as string}
-        />
+        <Reviews product={product} id={query.id as string} isAdmin />
 
         <AddProductForm
           isOpen={isOpenAddProductForm}

@@ -3,18 +3,17 @@ import { FC, useCallback, useRef, useState } from 'react';
 import { ReviewCarousel } from '../ReviewCarousel';
 import Image from 'next/image';
 import { AddEditReview } from '../AddEditReview';
-import { ProductEntity, UploadFileEntity } from '@/__generated__/types';
+import { ProductEntity } from '@/__generated__/types';
 import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 import { ProductDocument } from '@/graphql/queries/__generated__/product';
 import { useRemoveFileMutation } from '@/graphql/mutations/__generated__/removeFile';
 
 type Props = {
-  handleAddReviews?: (id: string) => void;
-  reviews: UploadFileEntity[] | undefined;
   product?: ProductEntity | null;
   id?: string;
+  isAdmin?: boolean;
 };
-export const Reviews: FC<Props> = ({ handleAddReviews, product, id }) => {
+export const Reviews: FC<Props> = ({ product, id, isAdmin }) => {
   const carouselRef = useRef(null);
   const [updateProductMutation] = useUpdateProductMutation();
   const [isOpenAddEditReviewForm, setIsOpenAddEditReviewForm] = useState(false);
@@ -58,13 +57,15 @@ export const Reviews: FC<Props> = ({ handleAddReviews, product, id }) => {
       <div className="flex flex-row gap-6 justify-between items-center">
         <div className="flex gap-6 items-center">
           <h2 className="font-bold text-2xl md:text-5xl">Відгуки</h2>
-          <button
-            onClick={() => toggleAddEditReviewForm()}
-            className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
-          >
-            <Plus />
-            Додати відгук
-          </button>
+          {isAdmin && (
+            <button
+              onClick={() => toggleAddEditReviewForm()}
+              className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
+            >
+              <Plus />
+              Додати відгук
+            </button>
+          )}
         </div>
         {reviews?.length && reviews?.length > 1 ? (
           <div className="flex flex-row gap-6 md:gap-10">
@@ -77,43 +78,43 @@ export const Reviews: FC<Props> = ({ handleAddReviews, product, id }) => {
           </div>
         ) : null}
       </div>
-      <div className="flex justify-center mt-8 md:mt-16">
-        <div className="flex sm:w-2/4 relative">
+      <div className="flex justify-center mt-8 md:my-16">
+        <div className="flex sm:w-2/4 relative items-center">
           <ReviewCarousel ref={carouselRef}>
             {reviews?.map(({ attributes, id }) => (
-              <div key={`${attributes?.url}`} className="relative flex w-100 h-full">
+              <div key={`${attributes?.url}`} className="relative flex w-full h-full items-center ">
                 {attributes?.url && (
                   <Image
-                    src={(process.env.BASE_API_URL + attributes?.url) as string}
+                    src={process.env.BASE_API_URL + attributes.url}
                     alt="Review photo"
-                    width={attributes?.formats?.large?.width || 1000}
-                    height={attributes?.formats?.large?.height || 1000}
-                    priority
+                    width={attributes.formats?.large?.width as number}
+                    height={attributes.formats?.large?.height as number}
+                    style={{ objectFit: 'cover' }}
                   />
                 )}
-                <div
-                  className="absolute flex flex-col top-0 left-0 w-full h-full justify-center content-center bg-black
-              transition-opacity duration-500 linear opacity-0 hover:opacity-70"
-                >
-                  <div className="flex flex-col items-center justify-center pt-5 pb-6 gap-3">
-                    <IconButton
-                      icon="Delete"
-                      className="border border-white p-4 rounded-full text-white transition-all duration-150 hover:text-red-500 hover:border-red-500"
-                      onClick={() => handleDeleteReview(id as string)}
-                    />
+                {isAdmin && (
+                  <div className="absolute flex flex-col top-0 left-0 w-full h-full justify-center content-center bg-black transition-opacity duration-500 linear opacity-0 hover:opacity-70">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6 gap-3">
+                      <IconButton
+                        icon="Delete"
+                        className="border border-white p-4 rounded-full text-white transition-all duration-150 hover:text-red-500 hover:border-red-500"
+                        onClick={() => handleDeleteReview(id as string)}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             ))}
           </ReviewCarousel>
         </div>
       </div>
-      <AddEditReview
-        isOpen={isOpenAddEditReviewForm}
-        toggleForm={toggleAddEditReviewForm}
-        handleAddReviews={handleAddReviews}
-        product={product}
-      />
+      {isAdmin && (
+        <AddEditReview
+          isOpen={isOpenAddEditReviewForm}
+          toggleForm={toggleAddEditReviewForm}
+          product={product}
+        />
+      )}
     </section>
   );
 };

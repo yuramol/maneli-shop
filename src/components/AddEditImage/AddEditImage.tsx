@@ -62,14 +62,14 @@ export const AddEditImage: FC<Props> = ({ currentImageID = '', handleSetUploadIm
   };
 
   return (
-    <div className="relative flex w-full h-full">
+    <div className="relative flex w-full h-full items-center justify-center overflow-hidden">
       {localUploadImg?.attributes?.url ? (
         <Image
           src={process.env.BASE_API_URL + localUploadImg.attributes.url}
           alt="Фото продукту"
           objectFit="cover"
-          width={198}
-          height={198}
+          width={localUploadImg?.attributes?.formats.small?.width || 198}
+          height={localUploadImg?.attributes?.formats.small?.height || 198}
         />
       ) : (
         <span className="m-auto">Додайте фото</span>
