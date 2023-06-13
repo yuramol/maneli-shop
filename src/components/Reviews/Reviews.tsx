@@ -1,5 +1,5 @@
 import { ArrowCircleLeft, ArrowCircleRight, IconButton, Plus } from '@/legos';
-import { FC, useCallback, useRef, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { ReviewCarousel } from '../ReviewCarousel';
 import Image from 'next/image';
 import { AddEditReview } from '../AddEditReview';
@@ -18,6 +18,16 @@ export const Reviews: FC<Props> = ({ product, id, isAdmin }) => {
   const [updateProductMutation] = useUpdateProductMutation();
   const [isOpenAddEditReviewForm, setIsOpenAddEditReviewForm] = useState(false);
   const [removeFileMutation] = useRemoveFileMutation();
+  const [xsScreen, setXsScreen] = useState(false);
+
+  useEffect(() => {
+    const updateSize = () => {
+      setXsScreen(window.innerWidth < 640);
+    };
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
 
   const handlePrev = () => {
     (carouselRef?.current as any)?.onClickPrev();
@@ -80,16 +90,18 @@ export const Reviews: FC<Props> = ({ product, id, isAdmin }) => {
       </div>
       <div className="flex justify-center mt-8 md:my-16">
         <div className="flex sm:w-2/4 relative items-center">
-          <ReviewCarousel ref={carouselRef}>
+          <ReviewCarousel ref={carouselRef} carouselSize={xsScreen ? 330 : 580}>
             {reviews?.map(({ attributes, id }) => (
-              <div key={`${attributes?.url}`} className="relative flex w-full h-full items-center ">
+              <div
+                key={`${attributes?.url}`}
+                className="relative flex w-[330px] h-[170px] sm:h-[300px] sm:w-[580px] items-center "
+              >
                 {attributes?.url && (
                   <Image
                     src={process.env.BASE_API_URL + attributes.url}
                     alt="Review photo"
-                    width={(attributes.formats?.large?.width as number) || 1000}
-                    height={(attributes.formats?.large?.height as number) || 1000}
-                    style={{ objectFit: 'cover' }}
+                    objectFit="contain"
+                    layout="fill"
                   />
                 )}
                 {isAdmin && (
