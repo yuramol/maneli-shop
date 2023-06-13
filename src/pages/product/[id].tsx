@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/legacy/image';
 import dynamic from 'next/dynamic';
+import * as fbq from '../../lib/fpixel';
 
 import {
   CountdownTimer,
@@ -34,6 +35,12 @@ export default function Product() {
   const toggleOrderForm = () => {
     setIsOpen(isOpen => !isOpen);
   };
+
+  useEffect(() => {
+    if (data) {
+      fbq.event('track', 'PageView');
+    }
+  }, [data]);
 
   const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false });
 

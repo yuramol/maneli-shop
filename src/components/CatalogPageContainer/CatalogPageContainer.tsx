@@ -15,7 +15,7 @@ export const CatalogPageContainer = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleClick = () => {
-    fbq.event('Purchase', { currency: 'USD', value: 10 });
+    fbq.event('track', 'Lead');
   };
 
   const closeModal = useCallback(() => {
