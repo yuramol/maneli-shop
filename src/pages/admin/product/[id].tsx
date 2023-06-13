@@ -14,29 +14,21 @@ import {
   AddProductForm,
   AddEditProductVideoForm,
   AddEditProductDescriptionForm,
+  Reviews,
 } from '@/components';
 import { ComponentContainer } from '@/layouts';
-import {
-  ArrowCircleLeft,
-  ArrowCircleRight,
-  DiscountLabel,
-  Edit,
-  IconButton,
-  Plus,
-  Rate,
-} from '@/legos';
+import { DiscountLabel, Edit, IconButton, Plus, Rate } from '@/legos';
 
 import { ProductDocument, useProductQuery } from '@/graphql/queries/__generated__/product';
 import { useUpdateProductMutation } from '@/graphql/mutations/__generated__/updateProduct';
 import { TableDescriptionFields } from '@/components/AddEditProductTableDescriptionForm/types';
 
-import review from '../../../assets/review.png';
 import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/types';
 import { ProductEntity, UploadFile } from '@/__generated__/types';
 
 export default function Product() {
   const { query } = useRouter();
-  const { data, loading, error } = useProductQuery({
+  const { data } = useProductQuery({
     variables: {
       id: query.id as string,
     },
@@ -303,24 +295,7 @@ export default function Product() {
           </section>
         ))}
 
-        <section className="mt-8 md:mt-12">
-          <div className="flex flex-row gap-6 justify-between items-center">
-            <h2 className="font-bold text-2xl md:text-5xl">Відгуки</h2>
-            <div className="flex flex-row gap-6 md:gap-10">
-              <button>
-                <ArrowCircleLeft />
-              </button>
-              <button>
-                <ArrowCircleRight />
-              </button>
-            </div>
-          </div>
-          <div className="flex justify-center mt-8 md:mt-16">
-            <div className="flex sm:w-2/4">
-              <Image src={review} alt="Review photo" />
-            </div>
-          </div>
-        </section>
+        <Reviews product={product} id={query.id as string} isAdmin />
 
         <AddProductForm
           isOpen={isOpenAddProductForm}

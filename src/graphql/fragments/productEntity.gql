@@ -15,6 +15,11 @@ fragment productEntity on ProductEntity {
         ...uploadFileEntity
       }
     }
+    reviews {
+      data {
+        ...uploadFileEntity
+      }
+    }
     productTableDescriptions {
       id
       text

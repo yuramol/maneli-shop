@@ -25,7 +25,7 @@ export const ChangeImage: FC<Props> = ({ imageId, handleUploadImg, handleDeleteI
           className="rounded-full border border-[#FFFFFF] text-white font-semibold py-4 px-6"
           onClick={handleClick}
         >
-          + Змінити
+          {imageId ? 'Змінити' : '+ Додати'}
         </button>
         {imageId && (
           <IconButton
