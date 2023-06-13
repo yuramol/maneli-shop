@@ -4,6 +4,7 @@ import { ProductCard } from '@/legos';
 import { SuccessfulOrderDialog } from '../SuccessfulOrderDialog';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import * as fbq from '../../lib/fpixel';
 
 export const CatalogPageContainer = () => {
   const { push, query } = useRouter();
@@ -13,16 +14,21 @@ export const CatalogPageContainer = () => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const toggleModal = useCallback(() => {
+  const handleClick = () => {
+    fbq.event('track', 'Lead');
+  };
+
+  const closeModal = useCallback(() => {
     setIsOpenModal(false);
+    handleClick();
     push({ query: {} });
-  }, []);
+  }, [push]);
 
   useEffect(() => {
     if (query.successful) {
       setIsOpenModal(true);
     }
-  }, [query.successful, toggleModal]);
+  }, [query.successful, closeModal]);
 
   return (
     <>
@@ -38,7 +44,7 @@ export const CatalogPageContainer = () => {
           ))}
         </div>
       </div>
-      <SuccessfulOrderDialog isOpen={isOpenModal} toggleModal={toggleModal} />
+      <SuccessfulOrderDialog isOpen={isOpenModal} toggleModal={closeModal} />
     </>
   );
 };
