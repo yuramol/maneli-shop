@@ -147,17 +147,14 @@ export default function Product() {
           <section key={item?.id} className="mt-8 md:mt-12">
             <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
             <div className="grid md:grid-cols-2 gap-8 pt-8 md:gap-11 md:pt-10">
-              {item?.productDescriptionsPost?.map(
-                i =>
-                  i?.title && (
-                    <ProductOptionCard
-                      key={i.id}
-                      title={i.title}
-                      text={i.descriptions ?? ''}
-                      image={i.image?.data?.attributes as UploadFile}
-                    />
-                  ),
-              )}
+              {item?.productDescriptionsPost?.map(i => (
+                <ProductOptionCard
+                  key={i?.id ?? ''}
+                  title={i?.title ?? ''}
+                  text={i?.descriptions ?? ''}
+                  image={i?.image?.data?.attributes as UploadFile}
+                />
+              ))}
             </div>
           </section>
         ))}
