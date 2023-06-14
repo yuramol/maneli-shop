@@ -6,9 +6,11 @@ interface LayoutProps {
 }
 
 export const MainLayout: FC<LayoutProps> = ({ children }) => (
-  <div className="flex flex-col min-h-screen overflow-hidden">
+  <div className="flex flex-col min-h-screen ">
     <Header />
-    <main className="flex flex-col flex-auto min-h-full w-full h-full">{children}</main>
+    <main className="flex flex-col flex-auto min-h-full w-full h-full overflow-hidden">
+      {children}
+    </main>
     <Footer />
   </div>
 );
