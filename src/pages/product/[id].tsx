@@ -99,7 +99,7 @@ export default function Product() {
             </button>
           </div>
           {product?.attributes?.imagePreview?.data?.attributes?.url && (
-            <div className="relative md:flex overflow-hidden rounded-2xl">
+            <div className="relative hidden md:flex overflow-hidden rounded-2xl">
               {product?.attributes?.discount ? (
                 <DiscountLabel discount={product.attributes.discount} />
               ) : null}
