@@ -94,13 +94,13 @@ export const Reviews: FC<Props> = ({ product, id, isAdmin }) => {
             {reviews?.map(({ attributes, id }) => (
               <div
                 key={`${attributes?.url}`}
-                className="relative flex w-[330px] h-[170px] sm:h-[300px] sm:w-[580px] items-center "
+                className="relative flex w-[330px] h-[170px] sm:h-[300px] sm:w-[580px] items-center overflow-hidden rounded-2xl"
               >
                 {attributes?.url && (
                   <Image
                     src={process.env.BASE_API_URL + attributes.url}
                     alt="Review photo"
-                    objectFit="contain"
+                    objectFit="cover"
                     layout="fill"
                   />
                 )}

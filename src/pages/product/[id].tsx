@@ -22,12 +22,13 @@ import review from '../../assets/review.png';
 import { ProductEntity, UploadFile } from '@/__generated__/types';
 
 export default function Product() {
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const { data, loading, error } = useProductQuery({
     variables: {
       id: query.id as string,
     },
+    skip: !isReady,
     fetchPolicy: 'network-only',
   });
 
@@ -98,7 +99,7 @@ export default function Product() {
             </button>
           </div>
           {product?.attributes?.imagePreview?.data?.attributes?.url && (
-            <div className="relative hidden md:flex overflow-hidden rounded-2xl">
+            <div className="relative md:flex overflow-hidden rounded-2xl">
               {product?.attributes?.discount ? (
                 <DiscountLabel discount={product.attributes.discount} />
               ) : null}

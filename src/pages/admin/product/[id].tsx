@@ -27,11 +27,12 @@ import { DescriptionFields } from '@/components/AddEditProductDescriptionForm/ty
 import { ProductEntity, UploadFile } from '@/__generated__/types';
 
 export default function Product() {
-  const { query } = useRouter();
+  const { query, isReady } = useRouter();
   const { data } = useProductQuery({
     variables: {
       id: query.id as string,
     },
+    skip: !isReady,
   });
   const [updateProductMutation] = useUpdateProductMutation();
 
@@ -105,6 +106,17 @@ export default function Product() {
           ],
         })) ?? []),
       ],
+    };
+
+    updateProductMutation({
+      variables: { id: query.id as string, data },
+      refetchQueries: [ProductDocument],
+    });
+  };
+
+  const handleDeleteProductVideo = () => {
+    const data = {
+      video: '',
     };
 
     updateProductMutation({
@@ -217,7 +229,7 @@ export default function Product() {
             )}
             {!isOpenTableDescriptionForm && (
               <button
-                onClick={() => toggleTableDescriptionForm()}
+                onClick={toggleTableDescriptionForm}
                 className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 mt-2 sm:mt-4 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
               >
                 <Plus />
@@ -231,16 +243,23 @@ export default function Product() {
             }`}
           >
             {product?.attributes?.video ? (
-              <>
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-2 justify-center items-center">
+                  <button
+                    onClick={toggleProductVideoForm}
+                    className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
+                  >
+                    <Edit />
+                    Редагувати відеопосилання
+                  </button>
+                  <IconButton
+                    icon="Delete"
+                    className="flex justify-center items-center w-10 h-10 transition-all duration-100 hover:text-red-500"
+                    onClick={handleDeleteProductVideo}
+                  />
+                </div>
                 <ReactPlayer url={product?.attributes?.video} controls width="100%" />
-                <button
-                  onClick={toggleProductVideoForm}
-                  className="absolute -top-14 flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
-                >
-                  <Edit />
-                  Редагувати відеопосилання
-                </button>
-              </>
+              </div>
             ) : (
               !isOpenTableDescriptionForm && (
                 <button
@@ -261,7 +280,7 @@ export default function Product() {
               <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
               {!isOpenTableDescriptionForm && (
                 <button
-                  onClick={() => toggleProductDescriptionForm()}
+                  onClick={toggleProductDescriptionForm}
                   className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
                 >
                   <Plus />
@@ -277,7 +296,7 @@ export default function Product() {
                     text={i?.descriptions ?? ''}
                     image={i?.image?.data?.attributes as UploadFile}
                   />
-                  <div className="flex flex-col gap-1 absolute top-0 -right-10">
+                  <div className="flex flex-col absolute top-0 right-1">
                     <IconButton
                       onClick={() => toggleProductDescriptionForm(i?.id)}
                       icon="Edit"
