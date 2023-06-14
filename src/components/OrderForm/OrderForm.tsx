@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Image from 'next/legacy/image';
+import * as fbq from '../../lib/fpixel';
 
 import { DiscountLabel, Modal, OptionsSwitcher, QuantitySelector, TextField } from '@/legos';
 import { OrderUserFields, Props } from './types';
@@ -62,6 +63,7 @@ export const OrderForm: FC<Props> = ({ isOpen, toggleForm, productData }) => {
         },
       }).then(({ data }) => {
         if (data?.createOrder?.message === 'Success') {
+          fbq.event('Lead');
           push({ pathname: '/', query: { successful: true } });
         }
       });

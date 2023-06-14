@@ -4,7 +4,6 @@ import { ProductCard } from '@/legos';
 import { SuccessfulOrderDialog } from '../SuccessfulOrderDialog';
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import * as fbq from '../../lib/fpixel';
 
 export const CatalogPageContainer = () => {
   const { push, query } = useRouter();
@@ -14,13 +13,8 @@ export const CatalogPageContainer = () => {
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const handleClick = () => {
-    fbq.event('Lead');
-  };
-
   const closeModal = useCallback(() => {
     setIsOpenModal(false);
-    handleClick();
     push({ query: {} });
   }, [push]);
 
