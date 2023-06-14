@@ -229,7 +229,7 @@ export default function Product() {
             )}
             {!isOpenTableDescriptionForm && (
               <button
-                onClick={toggleTableDescriptionForm}
+                onClick={() => toggleTableDescriptionForm()}
                 className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 mt-2 sm:mt-4 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
               >
                 <Plus />
@@ -280,7 +280,7 @@ export default function Product() {
               <h2 className="font-bold text-2xl md:text-5xl">{item?.title}</h2>
               {!isOpenTableDescriptionForm && (
                 <button
-                  onClick={toggleProductDescriptionForm}
+                  onClick={() => toggleProductDescriptionForm()}
                   className="flex justify-center items-center gap-2 rounded-full border border-black text-sm font-semibold px-6 py-3 transition-all duration-200 hover:text-[#7613B5] hover:border-[#7613B5]"
                 >
                   <Plus />
