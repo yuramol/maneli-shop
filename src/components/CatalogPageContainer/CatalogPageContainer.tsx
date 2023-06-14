@@ -15,7 +15,7 @@ export const CatalogPageContainer = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleClick = () => {
-    fbq.event('track', 'Lead');
+    fbq.event('Lead');
   };
 
   const closeModal = useCallback(() => {

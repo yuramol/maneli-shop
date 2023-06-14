@@ -40,7 +40,7 @@ export default function Product() {
 
   useEffect(() => {
     if (data) {
-      fbq.event('track', 'PageView');
+      fbq.event('PageView');
     }
   }, [data]);
 
