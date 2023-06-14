@@ -19,8 +19,8 @@ export const Footer = () => {
             <h1 className="mb-3 sm:mb-10 font-bold text-2xl sm:text-[42px] sm:leading-[54px] tracking-[0.01rem]">
               Контакти
             </h1>
-            <p className="mb-3 font-semibold text-sm sm:text-base">manko@gmail.com</p>
-            <p className="mb-5 sm:mb-8 font-semibold text-sm sm:text-base">+ 38 063 76 75 891</p>
+            <p className="mb-3 font-semibold text-sm sm:text-base">maneli.shop.ua@gmail.com</p>
+            <p className="mb-5 sm:mb-8 font-semibold text-sm sm:text-base">067 726 69 93</p>
             <p className="font-bold text-xs tracking-[0.02rem]">
               Манелі – інтернет магазин популярних товарів
             </p>
