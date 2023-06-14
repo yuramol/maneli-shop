@@ -28,7 +28,7 @@ export const CatalogPageContainer = () => {
     <>
       <div className="flex flex-col w-full my-4 sm:my-10 lg:my-20">
         <h1 className="mb-4 sm:mb-10 font-bold text-2xl sm:text-[42px] sm:leading-[54px] tracking-[0.01rem]">
-          Каталог товарів <span className="text-[#F6543E]">-40%</span>
+          Каталог товарів <span className="text-[#F6543E]">-50%</span>
         </h1>
         <div className="flex flex-wrap mx-[-8px] sm:mx-[-20px]">
           {data?.products?.data.map(product => (
