@@ -89,7 +89,7 @@ export const Reviews: FC<Props> = ({ product, id, isAdmin }) => {
         ) : null}
       </div>
       <div className="flex justify-center mt-8 md:my-16">
-        <div className="flex sm:w-2/4 relative items-center">
+        <div className="flex relative items-center">
           <ReviewCarousel ref={carouselRef} carouselSize={xsScreen ? 330 : 580}>
             {reviews?.map(({ attributes, id }) => (
               <div
