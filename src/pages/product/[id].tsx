@@ -178,7 +178,7 @@ export default function Product() {
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
               <Icon icon="CreditCardShield" />
-              <p className="font-semibold">Оплата при отримані</p>
+              <p className="font-semibold">Оплата при отриманні</p>
             </div>
             <div className="flex flex-col items-center gap-3 w-40 text-center rounded-2xl p-8 bg-[#F4F3FD]">
               <Icon icon="Scales" />
