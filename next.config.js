@@ -7,7 +7,7 @@ const nextConfig = {
     GRAPHQL_API: 'https://strapi.maneli.softbee.io/graphql/',
     NEXTAUTH_URL: 'https://maneli-shop.netlify.app/api/auth',
     NEXTAUTH_SECRET: 'Wq+i1/gD+i1LjQG20a8XgHOZSBSsJXsJ52DSFymliD8=',
-    NEXT_PUBLIC_FACEBOOK_PIXEL_ID: '933637721263422',
+    NEXT_PUBLIC_FACEBOOK_PIXEL_ID: '651414443560229',
   },
   images: {
     domains: ['strapi.maneli.softbee.io'],
