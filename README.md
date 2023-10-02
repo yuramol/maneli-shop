@@ -1,21 +1,21 @@
-# Maneli shop
+## Maneli shop
 
 E-commerce shop with MVP functionality
 
-# FrontEnd
+## FrontEnd
 - React
 - Next.js
 - TailwindCSS
 - TypeScript
 
-# BackEnd
+## BackEnd
 - Node.js
 - Strapi
 
-# API
+## API
 - GraphQL + Apollo
 
-# DB
+## DB
 - PostgreSQl
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
